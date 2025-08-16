@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>萌芽CEX福利</title>
+  <title>萌芽社区	</title>
   <meta name="theme-color" content="#67eeff" />
   <link rel="icon" type="image/png" href="assets/favicon.jpg" />
   <style>
@@ -54,6 +54,15 @@
     footer{margin-top:36px;color:var(--muted);font-size:12px}
     .origin{color:#0284c7;text-decoration:none}
     .headerline{height:1px;background:linear-gradient(90deg, transparent, rgba(2,132,199,.35), transparent);margin:16px 0}
+
+    /* —— 工具弹窗 —— */
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(6,24,38,.42);backdrop-filter:blur(2px);z-index:1000}
+    .modal.open{display:flex}
+    .modal-box{width:min(1200px,96vw);height:min(780px,92vh);background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-lg);display:flex;flex-direction:column;overflow:hidden}
+    .modal-head{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid var(--border);background:linear-gradient(180deg, rgba(103,238,255,.08), transparent)}
+    .modal-head .title{font-size:14px;font-weight:800}
+    .modal-close{appearance:none;border:1px solid var(--border);background:#fff;border-radius:999px;padding:6px 10px;cursor:pointer;box-shadow:var(--shadow);font-size:12px}
+    .modal-iframe{flex:1;width:100%;border:0;background:#fff}
   </style>
 </head>
 <body>
@@ -61,7 +70,7 @@
     <div class="navbar">
       <div class="brand">
         <img src="assets/favicon.jpg" alt="MengLayer icon" />
-        <h1 class="title" data-i18n="site_title">萌芽社区交易所 福利</h1>
+        <h1 class="title" data-i18n="site_title">萌芽社区</h1>
       </div>
       <div class="controls">
         <select id="lang" class="select" aria-label="Language">
@@ -74,7 +83,7 @@
     <div class="hero">
       <div class="avatar"><img src="assets/avatar.jpg" alt="avatar" /></div>
       <div>
-        <h1 data-i18n="hero_title">顶格返佣 · 专属福利链接</h1>
+        <h1 data-i18n="hero_title">陈小萌</h1>
         <p class="tagline" data-i18n="hero_tagline">下方为官方链接直达；</p>
         <div class="actions">
           <a class="pill" href="https://t.me/MengYaWeb3" target="_blank" rel="noopener" data-i18n="btn_tg">加入 Telegram 群</a>
@@ -83,6 +92,13 @@
         </div>
       </div>
     </div>
+
+    <!-- 新增：工具模块（位于交易所上方） -->
+    <section>
+      <div class="headerline"></div>
+      <h2 data-i18n="tools_title">工具</h2>
+      <div class="grid" id="tools"></div>
+    </section>
 
     <section>
       <div class="headerline"></div>
@@ -100,61 +116,95 @@
     </footer>
   </div>
 
+  <!-- 工具弹窗 -->
+  <div class="modal" id="toolModal" aria-hidden="true">
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="toolTitle">
+      <div class="modal-head">
+        <div id="toolTitle" class="title" data-i18n="falcon_modal_title">Falcon 空投计算器</div>
+        <button class="modal-close" id="toolClose" data-i18n="modal_close">关闭</button>
+      </div>
+      <iframe id="toolFrame" class="modal-iframe" src="" title="Falcon Airdrop Estimator"></iframe>
+    </div>
+  </div>
+
   <script>
     const I18N = {
       zh: {
         site_title: "萌芽社区",
-        hero_title: "顶格返佣 · 专属福利链接",
-        hero_tagline: '下方为官方链接直达；',
+        hero_title: "陈小萌",
+        hero_tagline: '萌芽社区 Founder/BTC Holder/DEFI 玩家',
         btn_tg: "加入 Telegram 群",
         btn_x: "关注 X（Twitter）",
         btn_discord: "加入 Discord",
+        tools_title: "工具",
+        falcon_modal_title: "Falcon 空投计算器",
+        modal_close: "关闭",
         exchanges_title: "交易所",
         broker_title: "出入金渠道 · 美/港股",
         footer_note: "made by @Menglayer 丨添加小助手VX进群 VX：monii_xu",
-        cards:// I18N.zh.cards
-{
-  binance:   { title: "币安队长 返佣+福利",        desc: "全球交易量领先的加密货币交易所，覆盖现货、合约与理财。" },
-  backpack:  { title: "Backpack 返佣+福利",         desc: "由 Backpack 团队打造的合规交易所，SOL 原生生态友好。" },
-  bitget:    { title: "Bitget渠道 返佣+福利",        desc: "以合约见长的交易平台，支持复制交易与量化工具。" },
-  bybit:     { title: "Bybit代理 返佣+福利",         desc: "头部衍生品交易所，深度充足、撮合稳定，产品完善。" },
-  okx:       { title: "OKX节点 返佣+福利",          desc: "综合型交易所，集交易、Web3 钱包与 DeFi 聚合于一体。" },
-  ourbit:    { title: "Ourbit 返佣+福利",            desc: "新兴现货与衍生品平台，提供多资产交易与返佣激励。" },
-  gate:      { title: "Gate代理 返佣+福利",          desc: "老牌平台，币种丰富、上新快速，支持现货、合约与理财。" },
-  ifast:     { title: "iFAST 英国银行（送 £40）",    desc: "英国受监管的数字银行，提供多币种账户与支付卡。" },
-  longbridge:{ title: "长桥证券 终身免佣（送￥900）", desc: "港美股券商，长期 0 佣金，研究与行情工具完整。" },
-  t212:      { title: "Trading212（送 £100）",       desc: "英国券商，支持零碎股与免佣 ETF/股票投资。" }
-}
+        cards: {
+          /* 工具 */
+          falcon: { title: "Falcon 空投计算器", desc: "估算你的 $Falcon 空投额度。" },
 
+          /* 交易所 */
+          binance:   { title: "币安队长 返佣+福利",        desc: "全球交易量领先的加密货币交易所，覆盖现货、合约与理财。" },
+          backpack:  { title: "Backpack 返佣+福利",         desc: "由 Backpack 团队打造的合规交易所，SOL 原生生态友好。" },
+          bitget:    { title: "Bitget渠道 返佣+福利",        desc: "以合约见长的交易平台，支持复制交易与量化工具。" },
+          bybit:     { title: "Bybit代理 返佣+福利",         desc: "头部衍生品交易所，深度充足、撮合稳定，产品完善。" },
+          okx:       { title: "OKX节点 返佣+福利",          desc: "综合型交易所，集交易、Web3 钱包与 DeFi 聚合于一体。" },
+          ourbit:    { title: "Ourbit 返佣+福利",            desc: "新兴现货与衍生品平台，提供多资产交易与返佣激励。" },
+          gate:      { title: "Gate代理 返佣+福利",          desc: "老牌平台，币种丰富、上新快速，支持现货、合约与理财。" },
+
+          /* 出入金/券商 */
+          ifast:     { title: "iFAST 英国银行（送 £40）",    desc: "英国受监管的数字银行，提供多币种账户与支付卡。" },
+          longbridge:{ title: "长桥证券 终身免佣（送￥900）", desc: "港美股券商，长期 0 佣金，研究与行情工具完整。" },
+          t212:      { title: "Trading212（送 £100）",       desc: "英国券商，支持零碎股与免佣 ETF/股票投资。" }
+        }
       },
       en: {
-        site_title: "MengLayer · Exchange Perks",
-        hero_title: "Top Rebates & Exclusive Perks",
-        hero_tagline: 'Curated official invite links.',
+        site_title: "MengLayer Community",
+        hero_title: "Menglayer",
+        hero_tagline: 'MengLayer Community Founder/BTC Holder/DEFI Players',
         btn_tg: "Join Telegram",
         btn_x: "Follow on X",
         btn_discord: "Join Discord",
+        tools_title: "Tools",
+        falcon_modal_title: "Falcon Airdrop Calculator",
+        modal_close: "Close",
         exchanges_title: "Exchanges",
         broker_title: "On/Off-Ramp · US/HK Brokerage",
         footer_note: "made by @Menglayer 丨 Add my friend wechat  Wechat：monii_xu",
-        cards:// I18N.en.cards
-{
-  binance:   { title: "Binance Captain · Rebates + Perks",  desc: "Leading global crypto exchange for spot, futures, and earn." },
-  backpack:  { title: "Backpack · Rebates + Perks",         desc: "Exchange by the Backpack team; SOL-native and compliance-first." },
-  bitget:    { title: "Bitget Channel · Rebates + Perks",   desc: "Derivatives-focused platform with copy trading and quant tools." },
-  bybit:     { title: "Bybit Agent · Rebates + Perks",      desc: "Top derivatives exchange with deep liquidity and fast matching." },
-  okx:       { title: "OKX Node · Rebates + Perks",         desc: "Full-stack exchange with trading, Web3 wallet, and DeFi hub." },
-  ourbit:    { title: "Ourbit · Rebates + Perks",           desc: "Emerging spot & derivatives venue with multi-asset trading." },
-  gate:      { title: "Gate Agent · Rebates + Perks",       desc: "Established exchange offering wide listings, spot and futures." },
-  ifast:     { title: "iFAST UK Bank (Free £40)",           desc: "UK-regulated digital bank with multi-currency accounts and cards." },
-  longbridge:{ title: "Longbridge (Zero-Commission ¥900)",  desc: "US/HK broker with long-term zero commission and robust tools." },
-  t212:      { title: "Trading212 (Free £100)",             desc: "UK broker offering fractional shares and commission-free ETFs." }
-}
+        cards: {
+          /* Tools */
+          falcon: { title: "Falcon Airdrop Calculator", desc: "Estimate your $Falcon airdrop value" },
 
+          /* Exchanges */
+          binance:   { title: "Binance Captain · Rebates + Perks",  desc: "Leading global crypto exchange for spot, futures, and earn." },
+          backpack:  { title: "Backpack · Rebates + Perks",         desc: "Exchange by the Backpack team; SOL-native and compliance-first." },
+          bitget:    { title: "Bitget Channel · Rebates + Perks",   desc: "Derivatives-focused platform with copy trading and quant tools." },
+          bybit:     { title: "Bybit Agent · Rebates + Perks",      desc: "Top derivatives exchange with deep liquidity and fast matching." },
+          okx:       { title: "OKX Node · Rebates + Perks",         desc: "Full-stack exchange with trading, Web3 wallet, and DeFi hub." },
+          ourbit:    { title: "Ourbit · Rebates + Perks",           desc: "Emerging spot & derivatives venue with multi-asset trading." },
+          gate:      { title: "Gate Agent · Rebates + Perks",       desc: "Established exchange offering wide listings, spot and futures." },
+
+          /* Brokerage */
+          ifast:     { title: "iFAST UK Bank (Free £40)",           desc: "UK-regulated digital bank with multi-currency accounts and cards." },
+          longbridge:{ title: "Longbridge (Zero-Commission ¥900)",  desc: "US/HK broker with long-term zero commission and robust tools." },
+          t212:      { title: "Trading212 (Free £100)",             desc: "UK broker offering fractional shares and commission-free ETFs." }
+        }
       }
     };
 
+    /* 工具 & 链接配置 */
     const LINKS = {
+      tools: [
+        {
+          id:'falcon',
+          href: 'https://falcon.menglayer.lol/',
+          /* 内联SVG图标，避免额外资源依赖 */
+          img: 'assets/falcon.png'
+        }
+      ],
       exchanges: [
         { id:'binance', href: 'https://www.binance.com/en/join?ref=UYSU519R', img:'assets/icon-binance.jpg' },
         { id:'backpack', href: 'https://backpack.exchange/signup?code=mengya', img:'assets/icon-backpack.jpg' },
@@ -175,11 +225,18 @@
       const lang = localStorage.getItem('lang') || 'zh';
       const dict = I18N[lang].cards;
 
-      for (const [container, list] of Object.entries({exchanges:LINKS.exchanges, broker:LINKS.broker})) {
+      for (const [container, list] of Object.entries({
+        tools:LINKS.tools,
+        exchanges:LINKS.exchanges,
+        broker:LINKS.broker
+      })) {
         const el = document.getElementById(container);
         el.innerHTML = list.map(item => `
           <div class="card">
-            <a href="${item.href}" target="_blank" rel="noopener">
+            <a ${container==='tools'
+                ? `href="#" data-open="tool" data-href="${item.href}"`
+                : `href="${item.href}" target="_blank" rel="noopener"`}
+            >
               <div class="row">
                 <div class="icon"><img src="${item.img}" alt="${item.id} logo" /></div>
                 <div>
@@ -191,6 +248,15 @@
           </div>
         `).join("");
       }
+
+      // 绑定工具弹窗打开
+      document.querySelectorAll('[data-open="tool"]').forEach(a=>{
+        a.addEventListener('click', e=>{
+          e.preventDefault();
+          const url = a.getAttribute('data-href');
+          openToolModal(url);
+        });
+      });
     }
 
     function applyLang(lang){
@@ -204,6 +270,29 @@
       document.getElementById('lang').value = lang;
       renderCards();
     }
+
+    // 弹窗逻辑
+    const modalEl = document.getElementById('toolModal');
+    const iframeEl = document.getElementById('toolFrame');
+    const closeBtn = document.getElementById('toolClose');
+
+    function openToolModal(url){
+      const lang = localStorage.getItem('lang') || 'zh';
+      const q = url.includes('?') ? '&' : '?';
+      iframeEl.src = url + q + 'lang=' + encodeURIComponent(lang);
+      modalEl.classList.add('open');
+      modalEl.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeToolModal(){
+      modalEl.classList.remove('open');
+      modalEl.setAttribute('aria-hidden','true');
+      iframeEl.src = '';
+      document.body.style.overflow = '';
+    }
+    closeBtn.addEventListener('click', closeToolModal);
+    modalEl.addEventListener('click', (e)=>{ if(e.target === modalEl) closeToolModal(); });
+    window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && modalEl.classList.contains('open')) closeToolModal(); });
 
     (function(){
       const savedLang = localStorage.getItem('lang') || 'zh';
