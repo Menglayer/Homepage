@@ -14,9 +14,7 @@
   <meta name="theme-color" content="#67eeff" />
   <link rel="icon" type="image/png" href="assets/favicon.jpg" />
 
-  <!-- ===== i18n (多语言) =====
-       你目前是同一 URL 内的语言切换，没有 /en/ 独立页面，
-       所以只声明 zh-CN 与 x-default 到根路径，en 版本先注释。 -->
+  <!-- ===== i18n (多语言) ===== -->
   <link rel="alternate" hreflang="zh-CN" href="https://menglayer.lol/">
   <link rel="alternate" hreflang="x-default" href="https://menglayer.lol/">
   <!-- <link rel="alternate" hreflang="en" href="https://menglayer.lol/en/"> -->
@@ -28,10 +26,6 @@
   <meta property="og:url" content="https://menglayer.lol/">
   <meta property="og:image" content="https://menglayer.lol/og-cover.jpg">
   <meta name="twitter:card" content="summary_large_image">
-
-  <!-- ===== Search Console / Bing 验证（把值贴上即可用） ===== -->
-  <!-- <meta name="google-site-verification" content="PASTE_TOKEN_HERE"> -->
-  <!-- <meta name="msvalidate.01" content="PASTE_TOKEN_HERE"> -->
 
   <!-- ===== JSON-LD 结构化数据（Person） ===== -->
   <script type="application/ld+json">
@@ -49,64 +43,8 @@
   }
   </script>
 
-  <style>
-    :root{
-      --bg-from:#e9fcff; --bg-mid:#bdf6ff; --bg-to:#67eeff;
-      --accent:#0891b2; --text:#0e1220; --muted:#5c6b82;
-      --panel:#ffffff; --card:#ffffff; --radius:20px;
-      --ring: rgba(8,145,178,.28); --border:#e6eaf2;
-      --shadow: 0 8px 26px rgba(8,145,178,.08);
-      --shadow-lg: 0 14px 40px rgba(8,145,178,.15);
-    }
-    *{box-sizing:border-box} html,body{height:100%}
-    body{
-      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, PingFang SC, Hiragino Sans GB, "Microsoft YaHei", Helvetica Neue, Arial, "Noto Sans CJK SC", sans-serif;
-      color:var(--text);
-      background:
-        radial-gradient(1200px 800px at 80% -10%, #ffffff 10%, transparent 60%) no-repeat,
-        radial-gradient(900px 600px at 0% 0%, rgba(103,238,255,.16), transparent 60%) no-repeat,
-        linear-gradient(180deg, var(--bg-from), var(--bg-mid), var(--bg-to));
-      line-height:1.6;
-    }
-    .wrap{max-width:1080px;margin:40px auto 80px;padding:0 24px;}
-    .navbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px;}
-    .brand{display:flex;align-items:center;gap:12px}
-    .brand img{width:44px;height:44px;border-radius:50%;box-shadow:0 0 0 2px #ffffff, var(--shadow)}
-    .brand .title{margin:0;font-size:22px;letter-spacing:.3px;background:linear-gradient(90deg,#0284c7,#22d3ee);-webkit-background-clip:text;background-clip:text;color:transparent}
-    .controls{display:flex;gap:10px;flex-wrap:wrap}
-    .select{border-radius:999px;border:1px solid var(--border);background:#fff;color:var(--text);padding:8px 12px;font-size:14px;outline:none;box-shadow:var(--shadow);}
-    .hero{display:grid;grid-template-columns: 120px 1fr;gap:18px;background:linear-gradient(180deg, rgba(103,238,255,.16), transparent 40%), var(--panel);border:1px solid var(--border); border-radius:var(--radius);padding:20px; box-shadow: var(--shadow-lg);}
-    .avatar{width:120px;height:120px;border-radius:24px;overflow:hidden;position:relative;box-shadow: var(--shadow);background:#fff; border:1px solid var(--border);}
-    .avatar img{width:100%;height:100%;object-fit:cover}
-    .hero h1{margin:4px 0 4px;font-size:28px}
-    .hero .tagline{color:var(--muted);font-size:14px;margin:0 0 10px}
-    .actions{display:flex;gap:10px;flex-wrap:wrap}
-    .pill{border-radius:999px;border:1px solid var(--border);padding:10px 14px;background:#fff;color:var(--text);text-decoration:none;font-size:14px;transition:.18s ease;box-shadow:var(--shadow)}
-    .pill:hover{border-color:var(--ring); transform: translateY(-1px)}
-    section{margin-top:26px}
-    h2{font-size:18px;font-weight:800;margin:0 0 12px;color:#093143; letter-spacing:.3px;}
-    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;}
-    .card{position:relative;overflow:hidden;background:linear-gradient(180deg, rgba(103,238,255,.08), transparent 32%), var(--card);border:1px solid var(--border); border-radius:var(--radius);padding:18px 16px; transition:transform .12s ease,border-color .12s ease, box-shadow .12s ease;box-shadow: var(--shadow);}
-    .card:hover{transform: translateY(-2px); border-color:var(--ring); box-shadow: var(--shadow-lg);}
-    .card a{color:var(--text);text-decoration:none;display:block}
-    .card .row{display:flex;gap:12px;align-items:center}
-    .icon{width:44px;height:44px;border-radius:12px;background:#fff;display:grid;place-items:center;border:1px solid var(--border);box-shadow:var(--shadow)}
-    .icon img{width:36px;height:36px;object-fit:contain}
-    .title{font-weight:800;font-size:16px;margin:0 0 4px}
-    .desc{color:var(--muted);font-size:13px;margin:0}
-    footer{margin-top:36px;color:var(--muted);font-size:12px}
-    .origin{color:#0284c7;text-decoration:none}
-    .headerline{height:1px;background:linear-gradient(90deg, transparent, rgba(2,132,199,.35), transparent);margin:16px 0}
-
-    /* —— 工具弹窗 —— */
-    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(6,24,38,.42);backdrop-filter:blur(2px);z-index:1000}
-    .modal.open{display:flex}
-    .modal-box{width:min(1200px,96vw);height:min(780px,92vh);background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-lg);display:flex;flex-direction:column;overflow:hidden}
-    .modal-head{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid var(--border);background:linear-gradient(180deg, rgba(103,238,255,.08), transparent)}
-    .modal-head .title{font-size:14px;font-weight:800}
-    .modal-close{appearance:none;border:1px solid var(--border);background:#fff;border-radius:999px;padding:6px 10px;cursor:pointer;box-shadow:var(--shadow);font-size:12px}
-    .modal-iframe{flex:1;width:100%;border:0;background:#fff}
-  </style>
+  <!-- Styles -->
+  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
   <div class="wrap" id="app">
@@ -129,8 +67,9 @@
         <h1 data-i18n="hero_title">陈小萌</h1>
         <p class="tagline" data-i18n="hero_tagline">下方为官方链接直达；</p>
         <div class="actions">
-          <a class="pill" href="https://t.me/MengYaWeb3" target="_blank" rel="noopener" data-i18n="btn_tg">加入 Telegram 群</a>
           <a class="pill" href="https://x.com/menglayer" target="_blank" rel="noopener" data-i18n="btn_x">关注 X（Twitter）</a>
+          <a class="pill" href="https://t.me/MengYaWeb3" target="_blank" rel="noopener" data-i18n="btn_tg">加入 Telegram 群</a>
+          <a class="pill" href="#" id="btnWeChat" data-i18n="btn_wechat">加入 微信群</a>
           <a class="pill" href="https://discord.gg/Vk7tKpPZmB" target="_blank" rel="noopener" data-i18n="btn_discord">加入 Discord</a>
         </div>
       </div>
@@ -170,178 +109,23 @@
     </div>
   </div>
 
-  <script>
-    const I18N = {
-      zh: {
-        site_title: "萌芽社区",
-        hero_title: "陈小萌",
-        hero_tagline: '萌芽社区 Founder/BTC Holder/DEFI 玩家',
-        btn_tg: "加入 Telegram 群",
-        btn_x: "关注 X（Twitter）",
-        btn_discord: "加入 Discord",
-        tools_title: "工具",
-        falcon_modal_title: "Falcon 空投计算器",
-        modal_close: "关闭",
-        exchanges_title: "交易所",
-        broker_title: "出入金渠道 · 美/港股",
-        footer_note: "made by @Menglayer 丨添加小助手VX进群 VX：monii_xu",
-        cards: {
-          /* 工具 */
-          falcon: { title: "Falcon 空投计算器", desc: "估算你的 $Falcon 空投额度。" },
+  <!-- 微信群二维码弹窗 -->
+  <div class="modal" id="wechatModal" aria-hidden="true">
+    <div class="qr-box" role="dialog" aria-modal="true" aria-labelledby="wechatTitle">
+      <div class="modal-head">
+        <div id="wechatTitle" class="title">加入 微信群</div>
+        <button class="modal-close" id="wechatClose" data-i18n="modal_close">关闭</button>
+      </div>
+      <div class="qr-body">
+        <p class="qr-tip">请加小助手微信邀请入群：<strong>monii_xu</strong></p>
+        <img class="qr-img" src="assets/wechat-qr.jpg" alt="WeChat QR">
+      </div>
+    </div>
+  </div>
 
-          /* 交易所 */
-          binance:   { title: "币安",        desc: "全球交易量领先的加密货币交易所，覆盖现货、合约与理财。" },
-          backpack:  { title: "Backpack ",         desc: "由 Backpack 团队打造的合规交易所，SOL 原生生态友好。" },
-          bitget:    { title: "Bitget",        desc: "以合约见长的交易平台，支持复制交易与量化工具。" },
-          bybit:     { title: "Bybit",         desc: "头部衍生品交易所，深度充足、撮合稳定，产品完善。" },
-          okx:       { title: "OKX",          desc: "综合型交易所，集交易、Web3 钱包与 DeFi 聚合于一体。" },
-          ourbit:    { title: "Ourbit",            desc: "新兴现货与衍生品平台，提供多资产交易与返佣激励。" },
-          gate:      { title: "Gate",          desc: "老牌平台，币种丰富、上新快速，支持现货、合约与理财。" },
-
-          /* 出入金/券商 */
-          ifast:     { title: "iFAST 英国银行（送 £40）",    desc: "英国受监管的数字银行，提供多币种账户与支付卡。" },
-          longbridge:{ title: "长桥证券 终身免佣（送￥900）", desc: "港美股券商，长期 0 佣金，研究与行情工具完整。" },
-          t212:      { title: "Trading212（送 £100）",       desc: "英国券商，支持零碎股与免佣 ETF/股票投资。" }
-        }
-      },
-      en: {
-        site_title: "MengLayer Community",
-        hero_title: "Menglayer",
-        hero_tagline: 'MengLayer Community Founder/BTC Holder/DEFI Players',
-        btn_tg: "Join Telegram",
-        btn_x: "Follow on X",
-        btn_discord: "Join Discord",
-        tools_title: "Tools",
-        falcon_modal_title: "Falcon Airdrop Calculator",
-        modal_close: "Close",
-        exchanges_title: "Exchanges",
-        broker_title: "On/Off-Ramp · US/HK Brokerage",
-        footer_note: "made by @Menglayer 丨 Add my friend wechat  Wechat：monii_xu",
-        cards: {
-          /* Tools */
-          falcon: { title: "Falcon Airdrop Calculator", desc: "Estimate your $Falcon airdrop value" },
-
-          /* Exchanges */
-          binance:   { title: "Binance",  desc: "Leading global crypto exchange for spot, futures, and earn." },
-          backpack:  { title: "Backpack",         desc: "Exchange by the Backpack team; SOL-native and compliance-first." },
-          bitget:    { title: "Bitget",   desc: "Derivatives-focused platform with copy trading and quant tools." },
-          bybit:     { title: "Bybit",      desc: "Top derivatives exchange with deep liquidity and fast matching." },
-          okx:       { title: "OKX",         desc: "Full-stack exchange with trading, Web3 wallet, and DeFi hub." },
-          ourbit:    { title: "Ourbit",           desc: "Emerging spot & derivatives venue with multi-asset trading." },
-          gate:      { title: "Gate",       desc: "Established exchange offering wide listings, spot and futures." },
-
-          /* Brokerage */
-          ifast:     { title: "iFAST UK Bank (Free £40)",           desc: "UK-regulated digital bank with multi-currency accounts and cards." },
-          longbridge:{ title: "Longbridge (Zero-Commission ¥900)",  desc: "US/HK broker with long-term zero commission and robust tools." },
-          t212:      { title: "Trading212 (Free £100)",             desc: "UK broker offering fractional shares and commission-free ETFs." }
-        }
-      }
-    };
-
-    /* 工具 & 链接配置 */
-    const LINKS = {
-      tools: [
-        {
-          id:'falcon',
-          href: 'https://falcon.menglayer.lol/',
-          /* 内联SVG图标，避免额外资源依赖 */
-          img: 'assets/falcon.png'
-        }
-      ],
-      exchanges: [
-        { id:'binance', href: 'https://www.binance.com/en/join?ref=UYSU519R', img:'assets/icon-binance.jpg' },
-        { id:'backpack', href: 'https://backpack.exchange/signup?code=mengya', img:'assets/icon-backpack.jpg' },
-        { id:'bitget', href: 'https://www.bitget.com/zh-CN/expressly?channelCode=1hql&vipCode=meng66&languageType=1&groupId=436589', img:'assets/icon-bitget.png' },
-        { id:'bybit', href: 'https://www.bybit.com/sign-up?affiliate_id=91392&group_id=533607&group_type=1&ref_code=91392', img:'assets/icon-bybit.jpg' },
-        { id:'okx', href: 'https://www.okx.com/zh-hans/join/5367051', img:'assets/icon-okx.jpg' },
-        { id:'ourbit', href: 'https://www.ourbit.com/register?inviteCode=FPL69V', img:'assets/icon-ourbit.jpg' },
-        { id:'gate', href: 'https://www.gate.com/referral/invite/XIAOMENG_0_103', img:'assets/icon-gate.jpg' },
-      ],
-      broker: [
-        { id:'ifast', href: 'https://www.ifastgb.com/en/account-opening-home?component=new-or-old-client', img:'assets/icon-ifast.jpg' },
-        { id:'longbridge', href: 'https://activity.longbridgehk.com/pipeline/2023welcomegift/index.html?account_channel=lb&app_id=longbridge&channel=HM2023001&invite-code=G70BUL&org_id=1', img:'assets/icon-longbridge.jpg' },
-        { id:'t212', href: 'https://www.trading212.com/invite/19BZbbUMir', img:'assets/icon-t212.jpg' },
-      ]
-    };
-
-    function renderCards(){
-      const lang = localStorage.getItem('lang') || 'zh';
-      const dict = I18N[lang].cards;
-
-      for (const [container, list] of Object.entries({
-        tools:LINKS.tools,
-        exchanges:LINKS.exchanges,
-        broker:LINKS.broker
-      })) {
-        const el = document.getElementById(container);
-        el.innerHTML = list.map(item => `
-          <div class="card">
-            <a ${container==='tools'
-                ? `href="#" data-open="tool" data-href="${item.href}"`
-                : `href="${item.href}" target="_blank" rel="noopener"`}
-            >
-              <div class="row">
-                <div class="icon"><img src="${item.img}" alt="${item.id} logo" /></div>
-                <div>
-                  <p class="title">${dict[item.id].title}</p>
-                  <p class="desc">${dict[item.id].desc}</p>
-                </div>
-              </div>
-            </a>
-          </div>
-        `).join("");
-      }
-
-      // 绑定工具弹窗打开
-      document.querySelectorAll('[data-open="tool"]').forEach(a=>{
-        a.addEventListener('click', e=>{
-          e.preventDefault();
-          const url = a.getAttribute('data-href');
-          openToolModal(url);
-        });
-      });
-    }
-
-    function applyLang(lang){
-      const map = I18N[lang];
-      document.documentElement.lang = (lang === 'zh' ? 'zh-CN' : 'en');
-      document.querySelectorAll("[data-i18n]").forEach(node => {
-        const key = node.getAttribute("data-i18n");
-        node.innerHTML = map[key];
-      });
-      localStorage.setItem('lang', lang);
-      document.getElementById('lang').value = lang;
-      renderCards();
-    }
-
-    // 弹窗逻辑
-    const modalEl = document.getElementById('toolModal');
-    const iframeEl = document.getElementById('toolFrame');
-    const closeBtn = document.getElementById('toolClose');
-
-    function openToolModal(url){
-      const lang = localStorage.getItem('lang') || 'zh';
-      const q = url.includes('?') ? '&' : '?';
-      iframeEl.src = url + q + 'lang=' + encodeURIComponent(lang);
-      modalEl.classList.add('open');
-      modalEl.setAttribute('aria-hidden','false');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeToolModal(){
-      modalEl.classList.remove('open');
-      modalEl.setAttribute('aria-hidden','true');
-      iframeEl.src = '';
-      document.body.style.overflow = '';
-    }
-    closeBtn.addEventListener('click', closeToolModal);
-    modalEl.addEventListener('click', (e)=>{ if(e.target === modalEl) closeToolModal(); });
-    window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && modalEl.classList.contains('open')) closeToolModal(); });
-
-    (function(){
-      const savedLang = localStorage.getItem('lang') || 'zh';
-      applyLang(savedLang);
-      document.getElementById('lang').addEventListener('change', e => applyLang(e.target.value));
-    })();
-  </script>
+  <!-- Scripts -->
+  <script src="assets/js/i18n.js" defer></script>
+  <script src="assets/js/links.js" defer></script>
+  <script src="assets/js/app.js" defer></script>
 </body>
 </html>
