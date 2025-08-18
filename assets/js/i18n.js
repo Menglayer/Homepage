@@ -1,0 +1,75 @@
+/* Global i18n dictionary */
+window.I18N = {
+  zh: {
+    site_title: "萌芽社区",
+    hero_title: "陈小萌",
+    hero_tagline: "萌芽社区 Founder/BTC Holder/DEFI 玩家",
+    btn_tg: "加入 Telegram 群",
+    btn_x: "关注 X（Twitter）",
+    btn_discord: "加入 Discord",
+    btn_wechat: "加入 微信群",
+    tools_title: "工具",
+    falcon_modal_title: "Falcon 空投计算器",
+    modal_close: "关闭",
+    exchanges_title: "交易所",
+    broker_title: "出入金渠道 · 美/港股",
+    footer_note: "made by @Menglayer",
+    cards: {
+      /* 工具 */
+      falcon: { title: "Falcon 空投计算器", desc: "估算你的 $Falcon 空投额度。" },
+	  addrproof: { title: "地址证明生成器", desc: "一键生成地址/居住证明照片/PDF。" },
+	  bnalpha: { title: "币安 Alpha 助手",  desc: "Alpha信号助手,空投闹钟提醒。" },
+	  pendleyt: { title: "Pendle YT计算器",  desc: "计算 YT 到期赎回价值、贴现/年化收益率与盈亏平衡点。" },
+
+      /* 交易所 */
+      binance:   { title: "币安",        desc: "全球交易量领先的加密货币交易所，覆盖现货、合约与理财。" },
+      backpack:  { title: "Backpack ",   desc: "由 Backpack 团队打造的合规交易所，SOL 原生生态友好。" },
+      bitget:    { title: "Bitget",      desc: "以合约见长的交易平台，支持复制交易与量化工具。" },
+      bybit:     { title: "Bybit",       desc: "头部衍生品交易所，深度充足、撮合稳定，产品完善。" },
+      okx:       { title: "OKX",         desc: "综合型交易所，集交易、Web3 钱包与 DeFi 聚合于一体。" },
+      ourbit:    { title: "Ourbit",      desc: "新兴现货与衍生品平台，提供多资产交易与返佣激励。" },
+      gate:      { title: "Gate",        desc: "老牌平台，币种丰富、上新快速，支持现货、合约与理财。" },
+
+      /* 出入金/券商 */
+      ifast:     { title: "iFAST 英国银行（送 £40）",    desc: "英国受监管的数字银行，提供多币种账户与支付卡。" },
+      longbridge:{ title: "长桥证券 终身免佣（送￥900）", desc: "港美股券商，长期 0 佣金，研究与行情工具完整。" },
+      t212:      { title: "Trading212（送 £100）",       desc: "英国券商，支持零碎股与免佣 ETF/股票投资。" }
+    }
+  },
+  en: {
+    site_title: "MengLayer Community",
+    hero_title: "Menglayer",
+    hero_tagline: "MengLayer Community Founder/BTC Holder/DEFI Players",
+    btn_tg: "Join Telegram",
+    btn_x: "Follow on X",
+    btn_discord: "Join Discord",
+    btn_wechat: "Join WeChat",
+    tools_title: "Tools",
+    falcon_modal_title: "Falcon Airdrop Calculator",
+    modal_close: "Close",
+    exchanges_title: "Exchanges",
+    broker_title: "On/Off-Ramp · US/HK Brokerage",
+    footer_note: "made by @Menglayer",
+    cards: {
+      /* Tools */
+      falcon: { title: "Falcon Airdrop Calculator", desc: "Estimate your $Falcon airdrop value" },
+	  addrproof: { title: "Address Proof Generator", desc: "Instantly generate address/residency proof Picture&PDF." },
+	  bnalpha: { title: "Binance Alpha Assistant",   desc: "Alpha signal assistant, airdrop alarm reminder!" },
+	  pendleyt: { title: "Pendle YT Calculator",       desc: "Compute YT redemption value, discount/APY, and break-even." },
+
+      /* Exchanges */
+      binance:   { title: "Binance",  desc: "Leading global crypto exchange for spot, futures, and earn." },
+      backpack:  { title: "Backpack", desc: "Exchange by the Backpack team; SOL-native and compliance-first." },
+      bitget:    { title: "Bitget",   desc: "Derivatives-focused platform with copy trading and quant tools." },
+      bybit:     { title: "Bybit",    desc: "Top derivatives exchange with deep liquidity and fast matching." },
+      okx:       { title: "OKX",      desc: "Full-stack exchange with trading, Web3 wallet, and DeFi hub." },
+      ourbit:    { title: "Ourbit",   desc: "Emerging spot & derivatives venue with multi-asset trading." },
+      gate:      { title: "Gate",     desc: "Established exchange offering wide listings, spot and futures." },
+
+      /* Brokerage */
+      ifast:     { title: "iFAST UK Bank (Free £40)",           desc: "UK-regulated digital bank with multi-currency accounts and cards." },
+      longbridge:{ title: "Longbridge (Zero-Commission ¥900)",  desc: "US/HK broker with long-term zero commission and robust tools." },
+      t212:      { title: "Trading212 (Free £100)",             desc: "UK broker offering fractional shares and commission-free ETFs." }
+    }
+  }
+};
