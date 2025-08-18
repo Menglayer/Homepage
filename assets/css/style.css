@@ -217,4 +217,66 @@ body::before{
         #ffffff 100%);
   }
 }
+/* === 卡片 Hover 高亮（渐变描边 + 柔光） === */
+.card{
+  position: relative;
+  isolation: isolate;               /* 避免光晕叠出容器 */
+  transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+}
+
+/* 渐变描边：仅在 hover/focus-visible 时显现 */
+.card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius: inherit;
+  padding: 2px;                      /* 描边粗细 */
+  background: linear-gradient(135deg, #22d3ee, #0284c7);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;   /* 留出中间内容区域 */
+  opacity: 0;
+  transition: opacity .16s ease;
+  pointer-events: none;
+}
+
+/* 外部柔光：让高亮更明显 */
+.card::before{
+  content:"";
+  position:absolute;
+  inset:-6px;                        /* 往外扩一点作为柔光 */
+  border-radius: inherit;
+  background: radial-gradient(60% 60% at 50% 20%, rgba(34,211,238,.28), rgba(2,132,199,.00) 70%);
+  filter: blur(14px);
+  opacity: 0;
+  transition: opacity .16s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.card:is(:hover, :focus-within){
+  transform: translateY(-3px);
+  box-shadow: 0 16px 44px rgba(8,145,178,.22);
+  border-color: transparent;         /* 交给渐变描边来显示边框 */
+}
+.card:is(:hover, :focus-within)::after{ opacity: 1; }
+.card:is(:hover, :focus-within)::before{ opacity: 1; }
+
+/* 图标同步高亮一点，更有“选中感” */
+.card:is(:hover, :focus-within) .icon{
+  border-color: rgba(8,145,178,.45);
+  box-shadow: 0 0 0 3px rgba(34,211,238,.18), var(--shadow);
+}
+
+/* 辅助无障碍：键盘导航高亮 */
+.card a:focus-visible{
+  outline: none;
+}
+@media (prefers-reduced-motion: reduce){
+  .card{ transition: none; }
+  .card::after, .card::before{ transition: none; }
+}
+
 
