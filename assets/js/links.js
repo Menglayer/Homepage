@@ -10,7 +10,7 @@ window.LINKS = {
     {
       id: "addrproof",
       href: "https://www.addrproof.top?referrerCode=8085970963",
-      img: "assets/favicon.jpg",
+      img: "assets/addproof.png",
       open: "modal"          // 新开页面
     }
   ],
