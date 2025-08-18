@@ -3,7 +3,7 @@
   const $ = (sel, ctx=document) => ctx.querySelector(sel);
   const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
 
-  // Domains that usually break inside iframes (payment / deep links)
+  // --- Domains that usually break inside iframes (payment / deep links) ---
   const FORCE_TOP_DOMAINS = [
     "addrproof.top",
     "alipay.com", "alipayobjects.com",
@@ -11,19 +11,17 @@
     "weixin.qq.com", "wx.tenpay.com",
     "paypal.com", "pay.google.com", "pay.apple.com"
   ];
-
   function hostnameMatch(h, domain){
     return h === domain || h.endsWith("."+domain);
   }
   function shouldForceTop(url){
     try {
       const u = new URL(url);
-      const h = u.hostname;
-      return FORCE_TOP_DOMAINS.some(d => hostnameMatch(h, d));
+      return FORCE_TOP_DOMAINS.some(d => hostnameMatch(u.hostname, d));
     } catch(e){ return false; }
   }
 
-  // Render cards for sections based on i18n + LINKS
+  // --- Render cards for sections based on i18n + LINKS ---
   function renderCards(){
     const lang = localStorage.getItem("lang") || "zh";
     const dict = (window.I18N?.[lang] || {}).cards || {};
@@ -58,21 +56,20 @@
       }).join("");
     });
 
-    // Bind tool modal
+    // Bind tool modal openers (non-blank)
     $$('[data-open="tool"]').forEach(a => {
       a.addEventListener("click", e => {
         e.preventDefault();
         const url = a.getAttribute("data-href");
         const id  = a.getAttribute("data-id");
         const img = a.getAttribute("data-img");
-        // Safety: if subsequent URL is payment-like, force new tab anyway
         if (shouldForceTop(url)) { window.open(url, "_blank", "noopener"); return; }
         if (url) openToolModal(url, id, img);
       });
     });
   }
 
-  // Apply language to text nodes
+  // --- Language application ---
   function applyLang(lang){
     const map = window.I18N?.[lang];
     if (!map) return;
@@ -88,7 +85,7 @@
     renderCards();
   }
 
-  // ===== Modals: tool (iframe) =====
+  // --- Tool Modal (iframe) ---
   const modalEl   = $("#toolModal");
   const iframeEl  = $("#toolFrame");
   const closeBtn  = $("#toolClose");
@@ -97,7 +94,6 @@
 
   function setIframeAttrs(){
     if (!iframeEl) return;
-    // Best-effort: allow payment and related features in iframe (some providers still disallow)
     iframeEl.setAttribute("allow", "payment *; clipboard-read *; clipboard-write *; fullscreen *; geolocation *; web-share *");
     iframeEl.setAttribute("allowpaymentrequest", "");
     iframeEl.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
@@ -113,7 +109,6 @@
       iconEl.alt = (id ? (id + " logo") : "tool");
       iconEl.style.display = "inline-block";
     }
-    // Force new tab if URL indicates payment domain
     if (shouldForceTop(url)) { window.open(url, "_blank", "noopener"); return; }
 
     setIframeAttrs();
@@ -134,27 +129,23 @@
     document.body.style.overflow = "";
   }
 
-  // ===== WeChat Modal =====
-  const wechatBtn   = $("#joinWechat");
+  // --- WeChat Modal (event delegation; no hardcoded IDs) ---
   const wechatModal = $("#wechatModal");
-  const wechatClose = $("#wechatClose");
 
   function openWechatModal(){
-    if (wechatModal) {
-      wechatModal.classList.add("open");
-      wechatModal.setAttribute("aria-hidden","false");
-      document.body.style.overflow = "hidden";
-    }
+    if (!wechatModal) return;
+    wechatModal.classList.add("open");
+    wechatModal.setAttribute("aria-hidden","false");
+    document.body.style.overflow = "hidden";
   }
   function closeWechatModal(){
-    if (wechatModal) {
-      wechatModal.classList.remove("open");
-      wechatModal.setAttribute("aria-hidden","true");
-    }
+    if (!wechatModal) return;
+    wechatModal.classList.remove("open");
+    wechatModal.setAttribute("aria-hidden","true");
     document.body.style.overflow = "";
   }
 
-  // ===== Init =====
+  // --- Init ---
   document.addEventListener("DOMContentLoaded", ()=>{
     const saved = localStorage.getItem("lang") || "zh";
     applyLang(saved);
@@ -164,17 +155,32 @@
       langSel.addEventListener("change", e => applyLang(e.target.value));
     }
 
+    // Tool modal basic events
     if (closeBtn) closeBtn.addEventListener("click", closeToolModal);
     if (modalEl) {
       modalEl.addEventListener("click", (e)=>{ if(e.target === modalEl) closeToolModal(); });
     }
     window.addEventListener("keydown", (e)=>{ if(e.key === "Escape" && modalEl?.classList.contains("open")) closeToolModal(); });
 
-    if (wechatBtn) wechatBtn.addEventListener("click", e => { e.preventDefault(); openWechatModal(); });
-    if (wechatClose) wechatClose.addEventListener("click", closeWechatModal);
-    if (wechatModal) wechatModal.addEventListener("click", (e)=>{ if(e.target === wechatModal) closeWechatModal(); });
+    // WeChat modal: event delegation
+    document.addEventListener("click", (e) => {
+      const opener = e.target.closest('[data-open="wechat"]');
+      if (opener) { e.preventDefault(); openWechatModal(); return; }
+
+      const closer = e.target.closest('[data-close="wechat"]');
+      if (closer) { e.preventDefault(); closeWechatModal(); return; }
+    });
+    if (wechatModal) {
+      wechatModal.addEventListener("click", (e)=>{ if (e.target === wechatModal) closeWechatModal(); });
+    }
+
+    // Backward-compatibility: bind legacy IDs if present
+    const legacyBtn = $("#joinWechat") || $("#btnWeChat");
+    if (legacyBtn) legacyBtn.addEventListener("click", (e)=>{ e.preventDefault(); openWechatModal(); });
+    const legacyClose = $("#wechatClose");
+    if (legacyClose) legacyClose.addEventListener("click", (e)=>{ e.preventDefault(); closeWechatModal(); });
   });
 
-  window.__ML__ = { applyLang, renderCards };
-
+  // Debug helpers
+  window.__ML__ = { applyLang, renderCards, openWechatModal, closeWechatModal };
 })();
