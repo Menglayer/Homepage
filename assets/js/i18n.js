@@ -17,6 +17,7 @@ window.I18N = {
     cards: {
       /* 工具 */
       falcon: { title: "Falcon 空投计算器", desc: "估算你的 $Falcon 空投额度。" },
+	  addrproof: { title: "地址证明生成器", desc: "一键生成地址/居住证明照片/PDF。" },
 
       /* 交易所 */
       binance:   { title: "币安",        desc: "全球交易量领先的加密货币交易所，覆盖现货、合约与理财。" },
@@ -50,6 +51,7 @@ window.I18N = {
     cards: {
       /* Tools */
       falcon: { title: "Falcon Airdrop Calculator", desc: "Estimate your $Falcon airdrop value" },
+	  addrproof: { title: "Address Proof Generator", desc: "Instantly generate address/residency proof Picture&PDF." },
 
       /* Exchanges */
       binance:   { title: "Binance",  desc: "Leading global crypto exchange for spot, futures, and earn." },

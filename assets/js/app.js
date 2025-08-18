@@ -1,3 +1,4 @@
+
 (function(){
   const $ = (sel, ctx=document) => ctx.querySelector(sel);
   const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
@@ -18,9 +19,13 @@
       if (!el) return;
       el.innerHTML = (list || []).map(item => `
         <div class="card">
-          <a ${container === "tools"
-              ? `href="#" data-open="tool" data-href="${item.href}"`
-              : `href="${item.href}" target="_blank" rel="noopener"`}>
+          <a ${
+  container === "tools"
+    ? (item.open === "blank"
+        ? `href="${item.href}" target="_blank" rel="noopener"`
+        : `href="#" data-open="tool" data-href="${item.href}" data-id="${item.id}" data-img="${item.img || ''}"`)
+    : `href="${item.href}" target="_blank" rel="noopener"`
+}>
             <div class="row">
               <div class="icon"><img src="${item.img}" alt="${item.id} logo" /></div>
               <div>
@@ -38,7 +43,9 @@
       a.addEventListener("click", e => {
         e.preventDefault();
         const url = a.getAttribute("data-href");
-        openToolModal(url);
+        const id  = a.getAttribute("data-id");
+        const img = a.getAttribute("data-img");
+        if (url) openToolModal(url, id, img);
       });
     });
   }
@@ -64,45 +71,63 @@
   const modalEl   = $("#toolModal");
   const iframeEl  = $("#toolFrame");
   const closeBtn  = $("#toolClose");
+  const titleEl   = $("#toolTitle") || (modalEl ? modalEl.querySelector(".modal-title") : null);
+  const iconEl    = $("#toolTitleIcon") || null;
 
-  function openToolModal(url){
+  function openToolModal(url, id, img){
     const lang = localStorage.getItem("lang") || "zh";
+    // Set dynamic title (fallback to id if no i18n)
+    const dict = (window.I18N?.[lang] || {}).cards || {};
+    const title = (id && dict[id]?.title) ? dict[id].title : (id || "");
+    if (titleEl) titleEl.textContent = title;
+    if (iconEl && img) {
+      iconEl.src = img;
+      iconEl.alt = (id ? (id + " logo") : "tool");
+      iconEl.style.display = "inline-block";
+    }
+    // Load iframe with lang passthrough
     const q = url.includes("?") ? "&" : "?";
     if (iframeEl) iframeEl.src = url + q + "lang=" + encodeURIComponent(lang);
     if (modalEl) {
       modalEl.classList.add("open");
       modalEl.setAttribute("aria-hidden","false");
+      document.body.style.overflow = "hidden";
     }
-    document.body.style.overflow = "hidden";
   }
   function closeToolModal(){
     if (modalEl) {
       modalEl.classList.remove("open");
       modalEl.setAttribute("aria-hidden","true");
     }
-    if (iframeEl) iframeEl.src = "";
+    if (iframeEl) iframeEl.src = "about:blank";
     document.body.style.overflow = "";
   }
 
-  // ===== Modal: WeChat QR =====
-  const wechatBtn   = $("#btnWeChat");
+  // ===== WeChat Modal =====
+  const wechatBtn   = $("#joinWechat");
   const wechatModal = $("#wechatModal");
   const wechatClose = $("#wechatClose");
 
   function openWechatModal(){
-    if (wechatModal) wechatModal.classList.add("open");
-    document.body.style.overflow = "hidden";
+    if (wechatModal) {
+      wechatModal.classList.add("open");
+      wechatModal.setAttribute("aria-hidden","false");
+      document.body.style.overflow = "hidden";
+    }
   }
   function closeWechatModal(){
-    if (wechatModal) wechatModal.classList.remove("open");
+    if (wechatModal) {
+      wechatModal.classList.remove("open");
+      wechatModal.setAttribute("aria-hidden","true");
+    }
     document.body.style.overflow = "";
   }
 
   // ===== Init =====
-  document.addEventListener("DOMContentLoaded", () => {
-    // Lang init
-    const savedLang = localStorage.getItem("lang") || "zh";
-    applyLang(savedLang);
+  document.addEventListener("DOMContentLoaded", ()=>{
+    // Init language
+    const saved = localStorage.getItem("lang") || "zh";
+    applyLang(saved);
 
     // Lang selector
     const langSel = $("#lang");
