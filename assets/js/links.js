@@ -28,7 +28,13 @@ window.LINKS = {
 		      // 先用站点通用图标占位；若你有专属图标，可换成如 "icon-pendle-yt.jpg"
 		      img: IMG + "YT.jpg",
 			  open: "modal"
-		    }
+		    },
+	  {
+      id: "backpack_calc",
+      href: "https://backpack.menglayer.lol/",
+      img: IMG + "icon-backpack.jpg",
+	  open: "modal"
+    }
   ],
   exchanges: [
     { id:"binance",  href:"https://www.binance.com/en/join?ref=UYSU519R", img:IMG + "icon-binance.jpg" },
@@ -45,4 +51,5 @@ window.LINKS = {
     { id:"t212",        href:"https://www.trading212.com/invite/19BZbbUMir", img:IMG + "icon-t212.jpg" }
   ]
 };
+
 
