@@ -109,3 +109,112 @@ footer{margin-top:36px;color:var(--muted);font-size:12px}
   .grid{grid-template-columns:1fr}
   .actions{flex-direction:column}
 }
+
+
+html, body { min-height: 100%; }
+
+/* Base sky-blue */
+html { background-color: #dff1ff !important; }
+body {
+  background: transparent !important;
+}
+
+/* Layered gradient */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -20vmax;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(42vmax 42vmax at 12% -12%,
+      rgba(53,126,243,.28), rgba(53,126,243,0) 62%),
+    radial-gradient(60vmax 60vmax at 100% 0%,
+      rgba(0,136,255,.24), rgba(0,136,255,0) 66%),
+    linear-gradient(180deg,#dff1ff 0%, #cfebff 40%, #bfe3ff 70%, #eaf8ff 100%);
+  background-repeat: no-repeat;
+}
+
+/* Mobile tweak */
+@media (max-width: 768px){
+  body::before{
+    background:
+      radial-gradient(80vw 80vw at 50% -20%,
+        rgba(53,126,243,.30), rgba(53,126,243,0) 72%),
+      linear-gradient(180deg,#dff1ff 0%, #cfeaff 55%, #eaf8ff 100%);
+  }
+}
+
+html, body { min-height: 100%; }
+
+/* stronger base so gradient更明显 */
+html { background-color: #cfe6ff !important; }
+body { background: transparent !important; }
+
+/* 全局渐变：竖向明显过渡 + 顶部两侧光斑 */
+body::before{
+  content:"";
+  position:fixed;
+  inset:-20vmax;
+  z-index:-1;
+  pointer-events:none;
+  background:
+    radial-gradient(60vmax 60vmax at 10% -20%,
+      rgba(56,136,255,.35), rgba(56,136,255,0) 60%),
+    radial-gradient(50vmax 50vmax at 110% -10%,
+      rgba(0,168,255,.28), rgba(0,168,255,0) 65%),
+    linear-gradient(180deg,#cae6ff 0%, #b9ddff 30%, #a8d4ff 60%, #eaf6ff 100%);
+  background-repeat:no-repeat;
+}
+
+/* Mobile: 适度减弱，但保留竖向过渡 */
+@media (max-width: 768px){
+  body::before{
+    background:
+      radial-gradient(85vw 85vw at 50% -25%,
+        rgba(56,136,255,.32), rgba(56,136,255,0) 70%),
+      linear-gradient(180deg,#cae6ff 0%, #bfe0ff 55%, #eaf6ff 100%);
+  }
+}
+
+/* ===== Background rendering fix (2025-08-18 • v4 high-contrast, color #7AEFFF) ===== */
+html, body { min-height: 100%; }
+
+/* fallback tint */
+html { background-color: #bff3ff !important; }
+body { background: transparent !important; }
+
+/* Stronger vertical gradient + cyan glows */
+body::before{
+  content:"";
+  position:fixed;
+  inset:-20vmax;
+  z-index:-1;
+  pointer-events:none;
+  background:
+    radial-gradient(60vmax 60vmax at 12% -22%,
+      rgba(122,239,255,.50), rgba(122,239,255,0) 60%),
+    radial-gradient(52vmax 52vmax at 108% -12%,
+      rgba(122,239,255,.40), rgba(122,239,255,0) 65%),
+    linear-gradient(180deg,
+      #7AEFFF 0%,
+      #9AF4FF 22%,
+      #C9F8FF 48%,
+      #EEFcff 75%,
+      #FFFFFF 100%);
+  background-repeat:no-repeat;
+}
+
+/* Mobile: keep contrast but reduce glow size */
+@media (max-width: 768px){
+  body::before{
+    background:
+      radial-gradient(90vw 90vw at 50% -25%,
+        rgba(122,239,255,.45), rgba(122,239,255,0) 70%),
+      linear-gradient(180deg,
+        #7AEFFF 0%,
+        #a8f5ff 50%,
+        #ffffff 100%);
+  }
+}
+
