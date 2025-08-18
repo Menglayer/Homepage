@@ -184,3 +184,8 @@
   // Debug helpers
   window.__ML__ = { applyLang, renderCards, openWechatModal, closeWechatModal };
 })();
+document.addEventListener('click', e => {
+  const el = e.target.closest('.card a, .card button');
+  if (el) el.blur();
+});
+
