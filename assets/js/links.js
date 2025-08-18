@@ -34,6 +34,24 @@ window.LINKS = {
       href: "https://backpack.menglayer.lol/",
       img: IMG + "icon-backpack.jpg",
 	  open: "modal"
+    },
+	   {
+      id: "tsc",
+      href: "https://tsc.menglayer.lol/",
+      img: IMG + "tsc.jpg",     // 先用站点通用图标；后续可换专属图标
+      open: "modal"                  // 如被目标站点拦截，改成 "blank"
+    },
+    {
+      id: "airdrop_universal",
+      href: "https://airdropestimator.menglayer.lol/",
+      img: IMG + "airdrop_universal.jpg",
+      open: "modal"
+    },
+    {
+      id: "fundingfee",
+      href: "https://fundingfee.menglayer.lol/",
+      img: IMG + "fundingfee.jpg",
+      open: "modal"
     }
   ],
   exchanges: [
@@ -51,5 +69,6 @@ window.LINKS = {
     { id:"t212",        href:"https://www.trading212.com/invite/19BZbbUMir", img:IMG + "icon-t212.jpg" }
   ]
 };
+
 
 
