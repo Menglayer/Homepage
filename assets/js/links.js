@@ -56,7 +56,7 @@ window.LINKS = {
 	  {
     id: "apr",
     href: "https://apr.menglayer.lol/",
-    img: IMG + "icon-apr.jpg",
+    img: IMG + "icon-apr-apy.jpg",
     open: "modal" // 页面内弹窗打开；如果将来需要新开页，把值改成 "blank"
 }
 
@@ -76,6 +76,7 @@ window.LINKS = {
     { id:"t212",        href:"https://www.trading212.com/invite/19BZbbUMir", img:IMG + "icon-t212.jpg" }
   ]
 };
+
 
 
 
