@@ -12,7 +12,13 @@ window.LINKS = {
       href: "https://www.addrproof.top?referrerCode=8085970963",
       img: "assets/addproof.png",
       open: "modal"          // 新开页面
-    }
+    },
+	{
+	      id: "bnalpha",
+	      href: "https://www.bn-alpha.top/register.html",
+	      img: "assets/icon-binance.jpg", // 临时用币安图标，如有专属LOGO再换
+	      open: "modal"    // 改成 "blank" 可新开页
+	    }
   ],
   exchanges: [
     { id:"binance",  href:"https://www.binance.com/en/join?ref=UYSU519R", img:"assets/icon-binance.jpg" },
