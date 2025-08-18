@@ -26,7 +26,7 @@ window.I18N = {
       bitget:    { title: "Bitget",      desc: "以合约见长的交易平台，支持复制交易与量化工具。" },
       bybit:     { title: "Bybit",       desc: "头部衍生品交易所，深度充足、撮合稳定，产品完善。" },
       okx:       { title: "OKX",         desc: "综合型交易所，集交易、Web3 钱包与 DeFi 聚合于一体。" },
-      ourbit:    { title: "Ourbit",      desc: "新兴现货与衍生品平台，提供多资产交易与返佣激励。" },
+      ourbit:    { title: "Ourbit",      desc: "新兴现货与衍生品平台，提供多资产交易与MEMEAlpha。" },
       gate:      { title: "Gate",        desc: "老牌平台，币种丰富、上新快速，支持现货、合约与理财。" },
 
       /* 出入金/券商 */
@@ -71,3 +71,4 @@ window.I18N = {
     }
   }
 };
+
