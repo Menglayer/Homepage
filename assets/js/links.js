@@ -14,7 +14,7 @@ window.LINKS = {
     { id:"bybit",    href:"https://www.bybit.com/sign-up?affiliate_id=91392&group_id=533607&group_type=1&ref_code=91392", img:"assets/icon-bybit.jpg" },
     { id:"okx",      href:"https://www.okx.com/zh-hans/join/5367051", img:"assets/icon-okx.jpg" },
     { id:"ourbit",   href:"https://www.ourbit.com/register?inviteCode=FPL69V", img:"assets/icon-ourbit.jpg" },
-    { id:"gate",     href:"https://www.gate.com/referral/invite/XIAOMENG_0_103", img:"assets/icon-gate.jpg" }
+    { id:"gate",     href:"https://www.gateweb.store/share/xiaomeng", img:"assets/icon-gate.jpg" }
   ],
   broker: [
     { id:"ifast",       href:"https://www.ifastgb.com/en/account-opening-home?component=new-or-old-client", img:"assets/icon-ifast.jpg" },
