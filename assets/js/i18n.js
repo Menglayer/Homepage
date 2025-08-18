@@ -24,6 +24,7 @@ window.I18N = {
 	  tsc: { title: "代币合约检测", desc: "一键检测 ERC/BEP 等合约的常见风险与权限。" },
       airdrop_universal: { title: "通用空投计算器", desc: "自定义 FDV/空投比例，估算积分/代币价值与份额。" },
       fundingfee: { title: "合约价差/资金费看板", desc: "多交易所基差、资金费率与期现价差对比。" },
+	  apr: {title: "年化复利计算器", desc: "APR ↔ APY 转换、复利周期可选、可视化收益曲线"},
 
       /* 交易所 */
       binance:   { title: "币安",        desc: "全球交易量领先的加密货币交易所，覆盖现货、合约与理财。" },
@@ -64,6 +65,7 @@ window.I18N = {
 	  tsc: { title: "Token Smart Contract Checker", desc: "Scan ERC/BEP contracts for common risks and privileged roles." },
       airdrop_universal: { title: "Universal Airdrop Estimator", desc: "Estimate point/token value by FDV and airdrop rate." },
       fundingfee: { title: "Funding/Basis Dashboard", desc: "Cross-exchange basis, funding rate & spot–futures spread." },
+	  apr: {title: "APR/APY Compound Calculator", desc: "APR ↔ APY conversion, selectable compounding, and charts"},
 
       /* Exchanges */
       binance:   { title: "Binance",  desc: "Leading global crypto exchange for spot, futures, and earn." },
@@ -81,5 +83,6 @@ window.I18N = {
     }
   }
 };
+
 
 
