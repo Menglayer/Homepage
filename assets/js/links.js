@@ -89,11 +89,6 @@ window.LINKS = {
   img: IMG + "cex-token-radar.jpg",   // 占位图；有正式图后可改为 "cex-token-radar.jpg"
   open: "modal"
 },
-	  // i18n.js → zh.cards 里新增
-bridge_optimizer: {
-  title: "跨链桥费率 & 风险比价器",
-  desc: "对比跨链费用、到达时间与风控提示；常用桥与路线一览。"
-},
 {
   id: "bridge_optimizer",
   href: "https://bridge.menglayer.lol/",   // 如有最终域名不同，改这里即可
@@ -116,6 +111,7 @@ bridge_optimizer: {
     { id:"t212",        href:"https://www.trading212.com/invite/19BZbbUMir", img:IMG + "icon-t212.jpg" }
   ]
 };
+
 
 
 
