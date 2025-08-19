@@ -55,14 +55,14 @@
         <h1 class="title" data-i18n="site_title">萌芽社区</h1>
       </div>
       <div class="controls">
-  <div class="searchbar">
-    <input id="search" class="search" type="search" placeholder="" aria-label="Search" autocomplete="off" />
-  </div>
-  <select id="lang" class="select" aria-label="Language">
-    <option value="zh">中文</option>
-    <option value="en">English</option>
-  </select>
-</div>
+        <div class="searchbar">
+          <input id="search" class="search" type="search" placeholder="" aria-label="Search" autocomplete="off" />
+        </div>
+        <select id="lang" class="select" aria-label="Language">
+          <option value="zh">中文</option>
+          <option value="en">English</option>
+        </select>
+      </div>
     </div>
 
     <div class="hero">
@@ -76,6 +76,13 @@
           <a class="pill" href="#" id="btnWeChat" data-open="wechat" data-i18n="btn_wechat">加入 微信群</a>
           <a class="pill" href="https://discord.gg/Vk7tKpPZmB" target="_blank" rel="noopener" data-i18n="btn_discord">加入 Discord</a>
         </div>
+		<!-- 独立捐赠方块（在 .hero 里面，和 .avatar/.actions 同级） -->
+		<a class="donate-cta" href="#" data-open="donate" id="btnDonate" aria-label="请我喝咖啡">
+		  <span class="donate-inner">
+		    <span class="emoji" aria-hidden="true">☕</span>
+		  </span>
+		</a>
+
       </div>
     </div>
 
@@ -122,10 +129,25 @@
       </div>
       <div class="qr-body">
         <p class="qr-tip">请加小助手微信邀请入群：<strong>monii_xu</strong></p>
-        <img class="qr-img" src="assets/wechat-qr.jpg" alt="WeChat QR">
+        <img class="qr-img" src="assets/images/wechat-qr.jpg" alt="WeChat QR">
       </div>
     </div>
   </div>
+  
+  <!-- 捐赠弹窗 -->
+  <div class="modal" id="donateModal" aria-hidden="true">
+    <div class="donate-box" role="dialog" aria-modal="true" aria-labelledby="donateTitle">
+      <div class="modal-head">
+        <div id="donateTitle" class="title" data-i18n="donate_title">请我喝杯咖啡</div>
+        <button class="modal-close" id="donateClose" data-close="donate" data-i18n="modal_close">关闭</button>
+      </div>
+      <div class="donate-body">
+        <p class="donate-tip" data-i18n="donate_desc">如果这个网站对你有帮助，欢迎小额捐赠支持。</p>
+        <div class="donate-grid"><!-- 由 JS 渲染具体卡片 --></div>
+      </div>
+    </div>
+  </div>
+
 
   <!-- Scripts -->
   <script src="assets/js/i18n.js" defer></script>
@@ -133,5 +155,4 @@
   <script src="assets/js/app.js" defer></script>
 </body>
 </html>
-
 
