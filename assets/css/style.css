@@ -217,6 +217,7 @@ body::before{
         #ffffff 100%);
   }
 }
+
 /* === 卡片 Hover 高亮（渐变描边 + 柔光） === */
 .card{
   position: relative;
@@ -278,5 +279,31 @@ body::before{
   .card{ transition: none; }
   .card::after, .card::before{ transition: none; }
 }
+
+/* --- 搜索框Search (navbar) --- */
+.searchbar{ position:relative; }
+.search{
+  border-radius:999px; border:1px solid var(--border);
+  background:#fff; color:var(--text);
+  padding:10px 12px 10px 34px; font-size:14px; outline:none;
+  box-shadow:var(--shadow); min-width:240px; transition:.16s ease;
+}
+.search:focus{
+  border-color:var(--ring);
+  box-shadow:0 0 0 3px rgba(34,211,238,.15), var(--shadow);
+}
+.searchbar::before{
+  content:"🔎"; position:absolute; left:12px; top:50%;
+  transform:translateY(-50%); font-size:14px; opacity:.6; pointer-events:none;
+}
+/* 响应式收缩 */
+@media (max-width: 840px){
+  .search{ min-width:180px; flex:1 1 220px; }
+}
+@media (max-width: 520px){
+  .controls{ width:100%; gap:8px; }
+  .search{ width:100%; min-width:0; }
+}
+
 
 
