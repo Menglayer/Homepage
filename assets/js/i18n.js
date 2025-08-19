@@ -26,6 +26,8 @@ window.I18N = {
       fundingfee: { title: "合约价差/资金费看板", desc: "多交易所基差、资金费率与期现价差对比。" },
 	  apr: {title: "年化复利计算器", desc: "APR ↔ APY 转换、复利周期可选、可视化收益曲线"},
 	  borrow_risk: { title: "借贷风险计算器", desc: "支持抵押率/清算阈值/循环贷次数等一键换算。" },
+	  kaito_yaps: { title: "Kaito Yaps 看板", desc: "跟踪 Kaito 社区 YAP/活跃度趋势，支持按用户/时间查看。" },
+
 
       /* 交易所 */
       binance:   { title: "币安",        desc: "全球交易量领先的加密货币交易所，覆盖现货、合约与理财。" },
@@ -68,6 +70,8 @@ window.I18N = {
       fundingfee: { title: "Funding/Basis Dashboard", desc: "Cross-exchange basis, funding rate & spot–futures spread." },
 	  apr: {title: "APR/APY Compound Calculator", desc: "APR ↔ APY conversion, selectable compounding, and charts"},
       borrow_risk: {title: "Borrowing Risk Calculator", desc: "Collateral ratio, liquidation threshold & loop leverage at a glance." },
+	  kaito_yaps: { title: "Kaito Yaps Dashboard", desc: "Track YAP activity and trends by user/time." },
+
 
 
       /* Exchanges */
@@ -86,6 +90,7 @@ window.I18N = {
     }
   }
 };
+
 
 
 
