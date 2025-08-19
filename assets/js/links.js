@@ -18,7 +18,7 @@ window.LINKS = {
 	{
 	      id: "bnalpha",
 	      href: "https://www.bn-alpha.top/register.html?referralCode=9651614813",
-	      img: IMG + "icon-binance.png", // 
+	      img: IMG + "icon-binance.jpg", // 
 	      open: "modal"    // 改成 "blank" 可新开页
 
 	    },
@@ -89,6 +89,7 @@ window.LINKS = {
     { id:"t212",        href:"https://www.trading212.com/invite/19BZbbUMir", img:IMG + "icon-t212.jpg" }
   ]
 };
+
 
 
 
