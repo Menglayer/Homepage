@@ -2,11 +2,11 @@
 window.I18N = {
   zh: {
     site_title: "萌芽社区",
-	search_placeholder: "搜索 工具 / 交易所 / 券商…",
     hero_title: "陈小萌",
     hero_tagline: "萌芽社区 Founder/BTC Holder/DEFI 玩家",
     btn_tg: "加入 Telegram 群",
-    btn_x: "关注 X（Twitter）", 
+    btn_x: "关注 X（Twitter）",
+	search_placeholder: "搜索 工具 / 交易所 / 券商…",
     btn_discord: "加入 Discord",
     btn_wechat: "加入 微信群",
     tools_title: "工具",
@@ -15,6 +15,15 @@ window.I18N = {
     exchanges_title: "交易所",
     broker_title: "出入金渠道 · 美/港股",
     footer_note: "made by @Menglayer",
+	// === zh 新增 ===
+	btn_donate: "请我喝咖啡 ☕",
+	donate_title: "请我喝杯咖啡",
+	donate_desc: "如果这个网站对你有帮助，欢迎小额捐赠支持。（可能会发生一些好事🎁）",
+	donate_btc: "BTC",
+	donate_eth: "ETH（ERC20）",
+	donate_sol: "SOL",
+	donate_copy: "复制",
+	donate_copied: "已复制！",
     cards: {
       /* 工具 */
       falcon: { title: "Falcon 空投计算器", desc: "估算你的 $Falcon 空投额度。" },
@@ -28,7 +37,7 @@ window.I18N = {
 	  apr: {title: "年化复利计算器", desc: "APR ↔ APY 转换、复利周期可选、可视化收益曲线"},
 	  borrow_risk: { title: "借贷风险计算器", desc: "支持抵押率/清算阈值/循环贷次数等一键换算。" },
 	  kaito_yaps: { title: "Kaito Yaps 看板", desc: "跟踪 Kaito 社区 YAP/活跃度趋势，支持按用户/时间查看。" },
-	  clammv3: { title: "LP V3 模拟器", desc: "CLAMM V3 区间做市 & IL（无常损失）模拟器。" },
+	  clammv3: { title: "LP V3 模拟器", desc: "Uniswap V3 区间做市 & IL（无常损失）模拟器。" },
 
 
 
@@ -49,11 +58,11 @@ window.I18N = {
   },
   en: {
     site_title: "MengLayer Community",
-    search_placeholder: "Search tools / exchanges / brokerage…",
     hero_title: "Menglayer",
     hero_tagline: "MengLayer Community Founder/BTC Holder/DEFI Players",
     btn_tg: "Join Telegram",
     btn_x: "Follow on X",
+	search_placeholder: "Search tools / exchanges / brokerage…",
     btn_discord: "Join Discord",
     btn_wechat: "Join WeChat",
     tools_title: "Tools",
@@ -62,6 +71,15 @@ window.I18N = {
     exchanges_title: "Exchanges",
     broker_title: "On/Off-Ramp · US/HK Brokerage",
     footer_note: "made by @Menglayer",
+	// === en 新增 ===
+	btn_donate: "Buy me a coffee ☕",
+	donate_title: "Buy me a coffee",
+	donate_desc: "If this site helped you, a small tip is appreciated.",
+	donate_btc: "BTC",
+	donate_eth: "ETH(ERC20)",
+	donate_sol: "SOL",
+	donate_copy: "Copy",
+	donate_copied: "Copied!",
     cards: {
       /* Tools */
       falcon: { title: "Falcon Airdrop Calculator", desc: "Estimate your $Falcon airdrop value" },
@@ -75,7 +93,7 @@ window.I18N = {
 	  apr: {title: "APR/APY Compound Calculator", desc: "APR ↔ APY conversion, selectable compounding, and charts"},
       borrow_risk: {title: "Borrowing Risk Calculator", desc: "Collateral ratio, liquidation threshold & loop leverage at a glance." },
 	  kaito_yaps: { title: "Kaito Yaps Dashboard", desc: "Track YAP activity and trends by user/time." },
-      clammv3: { title: "LP V3 Simulator",  desc: "CLAMM V3 range MM & impermanent loss simulator." },
+      clammv3: { title: "LP V3 Simulator",  desc: "Uniswap V3 range MM & impermanent loss simulator." },
 
 
 
@@ -96,8 +114,6 @@ window.I18N = {
     }
   }
 };
-
-
 
 
 
