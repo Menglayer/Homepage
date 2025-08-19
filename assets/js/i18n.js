@@ -27,7 +27,7 @@ window.I18N = {
 	  apr: {title: "年化复利计算器", desc: "APR ↔ APY 转换、复利周期可选、可视化收益曲线"},
 	  borrow_risk: { title: "借贷风险计算器", desc: "支持抵押率/清算阈值/循环贷次数等一键换算。" },
 	  kaito_yaps: { title: "Kaito Yaps 看板", desc: "跟踪 Kaito 社区 YAP/活跃度趋势，支持按用户/时间查看。" },
-	  clammv3: { title: "LP V3 模拟器", desc: "Uniswap V3 区间做市 & IL（无常损失）模拟器。" },
+	  clammv3: { title: "LP V3 模拟器", desc: "CLAMM V3 区间做市 & IL（无常损失）模拟器。" },
 
 
 
@@ -73,7 +73,7 @@ window.I18N = {
 	  apr: {title: "APR/APY Compound Calculator", desc: "APR ↔ APY conversion, selectable compounding, and charts"},
       borrow_risk: {title: "Borrowing Risk Calculator", desc: "Collateral ratio, liquidation threshold & loop leverage at a glance." },
 	  kaito_yaps: { title: "Kaito Yaps Dashboard", desc: "Track YAP activity and trends by user/time." },
-      clammv3: { title: "LP V3 Simulator",  desc: "Uniswap V3 range MM & impermanent loss simulator." },
+      clammv3: { title: "LP V3 Simulator",  desc: "CLAMM V3 range MM & impermanent loss simulator." },
 
 
 
@@ -94,6 +94,7 @@ window.I18N = {
     }
   }
 };
+
 
 
 
