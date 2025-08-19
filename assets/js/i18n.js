@@ -2,10 +2,11 @@
 window.I18N = {
   zh: {
     site_title: "萌芽社区",
+	search_placeholder: "搜索 工具 / 交易所 / 券商…",
     hero_title: "陈小萌",
     hero_tagline: "萌芽社区 Founder/BTC Holder/DEFI 玩家",
     btn_tg: "加入 Telegram 群",
-    btn_x: "关注 X（Twitter）",
+    btn_x: "关注 X（Twitter）", 
     btn_discord: "加入 Discord",
     btn_wechat: "加入 微信群",
     tools_title: "工具",
@@ -48,6 +49,7 @@ window.I18N = {
   },
   en: {
     site_title: "MengLayer Community",
+    search_placeholder: "Search tools / exchanges / brokerage…",
     hero_title: "Menglayer",
     hero_tagline: "MengLayer Community Founder/BTC Holder/DEFI Players",
     btn_tg: "Join Telegram",
@@ -94,6 +96,7 @@ window.I18N = {
     }
   }
 };
+
 
 
 
