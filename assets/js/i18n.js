@@ -29,7 +29,7 @@ window.I18N = {
       falcon: { title: "Falcon 空投计算器", desc: "估算你的 $Falcon 空投额度。" },
 	  addrproof: { title: "地址证明生成器", desc: "一键生成地址/居住证明照片/PDF。" },
 	  bnalpha: { title: "币安 Alpha 助手",  desc: "Alpha信号助手,空投闹钟提醒。" },
-	  pendleyt: { title: "Pendle YT计算器",  desc: "计算 YT 到期赎回价值、贴现/年化收益率与盈亏平衡点。" },
+	  pendleyt: { title: "Pendle YT计算器",  desc: "计算 YT 到期赎回价值、贴现/年化收益率与盈亏平衡点。Forked by @quant_sheep。" },
 	  backpack_calc: {title: "Backpack 空投计算器", desc: "一键估算 Backpack 大空投的积分价值与占比。"},
 	  tsc: { title: "代币合约检测", desc: "一键检测 ERC/BEP 等合约的常见风险与权限。" },
       airdrop_universal: { title: "通用空投计算器", desc: "自定义 FDV/空投比例，估算积分/代币价值与份额。" },
@@ -89,7 +89,7 @@ window.I18N = {
       falcon: { title: "Falcon Airdrop Calculator", desc: "Estimate your $Falcon airdrop value" },
 	  addrproof: { title: "Address Proof Generator", desc: "Instantly generate address/residency proof Picture&PDF." },
 	  bnalpha: { title: "Binance Alpha Assistant",   desc: "Alpha signal assistant, airdrop alarm reminder!" },
-	  pendleyt: { title: "Pendle YT Calculator",       desc: "Compute YT redemption value, discount/APY, and break-even." },
+	  pendleyt: { title: "Pendle YT Calculator",       desc: "Compute YT redemption value, discount/APY, and break-even.Forked by @quant_sheep." },
 	  backpack_calc: {title: "Backpack Airdrop Calculator",  desc: "Estimate Backpack airdrop point value and your share in one click."},
 	  tsc: { title: "Token Smart Contract Checker", desc: "Scan ERC/BEP contracts for common risks and privileged roles." },
       airdrop_universal: { title: "Universal Airdrop Estimator", desc: "Estimate point/token value by FDV and airdrop rate." },
@@ -121,6 +121,7 @@ window.I18N = {
     }
   }
 };
+
 
 
 
