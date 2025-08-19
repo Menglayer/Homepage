@@ -3,7 +3,7 @@
   const $ = (sel, ctx=document) => ctx.querySelector(sel);
   const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
 
-  // --- Domains that usually break inside iframes (payment / deep links) ---
+  // ---------------------- Force-top domains (don't iframe) ----------------------
   const FORCE_TOP_DOMAINS = [
     "addrproof.top",
     "alipay.com", "alipayobjects.com",
@@ -12,19 +12,42 @@
     "paypal.com", "pay.google.com", "pay.apple.com"
   ];
   function hostnameMatch(h, domain){
-    return h === domain || h.endsWith("."+domain);
+    return h === domain || h.endsWith("." + domain);
   }
   function shouldForceTop(url){
-    try {
-      const u = new URL(url);
-      return FORCE_TOP_DOMAINS.some(d => hostnameMatch(u.hostname, d));
-    } catch(e){ return false; }
+    try { const u = new URL(url); return FORCE_TOP_DOMAINS.some(d => hostnameMatch(u.hostname, d)); }
+    catch(e){ return false; }
   }
 
-  // --- Render cards for sections based on i18n + LINKS ---
+  // ---------------------- Search (fuzzy) helpers ----------------------
+  let searchQuery = "";
+
+  function debounce(fn, delay = 100){
+    let t; return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), delay); };
+  }
+
+  // Fuzzy score: substring -> high score; otherwise subsequence with adjacency bonus
+  function fuzzyScore(q, s){
+    if (!q) return 1;
+    q = q.toLowerCase(); s = s.toLowerCase();
+    if (s.includes(q)) return 100 + q.length;
+    let score = 0, last = -1, bonus = 0;
+    for (let i = 0; i < q.length; i++){
+      const ch = q[i];
+      const idx = s.indexOf(ch, last + 1);
+      if (idx === -1) return 0;
+      score += 1;
+      if (idx === last + 1) bonus += 1;
+      last = idx;
+    }
+    return score + bonus;
+  }
+
+  // ---------------------- Render cards ----------------------
   function renderCards(){
     const lang = localStorage.getItem("lang") || "zh";
     const dict = (window.I18N?.[lang] || {}).cards || {};
+    const q = (searchQuery || "").trim().toLowerCase();
 
     const containers = {
       tools: window.LINKS?.tools || [],
@@ -35,7 +58,25 @@
     Object.entries(containers).forEach(([container, list]) => {
       const el = document.getElementById(container);
       if (!el) return;
-      el.innerHTML = (list || []).map(item => {
+
+      const scored = (!q ? list.map(item => ({ item, score: 1 })) :
+        list.map(item => {
+          const text = `${item.id} ${(dict[item.id]?.title || "")} ${(dict[item.id]?.desc || "")}`;
+          return { item, score: fuzzyScore(q, text) };
+        }).filter(x => x.score > 0).sort((a, b) => b.score - a.score)
+      );
+
+      // Hide empty section during search
+      const section = el.closest("section");
+      if (q && scored.length === 0){
+        el.innerHTML = "";
+        if (section) section.style.display = "none";
+        return;
+      } else {
+        if (section) section.style.display = "";
+      }
+
+      el.innerHTML = scored.map(({ item }) => {
         const isTool = container === "tools";
         const openBlank = isTool ? (item.open === "blank" || shouldForceTop(item.href)) : true;
         const aAttrs = openBlank
@@ -54,38 +95,48 @@
           </a>
         </div>`;
       }).join("");
-    });
 
-    // Bind tool modal openers (non-blank)
-    $$('[data-open="tool"]').forEach(a => {
-      a.addEventListener("click", e => {
-        e.preventDefault();
-        const url = a.getAttribute("data-href");
-        const id  = a.getAttribute("data-id");
-        const img = a.getAttribute("data-img");
-        if (shouldForceTop(url)) { window.open(url, "_blank", "noopener"); return; }
-        if (url) openToolModal(url, id, img);
+      // Rebind tool openers for non-blank
+      $$('[data-open="tool"]', el).forEach(a => {
+        a.addEventListener("click", e => {
+          e.preventDefault();
+          const url = a.getAttribute("data-href");
+          const id  = a.getAttribute("data-id");
+          const img = a.getAttribute("data-img");
+          if (shouldForceTop(url)) { window.open(url, "_blank", "noopener"); return; }
+          if (url) openToolModal(url, id, img);
+        });
       });
     });
   }
 
-  // --- Language application ---
+  // ---------------------- Language & i18n ----------------------
   function applyLang(lang){
     const map = window.I18N?.[lang];
     if (!map) return;
     document.documentElement.lang = (lang === "zh" ? "zh-CN" : "en");
+
     $$("[data-i18n]").forEach(node => {
       const key = node.getAttribute("data-i18n");
       if (Object.prototype.hasOwnProperty.call(map, key)) {
         node.textContent = map[key];
       }
     });
-    localStorage.setItem("lang", lang);
+
+    // Search placeholder (if exists)
+    const searchEl = $("#search");
+    if (searchEl) {
+      searchEl.placeholder = map.search_placeholder
+        || (lang === "zh" ? "搜索 工具 / 交易所 / 券商…" : "Search tools / exchanges / brokerage…");
+    }
+
+    // set select value
     const sel = $("#lang"); if (sel) sel.value = lang;
+
     renderCards();
   }
 
-  // --- Tool Modal (iframe) ---
+  // ---------------------- Tool Modal (iframe) ----------------------
   const modalEl   = $("#toolModal");
   const iframeEl  = $("#toolFrame");
   const closeBtn  = $("#toolClose");
@@ -112,14 +163,14 @@
     if (shouldForceTop(url)) { window.open(url, "_blank", "noopener"); return; }
 
     setIframeAttrs();
-    const q = url.includes("?") ? "&" : "?";
-    if (iframeEl) iframeEl.src = url + q + "lang=" + encodeURIComponent(lang);
+    if (iframeEl) iframeEl.src = url;
     if (modalEl) {
       modalEl.classList.add("open");
       modalEl.setAttribute("aria-hidden","false");
-      document.body.style.overflow = "hidden";
     }
+    document.body.style.overflow = "hidden";
   }
+
   function closeToolModal(){
     if (modalEl) {
       modalEl.classList.remove("open");
@@ -129,7 +180,7 @@
     document.body.style.overflow = "";
   }
 
-  // --- WeChat Modal (event delegation; no hardcoded IDs) ---
+  // ---------------------- WeChat Modal ----------------------
   const wechatModal = $("#wechatModal");
 
   function openWechatModal(){
@@ -145,22 +196,60 @@
     document.body.style.overflow = "";
   }
 
-  // --- Init ---
-  document.addEventListener("DOMContentLoaded", ()=>{
-    const saved = localStorage.getItem("lang") || "zh";
-    applyLang(saved);
-
-    const langSel = $("#lang");
-    if (langSel) {
-      langSel.addEventListener("change", e => applyLang(e.target.value));
+  // ---------------------- Init ----------------------
+  document.addEventListener("DOMContentLoaded", () => {
+    // language init
+    let lang = localStorage.getItem("lang");
+    if (!lang) {
+      const sys = (navigator.language || "zh").toLowerCase();
+      lang = sys.startsWith("zh") ? "zh" : "en";
+      localStorage.setItem("lang", lang);
     }
+    applyLang(lang);
+
+    // lang switch
+    const sel = $("#lang");
+    if (sel) {
+      sel.addEventListener("change", () => {
+        const v = sel.value === "en" ? "en" : "zh";
+        localStorage.setItem("lang", v);
+        applyLang(v);
+      });
+    }
+
+    // search bind
+    const searchEl = $("#search");
+    if (searchEl){
+      const onInput = debounce(e => { searchQuery = e.target.value.trim(); renderCards(); }, 80);
+      searchEl.addEventListener("input", onInput);
+      // ESC to clear
+      searchEl.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && searchEl.value){
+          e.preventDefault(); searchEl.value = ""; searchQuery = ""; renderCards();
+        }
+      });
+    }
+
+    // Global hotkeys: Ctrl/Cmd+K and "/" to focus search
+    document.addEventListener("keydown", (e) => {
+      const tag = document.activeElement?.tagName;
+      const inField = tag === "INPUT" || tag === "TEXTAREA" || document.activeElement?.isContentEditable;
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k"){
+        e.preventDefault(); $("#search")?.focus(); $("#search")?.select();
+      } else if (!inField && !e.ctrlKey && !e.metaKey && e.key === "/"){
+        e.preventDefault(); $("#search")?.focus();
+      } else if (e.key === "Escape" && modalEl?.classList.contains("open")){
+        e.preventDefault(); closeToolModal();
+      } else if (e.key === "Escape" && wechatModal?.classList.contains("open")){
+        e.preventDefault(); closeWechatModal();
+      }
+    });
 
     // Tool modal basic events
     if (closeBtn) closeBtn.addEventListener("click", closeToolModal);
     if (modalEl) {
       modalEl.addEventListener("click", (e)=>{ if(e.target === modalEl) closeToolModal(); });
     }
-    window.addEventListener("keydown", (e)=>{ if(e.key === "Escape" && modalEl?.classList.contains("open")) closeToolModal(); });
 
     // WeChat modal: event delegation
     document.addEventListener("click", (e) => {
@@ -170,22 +259,14 @@
       const closer = e.target.closest('[data-close="wechat"]');
       if (closer) { e.preventDefault(); closeWechatModal(); return; }
     });
-    if (wechatModal) {
-      wechatModal.addEventListener("click", (e)=>{ if (e.target === wechatModal) closeWechatModal(); });
-    }
 
-    // Backward-compatibility: bind legacy IDs if present
-    const legacyBtn = $("#joinWechat") || $("#btnWeChat");
-    if (legacyBtn) legacyBtn.addEventListener("click", (e)=>{ e.preventDefault(); openWechatModal(); });
-    const legacyClose = $("#wechatClose");
-    if (legacyClose) legacyClose.addEventListener("click", (e)=>{ e.preventDefault(); closeWechatModal(); });
+    // Safety: blur clicked card buttons/links to remove persistent focus ring
+    document.addEventListener('click', e => {
+      const el = e.target.closest('.card a, .card button');
+      if (el) el.blur();
+    });
   });
 
-  // Debug helpers
-  window.__ML__ = { applyLang, renderCards, openWechatModal, closeWechatModal };
+  // Expose small debug surface
+  window.__ML__ = { applyLang, renderCards, openToolModal, closeToolModal, openWechatModal, closeWechatModal };
 })();
-document.addEventListener('click', e => {
-  const el = e.target.closest('.card a, .card button');
-  if (el) el.blur();
-});
-
