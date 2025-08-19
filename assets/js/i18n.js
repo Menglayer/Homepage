@@ -40,6 +40,8 @@ window.I18N = {
 	  clammv3: { title: "LP V3 模拟器", desc: "Uniswap V3 区间做市 & IL（无常损失）模拟器。" },
 	  stable_radar: { title: "稳定币雷达", desc: "跟踪主流稳定币市值、锚定偏离、链上分布与增减速。"},
       cex_radar: { title: "平台币雷达", desc: "聚合各大 CEX 平台币市值、估值、供给与回购/销毁动态。"},
+      bridge_optimizer: {title: "跨链桥费率 & 风险比价器",desc: "对比跨链费用、到达时间与风控提示；常用桥与路线一览。"},
+
 
 
 
@@ -98,6 +100,7 @@ window.I18N = {
       clammv3: { title: "LP V3 Simulator",  desc: "Uniswap V3 range MM & impermanent loss simulator." },
 	  stable_radar: { title: "Stablecoin Radar", desc: "Track market cap, depeg, chain distribution, and supply changes."},
 	  cex_radar: { title: "CEX Token Radar", desc: "Aggregate exchange-token cap, valuation, supply, and buyback/burns."},
+	  bridge_optimizer: { title: "Bridge Fees & Risk Comparator",desc: "Compare bridge fees, ETA, and risk signals across popular routes."},
 
 
 
@@ -118,6 +121,7 @@ window.I18N = {
     }
   }
 };
+
 
 
 
