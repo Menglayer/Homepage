@@ -38,6 +38,8 @@ window.I18N = {
 	  borrow_risk: { title: "借贷风险计算器", desc: "支持抵押率/清算阈值/循环贷次数等一键换算。" },
 	  kaito_yaps: { title: "Kaito Yaps 看板", desc: "跟踪 Kaito 社区 YAP/活跃度趋势，支持按用户/时间查看。" },
 	  clammv3: { title: "LP V3 模拟器", desc: "Uniswap V3 区间做市 & IL（无常损失）模拟器。" },
+	  stable_radar: { title: "稳定币雷达", desc: "跟踪主流稳定币市值、锚定偏离、链上分布与增减速。"},
+      cex_radar: { title: "平台币雷达", desc: "聚合各大 CEX 平台币市值、估值、供给与回购/销毁动态。"},
 
 
 
@@ -94,6 +96,8 @@ window.I18N = {
       borrow_risk: {title: "Borrowing Risk Calculator", desc: "Collateral ratio, liquidation threshold & loop leverage at a glance." },
 	  kaito_yaps: { title: "Kaito Yaps Dashboard", desc: "Track YAP activity and trends by user/time." },
       clammv3: { title: "LP V3 Simulator",  desc: "Uniswap V3 range MM & impermanent loss simulator." },
+	  stable_radar: { title: "Stablecoin Radar", desc: "Track market cap, depeg, chain distribution, and supply changes."},
+	  cex_radar: { title: "CEX Token Radar", desc: "Aggregate exchange-token cap, valuation, supply, and buyback/burns."},
 
 
 
@@ -114,6 +118,7 @@ window.I18N = {
     }
   }
 };
+
 
 
 
