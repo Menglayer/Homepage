@@ -77,7 +77,18 @@ window.LINKS = {
   // 先用站点 favicon 作为占位图标，后续你给我图再换
   img: IMG + "clamm.jpg",
   open: "modal"   // 如需新开标签页，改为 "blank"
-}
+},
+	 {
+  id: "stable_radar",
+  href: "https://stable.menglayer.lol/",
+  img: IMG + "favicon.jpg",   // 占位图；有正式图后可改为 "stable-radar.jpg"
+  open: "modal"               // 与现有工具一致，弹窗内打开
+},{
+  id: "cex_radar",
+  href: "https://cextoken.menglayer.lol/",
+  img: IMG + "favicon.jpg",   // 占位图；有正式图后可改为 "cex-token-radar.jpg"
+  open: "modal"
+} 
   ],
   exchanges: [
     { id:"binance",  href:"https://www.binance.com/en/join?ref=UYSU519R", img:IMG + "icon-binance.jpg" },
@@ -94,6 +105,7 @@ window.LINKS = {
     { id:"t212",        href:"https://www.trading212.com/invite/19BZbbUMir", img:IMG + "icon-t212.jpg" }
   ]
 };
+
 
 
 
