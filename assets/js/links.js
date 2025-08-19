@@ -81,12 +81,12 @@ window.LINKS = {
 	 {
   id: "stable_radar",
   href: "https://stable.menglayer.lol/",
-  img: IMG + "favicon.jpg",   // 占位图；有正式图后可改为 "stable-radar.jpg"
+  img: IMG + "stable-radar.jpg",   // 占位图；有正式图后可改为 "stable-radar.jpg"
   open: "modal"               // 与现有工具一致，弹窗内打开
 },{
   id: "cex_radar",
   href: "https://cextoken.menglayer.lol/",
-  img: IMG + "favicon.jpg",   // 占位图；有正式图后可改为 "cex-token-radar.jpg"
+  img: IMG + "cex-token-radar.jpg",   // 占位图；有正式图后可改为 "cex-token-radar.jpg"
   open: "modal"
 } 
   ],
@@ -105,6 +105,7 @@ window.LINKS = {
     { id:"t212",        href:"https://www.trading212.com/invite/19BZbbUMir", img:IMG + "icon-t212.jpg" }
   ]
 };
+
 
 
 
