@@ -64,7 +64,14 @@ window.LINKS = {
   href: "https://borrow.menglayer.lol/",
   img: IMG + "borrow-risk.jpg",
   open: "modal"   // 如需新开页，改为 "blank"
+},
+	  {
+  id: "kaito_yaps",
+  href: "https://gomtu.xyz/yapper-stats",
+  img: IMG + "icon-kaito.jpg",
+  open: "modal"     // 如需新开页改成 "blank"
 }
+
 
   ],
   exchanges: [
@@ -82,6 +89,7 @@ window.LINKS = {
     { id:"t212",        href:"https://www.trading212.com/invite/19BZbbUMir", img:IMG + "icon-t212.jpg" }
   ]
 };
+
 
 
 
