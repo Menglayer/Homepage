@@ -70,9 +70,14 @@ window.LINKS = {
   href: "https://gomtu.xyz/yapper-stats",
   img: IMG + "icon-kaito.png",
   open: "modal"     // 如需新开页改成 "blank"
+},
+	  {
+  id: "clammv3",
+  href: "https://clamm.menglayer.lol/",
+  // 先用站点 favicon 作为占位图标，后续你给我图再换
+  img: IMG + "clamm.jpg",
+  open: "modal"   // 如需新开标签页，改为 "blank"
 }
-
-
   ],
   exchanges: [
     { id:"binance",  href:"https://www.binance.com/en/join?ref=UYSU519R", img:IMG + "icon-binance.jpg" },
@@ -89,6 +94,7 @@ window.LINKS = {
     { id:"t212",        href:"https://www.trading212.com/invite/19BZbbUMir", img:IMG + "icon-t212.jpg" }
   ]
 };
+
 
 
 
