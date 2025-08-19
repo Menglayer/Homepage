@@ -24,7 +24,7 @@ window.LINKS = {
 	    },
 		{
 		      id: "pendleyt",
-		      href: "http://yt.menglayer.lol/",
+		      href: "https://yt.menglayer.lol/",
 		      // 先用站点通用图标占位；若你有专属图标，可换成如 "icon-pendle-yt.jpg"
 		      img: IMG + "YT.jpg",
 			  open: "modal"
@@ -111,6 +111,7 @@ window.LINKS = {
     { id:"t212",        href:"https://www.trading212.com/invite/19BZbbUMir", img:IMG + "icon-t212.jpg" }
   ]
 };
+
 
 
 
