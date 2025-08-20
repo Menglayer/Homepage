@@ -470,6 +470,46 @@ body::before{
 @keyframes donate-spin{
   to{ transform: rotate(360deg); }
 }
+/* ===== Tool Loader (iframe 进度条) ===== */
+.modal-box{ position: relative; } /* 确保覆盖层可定位 */
+
+.tool-loader{
+  position:absolute; inset:0;
+  background: linear-gradient(180deg, rgba(255,255,255,.86), rgba(255,255,255,.92));
+  display:none; align-items:center; justify-content:center;
+  z-index: 20; padding: 16px;
+  backdrop-filter: blur(2px);
+}
+.tool-loader.show{ display:flex; }
+.tool-loader.slow .tool-open-newtab{ display:inline-flex; }
+
+.tool-loader-box{
+  width: min(520px, 92vw);
+  background:#fff; border:1px solid var(--border);
+  border-radius: 16px; box-shadow: var(--shadow-lg);
+  padding: 16px; text-align: center;
+}
+.tool-loader-title{ font-weight:800; font-size:14px; color:#093143; margin-bottom:10px; }
+.tool-loader-bar{
+  height:10px; border-radius:999px; overflow:hidden;
+  background:#eef3f8; box-shadow: var(--shadow);
+}
+.tool-loader-fill{
+  display:block; height:100%; width:0%;
+  background: linear-gradient(90deg, #22d3ee, #0284c7);
+  transition: width .25s ease;
+}
+.tool-loader-hint{ margin:10px 0 12px; font-size:12px; color:var(--muted); }
+.tool-open-newtab{
+  display:none; align-items:center; justify-content:center;
+  appearance:none; cursor:pointer;
+  border:1px solid var(--border); background:#fff; color:var(--text);
+  padding:8px 12px; border-radius:999px; font-size:12px;
+  box-shadow: var(--shadow); transition:.16s ease;
+}
+.tool-open-newtab:hover{ border-color:var(--ring); transform: translateY(-1px); }
+
+/* 让覆盖层不挡住头部点击？=> 由 JS 动态设置 top 等高于 .modal-head */
 
 
 

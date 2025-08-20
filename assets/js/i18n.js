@@ -24,6 +24,9 @@ window.I18N = {
 	donate_sol: "SOL",
 	donate_copy: "复制",
 	donate_copied: "已复制！",
+	loading_tool: "正在加载工具…",
+	open_newtab: "新窗口打开",
+	loading_slow_tip: "如 10 秒内未加载完成，可能站点较慢或屏蔽 iframe。",
     cards: {
       /* 工具 */
       falcon: { title: "Falcon 空投计算器", desc: "估算你的 $Falcon 空投额度。" },
@@ -85,6 +88,9 @@ window.I18N = {
 	donate_sol: "SOL",
 	donate_copy: "Copy",
 	donate_copied: "Copied!",
+	loading_tool: "Loading tool…",
+	open_newtab: "Open in new tab",
+	loading_slow_tip: "If it takes over 10s, the site may be slow or blocking iframes.",
     cards: {
       /* Tools */
       falcon: { title: "Falcon Airdrop Calculator", desc: "Estimate your $Falcon airdrop value" },

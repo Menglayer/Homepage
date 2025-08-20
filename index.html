@@ -116,6 +116,21 @@
         <div id="toolTitle" class="title" data-i18n="falcon_modal_title">Falcon 空投计算器</div>
         <button class="modal-close" id="toolClose" data-i18n="modal_close">关闭</button>
       </div>
+	        <!-- 👉 新增：加载进度条覆盖层（放在 iframe 前面） -->
+	        <div id="toolLoader" class="tool-loader" aria-hidden="true">
+	          <div class="tool-loader-box">
+	            <div class="tool-loader-title" data-i18n="loading_tool">正在加载工具…</div>
+	            <div class="tool-loader-bar">
+	              <span class="tool-loader-fill" style="width:0%"></span>
+	            </div>
+	            <p class="tool-loader-hint" data-i18n="loading_slow_tip">
+	              如 10 秒内未加载完成，可能对方站点较慢或屏蔽 iframe。
+	            </p>
+	            <button class="modal-close tool-open-newtab" id="toolOpenNewtab" data-i18n="open_newtab">
+	              新窗口打开
+	            </button>
+	          </div>
+	        </div>
       <iframe id="toolFrame" class="modal-iframe" src="" title="Falcon Airdrop Estimator"></iframe>
     </div>
   </div>

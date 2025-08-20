@@ -139,31 +139,97 @@
   const toolModal = $("#toolModal");
   const toolFrame = $("#toolFrame");
   const toolClose = $("#toolClose");
+  
+    // ---- Tool Loader (progress) ----
+    const toolHead    = toolModal ? toolModal.querySelector(".modal-head") : null;
+    const toolLoader  = $("#toolLoader");
+    const openNewtab  = $("#toolOpenNewtab");
+    const barFillEl   = () => toolLoader?.querySelector(".tool-loader-fill");
+  
+    let toolProg = 0, toolTick = null, toolSlow = null, currentToolURL = "";
+  
+    function setToolProg(p){
+      toolProg = Math.max(0, Math.min(100, p));
+      const el = barFillEl(); if (el) el.style.width = toolProg + "%";
+    }
+    function resetLoaderImmediate(){
+      clearTimeout(toolTick); clearTimeout(toolSlow);
+      setToolProg(0);
+      if (toolLoader){
+        toolLoader.classList.remove("show","slow");
+        toolLoader.setAttribute("aria-hidden","true");
+        toolLoader.style.top = "0px";
+      }
+    }
+    function startLoader(){
+      if (!toolLoader) return;
+      resetLoaderImmediate();
+      // 让覆盖层不要遮住标题栏：同步头部高度
+      if (toolHead) toolLoader.style.top = toolHead.offsetHeight + "px";
+      toolLoader.classList.add("show");
+      toolLoader.setAttribute("aria-hidden","false");
+      setToolProg(8);
+  
+      const tick = () => {
+        if (toolProg < 92){
+          const delta = Math.max(0.5, (92 - toolProg) * 0.03);
+          setToolProg(toolProg + delta);
+          toolTick = setTimeout(tick, 160);
+        }
+      };
+      tick();
+  
+      // 10 秒兜底：显示“新窗口打开”按钮
+      toolSlow = setTimeout(()=>{ toolLoader.classList.add("slow"); }, 10000);
+    }
+    function finishLoader(){
+      clearTimeout(toolTick); clearTimeout(toolSlow);
+      setToolProg(100);
+      setTimeout(()=>{ resetLoaderImmediate(); }, 300);
+    }
+  
+    // 监听 iframe 完成（包括 about:blank）
+    function handleToolLoad(){ if (toolLoader?.classList.contains("show")) finishLoader(); }
+    on(toolFrame, "load", handleToolLoad);
+  
+    // 慢时兜底：新窗口打开
+    on(openNewtab, "click", (e)=>{
+      e.preventDefault();
+      if (currentToolURL) window.open(currentToolURL, "_blank", "noopener");
+    });
 
-  function openToolModal(url, id, img){
-    if (!toolModal || !toolFrame) return;
 
-    // title
-    const lang = localStorage.getItem("lang") || "zh";
-    const dict = (window.I18N?.[lang] || {}).cards || {};
-    const title = dict?.[id]?.title || "Tool";
-    const titleEl = $("#toolTitle");
-    if (titleEl) titleEl.textContent = title;
-
-    // set src
-    toolFrame.src = url;
-
-    toolModal.classList.add("open");
-    toolModal.setAttribute("aria-hidden","false");
-    document.body.style.overflow = "hidden";
-  }
-  function closeToolModal(){
-    if (!toolModal) return;
-    if (toolFrame) toolFrame.src = "about:blank";
-    toolModal.classList.remove("open");
-    toolModal.setAttribute("aria-hidden","true");
-    document.body.style.overflow = "";
-  }
+   function openToolModal(url, id, img){
+     if (!toolModal || !toolFrame) return;
+ 
+     // 标题
+     const lang = localStorage.getItem("lang") || "zh";
+     const dict = (window.I18N?.[lang] || {}).cards || {};
+     const title = dict?.[id]?.title || "Tool";
+     const titleEl = $("#toolTitle");
+     if (titleEl) titleEl.textContent = title;
+ 
+     // 记录 URL，启动加载动画（先显示再设 src，避免白屏）
+     currentToolURL = url;
+     startLoader();
+     requestAnimationFrame(()=>{ toolFrame.src = url; });
+ 
+     toolModal.classList.add("open");
+     toolModal.setAttribute("aria-hidden","false");
+     document.body.style.overflow = "hidden";
+   }
+ 
+   function closeToolModal(){
+     if (!toolModal) return;
+     // 立刻收起 loader，防止关闭时闪烁
+     resetLoaderImmediate();
+     if (toolFrame) toolFrame.src = "about:blank";
+     currentToolURL = "";
+ 
+     toolModal.classList.remove("open");
+     toolModal.setAttribute("aria-hidden","true");
+     document.body.style.overflow = "";
+   }
   on(toolClose, "click", e => { e.preventDefault(); closeToolModal(); });
 
   // ---------------------- WeChat Modal ----------------------
