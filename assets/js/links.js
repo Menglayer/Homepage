@@ -100,7 +100,6 @@ window.LINKS = {
   img: IMG + "dca.jpg",       // 先复用现有图标
   open: "modal"
 }
-
   ],
   exchanges: [
     { id:"binance",  href:"https://www.binance.com/en/join?ref=UYSU519R", img:IMG + "icon-binance.jpg" },
@@ -117,6 +116,7 @@ window.LINKS = {
     { id:"t212",        href:"https://www.trading212.com/invite/19BZbbUMir", img:IMG + "icon-t212.jpg" }
   ]
 };
+
 
 
 
