@@ -102,7 +102,7 @@ window.I18N = {
 	  stable_radar: { title: "Stablecoin Radar", desc: "Track market cap, depeg, chain distribution, and supply changes."},
 	  cex_radar: { title: "CEX Token Radar", desc: "Aggregate exchange-token cap, valuation, supply, and buyback/burns."},
 	  bridge_optimizer: { title: "Bridge Fees & Risk Comparator",desc: "Compare bridge fees, ETA, and risk signals across popular routes."},
-	  dca_calc: { title: "DCA Calculator", desc: "Backtest multi-asset DCA for QQQ / CSI 300 (USD) / crypto majors with IRR, drawdown & CSV export" }
+	  dca_calc: { title: "DCA Calculator", desc: "Backtest multi-asset DCA for QQQ / CSI 300 (USD) / crypto majors with IRR, drawdown & CSV export" },
 
       /* Exchanges */
       binance:   { title: "Binance",  desc: "Leading global crypto exchange for spot, futures, and earn." },
@@ -120,6 +120,7 @@ window.I18N = {
     }
   }
 };
+
 
 
 
