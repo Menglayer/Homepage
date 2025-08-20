@@ -24,10 +24,9 @@ window.LINKS = {
 	    },
 		{
 		      id: "pendleyt",
-		      href: "https://yt.menglayer.lol/",
-		      // 先用站点通用图标占位；若你有专属图标，可换成如 "icon-pendle-yt.jpg"
+		      href: "https://quantsheep.com/",
 		      img: IMG + "YT.jpg",
-			  open: "modal"
+			  open: "blank"
 		    },
 	  {
       id: "backpack_calc",
@@ -38,8 +37,8 @@ window.LINKS = {
 	   {
       id: "tsc",
       href: "https://tsc.menglayer.lol/",
-      img: IMG + "tsc.jpg",     // 先用站点通用图标；后续可换专属图标
-      open: "modal"                  // 如被目标站点拦截，改成 "blank"
+      img: IMG + "tsc.jpg",     
+      open: "modal"                  
     },
     {
       id: "airdrop_universal",
@@ -111,6 +110,7 @@ window.LINKS = {
     { id:"t212",        href:"https://www.trading212.com/invite/19BZbbUMir", img:IMG + "icon-t212.jpg" }
   ]
 };
+
 
 
 
