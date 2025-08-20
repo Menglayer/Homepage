@@ -93,7 +93,14 @@ window.LINKS = {
   href: "https://bridge.menglayer.lol/",   // 如有最终域名不同，改这里即可
   img: IMG + "bridge-optimizer.jpg",
   open: "modal"                            // 保持站内弹窗；若后续被目标站点拦 iframe，可改成 "blank"
+},
+{
+  id: "dca_calc",
+  href: "https://dca.menglayer.lol/",  // 你部署的地址；本地调试可用 file:// 直接开
+  img: IMG + "dca.jpg",       // 先复用现有图标
+  open: "modal"
 }
+
   ],
   exchanges: [
     { id:"binance",  href:"https://www.binance.com/en/join?ref=UYSU519R", img:IMG + "icon-binance.jpg" },
@@ -110,6 +117,7 @@ window.LINKS = {
     { id:"t212",        href:"https://www.trading212.com/invite/19BZbbUMir", img:IMG + "icon-t212.jpg" }
   ]
 };
+
 
 
 
