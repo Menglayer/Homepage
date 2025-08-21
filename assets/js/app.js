@@ -53,6 +53,17 @@
       const val = key ? (dict[key] ?? el.textContent) : null;
       if (val != null) el.textContent = val;
     });
+	    // Fill [data-i18n-attr], e.g. data-i18n-attr="aria-label:btn_donate,title:btn_donate"
+	    $$("[data-i18n-attr]").forEach(el => {
+	      const spec = el.getAttribute("data-i18n-attr") || "";
+	      spec.split(",").forEach(pair => {
+	        const [attr, key] = pair.split(":").map(s => (s||"").trim());
+	        if (attr && key && dict[key] != null) {
+	          el.setAttribute(attr, dict[key]);
+	        }
+	      });
+	    });
+
 
     // Search placeholder
     const search = $("#search");
