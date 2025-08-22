@@ -48,6 +48,8 @@ window.I18N = {
 	  allowance: { title: "授权批量撤销", desc: "批量查看并撤销各链代币授权（Allowance）。" },
       subdomain: { title: "子域名探查器", desc: "一键枚举子域名，解析 DNS/HTTP 状态，支持导出。" },
       e712: { title: "签名解析器（EIP-712）", desc: "解析/验证 EIP-712 TypedData 与签名，解码结构体字段。" },
+	  vanity: { title: "靓号地址生成器",desc: "EVM / SOL / TRX / SUI / APT 一键生成靓号，支持前/后缀与并行。"},
+
 
 
 
@@ -116,6 +118,8 @@ window.I18N = {
 	  allowance: { title: "Allowance Bulk Revoker", desc: "List and revoke token allowances across chains." },
       subdomain: { title: "Subdomain Enumerator",   desc: "Enumerate subdomains, resolve DNS/HTTP status, and export." },
       e712:  { title: "EIP-712 Signature Decoder", desc: "Decode/verify typed data & signatures; inspect struct fields." },
+	  vanity: { title: "Vanity Address Generator",desc: "Generate vanity addresses for EVM/SOL/TRX/SUI/APT with prefix/suffix & parallel workers."},
+
 
 
       /* Exchanges */
@@ -134,6 +138,7 @@ window.I18N = {
     }
   }
 };
+
 
 
 
