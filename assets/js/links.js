@@ -94,6 +94,24 @@ window.LINKS = {
   img: IMG + "bridge-optimizer.jpg",
   open: "modal"                            // 保持站内弹窗；若后续被目标站点拦 iframe，可改成 "blank"
 },
+	  {
+  id: "allowance",
+  href: "https://allowance.menglayer.lol/",
+  img: IMG + "allowance.jpg",   // 先用站点通用图标；有专属图后替换
+  open: "modal"               // 如需新开标签页，改成 "blank"
+},
+{
+  id: "subdomain",
+  href: "https://subdomain.menglayer.lol/",
+  img: IMG + "subdomain.jpg",
+  open: "modal"
+},
+{
+  id: "e712",
+  href: "https://e712.menglayer.lol/",
+  img: IMG + "e712.jpg",
+  open: "modal"
+}
   ],
   exchanges: [
     { id:"binance",  href:"https://www.binance.com/en/join?ref=UYSU519R", img:IMG + "icon-binance.jpg" },
@@ -110,6 +128,7 @@ window.LINKS = {
     { id:"t212",        href:"https://www.trading212.com/invite/19BZbbUMir", img:IMG + "icon-t212.jpg" }
   ]
 };
+
 
 
 
