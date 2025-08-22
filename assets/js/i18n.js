@@ -45,6 +45,10 @@ window.I18N = {
       cex_radar: { title: "平台币雷达", desc: "聚合各大 CEX 平台币市值、估值、供给与回购/销毁动态。"},
       bridge_optimizer: {title: "跨链桥费率 & 风险比价器",desc: "对比跨链费用、到达时间与风控提示；常用桥与路线一览。"},
 	  dca_calc: { title: "定投计算器", desc: "QQQ/沪深300/主流币多资产定投回测、IRR、回撤与导出" },
+	  allowance: { title: "授权批量撤销", desc: "批量查看并撤销各链代币授权（Allowance）。" },
+      subdomain: { title: "子域名探查器", desc: "一键枚举子域名，解析 DNS/HTTP 状态，支持导出。" },
+      e712: { title: "签名解析器（EIP-712）", desc: "解析/验证 EIP-712 TypedData 与签名，解码结构体字段。" },
+
 
 
 
@@ -109,6 +113,10 @@ window.I18N = {
 	  cex_radar: { title: "CEX Token Radar", desc: "Aggregate exchange-token cap, valuation, supply, and buyback/burns."},
 	  bridge_optimizer: { title: "Bridge Fees & Risk Comparator",desc: "Compare bridge fees, ETA, and risk signals across popular routes."},
 	  dca_calc: { title: "DCA Calculator", desc: "Backtest multi-asset DCA for QQQ / CSI 300 (USD) / crypto majors with IRR, drawdown & CSV export" },
+	  allowance: { title: "Allowance Bulk Revoker", desc: "List and revoke token allowances across chains." },
+      subdomain: { title: "Subdomain Enumerator",   desc: "Enumerate subdomains, resolve DNS/HTTP status, and export." },
+      e712:  { title: "EIP-712 Signature Decoder", desc: "Decode/verify typed data & signatures; inspect struct fields." },
+
 
       /* Exchanges */
       binance:   { title: "Binance",  desc: "Leading global crypto exchange for spot, futures, and earn." },
@@ -126,6 +134,7 @@ window.I18N = {
     }
   }
 };
+
 
 
 
