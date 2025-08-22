@@ -97,19 +97,19 @@ window.LINKS = {
 	  {
   id: "allowance",
   href: "https://allowance.menglayer.lol/",
-  img: IMG + "allowance.jpg",   // 先用站点通用图标；有专属图后替换
+  img: IMG + "allowance.png",   // 先用站点通用图标；有专属图后替换
   open: "modal"               // 如需新开标签页，改成 "blank"
 },
 {
   id: "subdomain",
   href: "https://subdomain.menglayer.lol/",
-  img: IMG + "subdomain.jpg",
+  img: IMG + "subdomain.png",
   open: "modal"
 },
 {
   id: "e712",
   href: "https://e712.menglayer.lol/",
-  img: IMG + "e712.jpg",
+  img: IMG + "e712.png",
   open: "modal"
 }
   ],
@@ -128,6 +128,7 @@ window.LINKS = {
     { id:"t212",        href:"https://www.trading212.com/invite/19BZbbUMir", img:IMG + "icon-t212.jpg" }
   ]
 };
+
 
 
 
