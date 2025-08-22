@@ -111,6 +111,12 @@ window.LINKS = {
   href: "https://e712.menglayer.lol/",
   img: IMG + "e712.png",
   open: "modal"
+},
+	  {
+  id: "vanity",
+  href: "https://vanity.menglayer.lol/",
+  img: IMG + "vanity.png"   // 放一张图到 assets/images/vanity.jpg
+  // 不写 open 或 open:"modal" => 默认以弹窗方式在 iframe 内打开
 }
   ],
   exchanges: [
@@ -128,6 +134,7 @@ window.LINKS = {
     { id:"t212",        href:"https://www.trading212.com/invite/19BZbbUMir", img:IMG + "icon-t212.jpg" }
   ]
 };
+
 
 
 
