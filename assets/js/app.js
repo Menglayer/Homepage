@@ -14,6 +14,14 @@
     "weixin.qq.com", "wx.tenpay.com",
     "paypal.com", "pay.google.com", "pay.apple.com"
   ];
+  
+  const IFRAME_ALLOW_HOSTS = ["menglayer.lol"];
+  function canIframe(url){
+    try{
+      const h = new URL(url).hostname;
+      return IFRAME_ALLOW_HOSTS.some(d => h === d || h.endsWith("." + d));
+    }catch{ return false; }
+  }
   function hostnameMatch(h, domain){
     return h === domain || h.endsWith("." + domain);
   }
@@ -125,10 +133,11 @@
 
       el.innerHTML = scored.map(({ item }) => {
         const isTool = container === "tools";
-        const openBlank = isTool ? (item.open === "blank" || shouldForceTop(item.href)) : true;
+        const openBlank = isTool ? (!canIframe(item.href) || item.open === "blank" || shouldForceTop(item.href)) : true;
+        const relAttr = `rel="noopener noreferrer nofollow ugc"`;
         const aAttrs = openBlank
-          ? `href="${item.href}" target="_blank" rel="noopener"`
-          : `href="#" data-open="tool" data-href="${item.href}" data-id="${item.id}" data-img="${item.img || ''}"`;
+          ? `href="${item.href}" target="_blank" ${relAttr}`
+          : `href="#" ${relAttr} data-open="tool" data-href="${item.href}" data-id="${item.id}" data-img="${item.img || ''}"`;
         return `
         <div class="card">
           <a ${aAttrs}>
