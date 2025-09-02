@@ -10,7 +10,7 @@ window.LINKS = {
       open: "modal"          // 保持原来的弹窗打开
     },
     {
-      id: "addrproof",
+      id: "DocMergeTool",
       href: "https://www.addrproof.top?referrerCode=8085970963",
       img: IMG + "addproof.png",
       open: "modal"          // 新开页面
@@ -134,6 +134,7 @@ window.LINKS = {
     { id:"t212",        href:"https://www.trading212.com/invite/19BZbbUMir", img:IMG + "icon-t212.jpg" }
   ]
 };
+
 
 
 
