@@ -373,104 +373,58 @@ body::before{
   box-shadow:var(--shadow); transition:.16s ease;
 }
 .copybtn:hover{ border-color:var(--ring); transform: translateY(-1px); }
-/* === 独立捐赠方块（右侧小卡片） === */
-.hero{ position: relative; } /* 确保绝对定位基于资料卡 */
+/* === Donate (simplified): icon + link, no effects === */
+.hero{ position:relative; padding-right:0 !important; }
+
+.donate-cta,
+.donate-cta *{
+  animation:none !important;
+  transition:none !important;
+}
 
 .donate-cta{
-  position:absolute;
-  right:20px; top:50%; transform: translateY(-50%);
-  display:inline-flex; align-items:center; gap:10px;
-  padding:12px 14px;
-  border-radius:16px; border:1px solid var(--border);
-  background: linear-gradient(180deg, rgba(103,238,255,.06), #fff);
+  position: static !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  margin-top: 10px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: #fff;
   box-shadow: var(--shadow);
-  text-decoration:none; color:var(--text);
-  font-weight:800; white-space:nowrap;
-}
-.donate-cta .emoji{ font-size:18px; line-height:1; }
-.donate-cta:hover{ border-color:var(--ring); transform: translateY(-50%) translateY(-1px); box-shadow: var(--shadow-lg); }
-
-/* 移动端回落：不遮挡、不溢出 */
-@media (max-width: 880px){
-  .donate-cta{
-    position: static; transform:none;
-    width:100%; justify-content:center; margin-top:10px;
-  }
-}
-/* ===== 捐赠方块（与头像等大） ===== */
-:root{ --donate-size: 108px; } /* 兜底尺寸，实际会由 JS 同步为头像大小 */
-
-.hero{ position: relative; }
-
-/* 右侧定位：桌面端浮在资料卡右侧中央 */
-.donate-cta{
-  position:absolute; right:20px; top:50%; transform: translateY(-50%);
-  width: var(--donate-size); height: var(--donate-size);
-  border-radius: 22px; isolation:isolate; text-decoration:none;
-  display:block;
+  text-decoration: none;
+  color: var(--text);
 }
 
-/* 旋转高光描边（不遮住内部内容） */
-.donate-cta::before{
-  content:""; position:absolute; inset:-2px; border-radius: inherit;
-  background: conic-gradient(from 0deg, #7aefff, #03d1ff 35%, #7aefff);
-  animation: donate-spin 6s linear infinite;
-  padding:2px;
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor; mask-composite: exclude; /* 做出“空心描边” */
-}
+.donate-cta::before{ display:none !important; }
 
-/* 内层：发光 + 浮动动效 */
 .donate-inner{
-  position:relative; z-index:1;
-  width:100%; height:100%;
-  border-radius: inherit;
-  background: linear-gradient(180deg, rgba(103,238,255,.10), #fff);
-  border:1px solid var(--border);
-  box-shadow: var(--shadow);
-  display:flex; align-items:center; justify-content:center;
-  animation: donate-float 3.2s ease-in-out infinite, donate-glow 2.6s ease-in-out infinite;
-  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  all: unset;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  height:100%;
 }
 
-.donate-cta:hover .donate-inner{
-  transform: translateY(-2px) scale(1.03);
-  border-color: var(--ring);
-  box-shadow: var(--shadow-lg);
+.donate-cta .emoji{ font-size:20px; line-height:1; }
+
+.donate-cta:hover{
+  transform:none !important;
+  border-color: var(--border) !important;
+  box-shadow: var(--shadow) !important;
 }
 
-.donate-cta .emoji{
-  font-size: calc(var(--donate-size) / 2.2);
-  line-height:1;
-}
-
-/* 给资料卡右侧留出空间，避免重叠（仅桌面端） */
-@media (min-width: 881px){
-  .hero{ padding-right: calc(var(--donate-size) + 36px); }
-}
-
-/* 移动端：回落到卡片下方，居中显示 */
+/* On small screens keep same size */
 @media (max-width: 880px){
-  .donate-cta{
-    position: static; transform:none; margin:12px auto 0;
-    width: 92px; height: 92px; /* 移动端略小 */
-  }
-  .donate-cta .emoji{ font-size: 38px; }
+  .donate-cta{ width:40px; height:40px; margin-top:10px; }
 }
+/* === End Donate (simplified) === */
 
-/* 动画关键帧 */
-@keyframes donate-float{
-  0%,100%{ transform: translateY(0); }
-  50%    { transform: translateY(-6px); }
-}
-@keyframes donate-glow{
-  0%,100%{ box-shadow: 0 6px 16px rgba(0, 209, 255, .14); }
-  50%    { box-shadow: 0 10px 22px rgba(0, 209, 255, .26); }
-}
-@keyframes donate-spin{
-  to{ transform: rotate(360deg); }
-}
-/* ===== Tool Loader (iframe 进度条) ===== */
+/\* ===== Tool Loader \(iframe 进度条\) ===== \*/
 .modal-box{ position: relative; } /* 确保覆盖层可定位 */
 
 .tool-loader{
