@@ -29,6 +29,7 @@ window.I18N = {
 	loading_slow_tip: "如 10 秒内未加载完成，可能站点较慢或屏蔽 iframe。",
     cards: {
       /* 工具 */
+	  dca_calc: {title: "人类文明基石定投计算器",desc: "围绕 BTC / 黄金 / 指数等文明基石资产，做多资产定投回测与收益、回撤分析。"},
       falcon: { title: "Falcon 空投计算器", desc: "估算你的 $Falcon 空投额度。" },
 	  jane: { title: "Jane 收益面板", desc: "一键对比 USD3 / LP / YT 三种仓位的日收益、权重与总年化。"},
 	  DocMergeTool: { title: "地址生成器", desc: "一键生成地址/居住照片/PDF。" },
@@ -100,6 +101,7 @@ window.I18N = {
 	loading_slow_tip: "If it takes over 10s, the site may be slow or blocking iframes.",
     cards: {
       /* Tools */
+	  dca_calc: {title: "Civilization Foundation DCA Calculator",desc: "Backtest DCA into BTC, gold and index 'civilization base assets' with returns & drawdowns." },
       falcon: { title: "Falcon Airdrop Calculator", desc: "Estimate your $Falcon airdrop value" },
 	  jane: {title: "Jane Yield Dashboard",desc: "Compare daily returns and weights of USD3 / LP / YT positions in one view."},
 	  DocMergeTool: { title: "Address Generator", desc: "Instantly generate address/residency Picture&PDF." },
@@ -140,6 +142,7 @@ window.I18N = {
     }
   }
 };
+
 
 
 
