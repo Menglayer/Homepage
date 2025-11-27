@@ -13,7 +13,7 @@ window.LINKS = {
     {
       id: "jane",
       href: "https://jane.menglayer.lol/",
-      img: IMG + "jane.jpg",   // 建议放一张 512x512 左右的图到 assets/images/jane.jpg
+      img: IMG + "jane.png",   // 建议放一张 512x512 左右的图到 assets/images/jane.jpg
       open: "modal"            // 和其他工具一样走站内弹窗
     },
     {
@@ -141,6 +141,7 @@ window.LINKS = {
     { id:"t212",        href:"https://www.trading212.com/invite/19BZbbUMir", img:IMG + "icon-t212.jpg" }
   ]
 };
+
 
 
 
