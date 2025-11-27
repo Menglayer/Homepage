@@ -9,6 +9,13 @@ window.LINKS = {
       img: IMG + "falcon.png",
       open: "modal"          // 保持原来的弹窗打开
     },
+	  // === 新增：Jane 收益面板 ===
+    {
+      id: "jane",
+      href: "https://jane.menglayer.lol/",
+      img: IMG + "jane.jpg",   // 建议放一张 512x512 左右的图到 assets/images/jane.jpg
+      open: "modal"            // 和其他工具一样走站内弹窗
+    },
     {
       id: "DocMergeTool",
       href: "https://www.addrproof.top?referrerCode=8085970963",
@@ -134,6 +141,7 @@ window.LINKS = {
     { id:"t212",        href:"https://www.trading212.com/invite/19BZbbUMir", img:IMG + "icon-t212.jpg" }
   ]
 };
+
 
 
 
