@@ -30,6 +30,19 @@
   <script defer src="assets/js/app.js"></script>
 </head>
 <body>
+  <div id="crash-screen" style="display:none; position:fixed; inset:0; z-index:9999; background:#e9fcff; align-items:center; justify-content:center; flex-direction:column; text-align:center; padding:20px;">
+    <h2 style="color:#0e1220; margin:0 0 10px;">😵‍💫 糟糕，页面出错了</h2>
+    <p style="color:#5c6b82; font-size:14px;">可能是网络问题或配置文件有误。</p>
+    <p style="font-family:monospace; margin-top:10px; opacity:0.6; font-size:12px;" id="crash-log"></p>
+  </div>
+  <script>
+    window.onerror = function(msg, url, line) {
+      document.getElementById('crash-screen').style.display = 'flex';
+      document.getElementById('crash-log').textContent = msg + " (Line: " + line + ")";
+      var app = document.getElementById('app'); if(app) app.style.display = 'none';
+    };
+  </script>
+
   <main class="wrap" id="app">
     <nav class="navbar">
       <div class="brand">
@@ -90,6 +103,8 @@
       <p data-i18n="footer_note">made by @Menglayer</p>
     </footer>
   </main>
+
+  <button id="backToTop" class="back-to-top" aria-label="Back to Top">↑</button>
 
   <div class="modal" id="toolModal" aria-hidden="true">
     <div class="modal-box">
