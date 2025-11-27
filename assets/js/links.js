@@ -3,6 +3,13 @@
 const IMG = "assets/images/";
 window.LINKS = {
   tools: [
+	  // ✅ 新增：人类文明基石定投计算器
+  {
+    id: "dca_calc",
+    href: "https://civ.menglayer.lol/",
+    img: IMG + "civ.jpg",
+    open: "modal"
+  },
     {
       id: "falcon",
       href: "https://falcon.menglayer.lol/",
@@ -141,6 +148,7 @@ window.LINKS = {
     { id:"t212",        href:"https://www.trading212.com/invite/19BZbbUMir", img:IMG + "icon-t212.jpg" }
   ]
 };
+
 
 
 
