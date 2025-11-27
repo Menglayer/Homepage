@@ -30,6 +30,7 @@ window.I18N = {
     cards: {
       /* 工具 */
       falcon: { title: "Falcon 空投计算器", desc: "估算你的 $Falcon 空投额度。" },
+	  jane: { title: "Jane 收益面板", desc: "一键对比 USD3 / LP / YT 三种仓位的日收益、权重与总年化。"},
 	  DocMergeTool: { title: "地址生成器", desc: "一键生成地址/居住照片/PDF。" },
 	  bnalpha: { title: "币安 Alpha 助手",  desc: "Alpha信号助手,空投闹钟提醒。" },
 	  pendleyt: { title: "Pendle YT计算器",  desc: "计算 YT 到期赎回价值、贴现/年化收益率与盈亏平衡点." },
@@ -100,6 +101,7 @@ window.I18N = {
     cards: {
       /* Tools */
       falcon: { title: "Falcon Airdrop Calculator", desc: "Estimate your $Falcon airdrop value" },
+	  jane: {title: "Jane Yield Dashboard",desc: "Compare daily returns and weights of USD3 / LP / YT positions in one view."},
 	  DocMergeTool: { title: "Address Generator", desc: "Instantly generate address/residency Picture&PDF." },
 	  bnalpha: { title: "Binance Alpha Assistant",   desc: "Alpha signal assistant, airdrop alarm reminder!" },
 	  pendleyt: { title: "Pendle YT Calculator",       desc: "Compute YT redemption value, discount/APY." },
@@ -138,6 +140,7 @@ window.I18N = {
     }
   }
 };
+
 
 
 
