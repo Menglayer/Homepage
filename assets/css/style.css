@@ -24,7 +24,7 @@ body{
   background: transparent;
 }
 
-/* === 背景终极版 (V4 High-Contrast) === */
+/* === 背景终极版 (GPU加速优化) === */
 body::before{
   content:"";
   position:fixed; inset:-20vmax; z-index:-1; pointer-events:none;
@@ -33,12 +33,9 @@ body::before{
     radial-gradient(52vmax 52vmax at 108% -12%, rgba(122,239,255,.40), rgba(122,239,255,0) 65%),
     linear-gradient(180deg, #7AEFFF 0%, #9AF4FF 22%, #C9F8FF 48%, #EEFcff 75%, #FFFFFF 100%);
   background-repeat:no-repeat;
-  
-  /* ✅ 优化：开启 GPU 加速，提升移动端滚动流畅度 */
-  will-change: transform;
+  will-change: transform; /* 性能优化 */
   transform: translateZ(0);
 }
-
 @media (max-width: 768px){
   body::before{
     background:
@@ -136,7 +133,13 @@ h2{font-size:18px;font-weight:800;margin:0 0 16px;color:#093143; letter-spacing:
 .card .row{display:flex;gap:14px;align-items:center}
 .icon{width:48px;height:48px;border-radius:14px;background:#fff;display:grid;place-items:center;border:1px solid var(--border);box-shadow:var(--shadow); transition: .2s;}
 .card:hover .icon { border-color: rgba(8,145,178,.4); box-shadow: 0 0 0 3px rgba(34,211,238,.15); }
-.icon img{width:38px;height:38px;object-fit:contain}
+
+/* 图片淡入优化 */
+.icon img {
+  width:38px;height:38px;object-fit:contain;
+  opacity: 0; transition: opacity 0.4s ease-out;
+}
+
 .title{font-weight:800;font-size:16px;margin:0 0 4px}
 .desc{color:var(--muted);font-size:13px;margin:0; line-height: 1.5;}
 
@@ -191,18 +194,30 @@ footer{margin-top:48px;color:var(--muted);font-size:12px; text-align: center; op
   .hero .donate-cta { position: absolute; top: 16px; right: 16px; margin:0; }
 }
 
-/* ✅ 新增：自定义滚动条样式 (搭配蓝色主题) */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+/* === 新增优化项 === */
+
+/* 自定义滚动条 */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: rgba(189, 246, 255, 0.3); }
+::-webkit-scrollbar-thumb { background: rgba(8, 145, 178, 0.4); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(8, 145, 178, 0.7); }
+
+/* 键盘访问光晕 (Accessibility) */
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+.card a:focus-visible { outline: none; }
+.card a:focus-visible .icon { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(34,211,238,.3); transform: scale(1.05); }
+
+/* 回到顶部按钮 */
+.back-to-top {
+  position: fixed; bottom: 30px; right: 24px;
+  width: 44px; height: 44px;
+  background: rgba(255,255,255,0.8); backdrop-filter: blur(4px);
+  border: 1px solid var(--border); border-radius: 50%;
+  box-shadow: var(--shadow);
+  color: var(--accent); font-size: 20px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; opacity: 0; pointer-events: none; transform: translateY(10px);
+  transition: .3s ease; z-index: 90;
 }
-::-webkit-scrollbar-track {
-  background: rgba(189, 246, 255, 0.3); 
-}
-::-webkit-scrollbar-thumb {
-  background: rgba(8, 145, 178, 0.4);
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(8, 145, 178, 0.7);
-}
+.back-to-top.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
+.back-to-top:hover { background: var(--accent); color: #fff; border-color: transparent; }
