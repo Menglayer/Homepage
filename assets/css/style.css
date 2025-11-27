@@ -24,7 +24,7 @@ body{
   background: transparent;
 }
 
-/* === 背景终极版 (GPU加速优化) === */
+/* === 背景终极版 (GPU加速) === */
 body::before{
   content:"";
   position:fixed; inset:-20vmax; z-index:-1; pointer-events:none;
@@ -33,7 +33,7 @@ body::before{
     radial-gradient(52vmax 52vmax at 108% -12%, rgba(122,239,255,.40), rgba(122,239,255,0) 65%),
     linear-gradient(180deg, #7AEFFF 0%, #9AF4FF 22%, #C9F8FF 48%, #EEFcff 75%, #FFFFFF 100%);
   background-repeat:no-repeat;
-  will-change: transform; /* 性能优化 */
+  will-change: transform;
   transform: translateZ(0);
 }
 @media (max-width: 768px){
@@ -42,6 +42,12 @@ body::before{
       radial-gradient(90vw 90vw at 50% -25%, rgba(122,239,255,.45), rgba(122,239,255,0) 70%),
       linear-gradient(180deg, #7AEFFF 0%, #a8f5ff 50%, #ffffff 100%);
   }
+}
+
+/* === 全局选区颜色 (品牌化细节) === */
+::selection {
+  background: rgba(34, 211, 238, 0.3);
+  color: #0e1220;
 }
 
 .wrap{max-width:1080px;margin:40px auto 80px;padding:0 24px;}
@@ -114,6 +120,12 @@ h2{font-size:18px;font-weight:800;margin:0 0 16px;color:#093143; letter-spacing:
   animation: fadeUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
 }
 
+/* === 移动端按压回弹 (Tap Feedback) === */
+.card:active {
+  transform: scale(0.98);
+  background: rgba(255,255,255,0.7);
+}
+
 .card::after{
   content:""; position:absolute; inset:0; border-radius: inherit; padding: 2px;
   background: linear-gradient(135deg, #22d3ee, #0284c7);
@@ -127,17 +139,36 @@ h2{font-size:18px;font-weight:800;margin:0 0 16px;color:#093143; letter-spacing:
   filter: blur(14px); opacity: 0; transition: opacity .2s ease; pointer-events: none; z-index: -1;
 }
 .card:hover{ transform: translateY(-4px); box-shadow: 0 16px 44px rgba(8,145,178,.22); border-color:transparent;}
+.card:hover:active{ transform: translateY(-4px) scale(0.98); } /* 修复 PC 端 hover+active 的冲突 */
 .card:hover::after, .card:hover::before{ opacity: 1; }
 
 .card a{color:var(--text);text-decoration:none;display:block}
 .card .row{display:flex;gap:14px;align-items:center}
-.icon{width:48px;height:48px;border-radius:14px;background:#fff;display:grid;place-items:center;border:1px solid var(--border);box-shadow:var(--shadow); transition: .2s;}
+
+/* === 图标 & 骨架屏流光 (Skeleton Shimmer) === */
+.icon{
+  width:48px;height:48px;border-radius:14px;
+  background:#f0f4f8; /* 骨架屏底色 */
+  display:grid;place-items:center;border:1px solid var(--border);box-shadow:var(--shadow); transition: .2s;
+  position: relative; overflow: hidden; /* 为流光做准备 */
+}
+/* 闪光动画 */
+.icon::before {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+  transform: translateX(-100%);
+  animation: shimmer 1.5s infinite;
+  z-index: 0;
+}
+@keyframes shimmer { 100% { transform: translateX(100%); } }
+
 .card:hover .icon { border-color: rgba(8,145,178,.4); box-shadow: 0 0 0 3px rgba(34,211,238,.15); }
 
-/* 图片淡入优化 */
-.icon img {
+/* 图片覆盖在骨架屏之上 */
+.icon img{
   width:38px;height:38px;object-fit:contain;
   opacity: 0; transition: opacity 0.4s ease-out;
+  position: relative; z-index: 1; 
 }
 
 .title{font-weight:800;font-size:16px;margin:0 0 4px}
@@ -194,20 +225,15 @@ footer{margin-top:48px;color:var(--muted);font-size:12px; text-align: center; op
   .hero .donate-cta { position: absolute; top: 16px; right: 16px; margin:0; }
 }
 
-/* === 新增优化项 === */
-
-/* 自定义滚动条 */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: rgba(189, 246, 255, 0.3); }
 ::-webkit-scrollbar-thumb { background: rgba(8, 145, 178, 0.4); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(8, 145, 178, 0.7); }
 
-/* 键盘访问光晕 (Accessibility) */
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
 .card a:focus-visible { outline: none; }
 .card a:focus-visible .icon { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(34,211,238,.3); transform: scale(1.05); }
 
-/* 回到顶部按钮 */
 .back-to-top {
   position: fixed; bottom: 30px; right: 24px;
   width: 44px; height: 44px;
@@ -221,3 +247,7 @@ footer{margin-top:48px;color:var(--muted);font-size:12px; text-align: center; op
 }
 .back-to-top.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
 .back-to-top:hover { background: var(--accent); color: #fff; border-color: transparent; }
+
+/* 错误页面样式 */
+#crash-screen h2 { color: #0e1220; margin: 0 0 10px; }
+#crash-screen p { color: #5c6b82; font-size: 14px; }
