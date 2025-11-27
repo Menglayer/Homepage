@@ -2,97 +2,65 @@
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta http-equiv="Content-Security-Policy"
-      content="default-src 'self';
-               img-src 'self' data: https:;
-               script-src 'self';
-               style-src 'self' 'unsafe-inline';
-               frame-src https://*.menglayer.lol;
-               connect-src 'self' https:;">
-
-  <!-- ===== Basic SEO ===== -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>陈小萌｜MengLayer</title>
-  <meta name="description" content="萌芽社区Menglayer —— 官方链接&工具导航">
-  <link rel="canonical" href="https://menglayer.lol/">
-  <meta name="robots" content="index,follow">
+  <meta name="description" content="萌芽社区官方工具导航">
+  
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#e9fcff">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  
+  <link rel="dns-prefetch" href="//www.binance.com">
+  <link rel="dns-prefetch" href="//www.okx.com">
+  <link rel="dns-prefetch" href="//x.com">
 
-  <!-- 站点配色 / Favicon（保留你原有设置） -->
-  <meta name="theme-color" content="#67eeff" />
-  <link rel="icon" type="image/png" href="assets/images/favicon.jpg" />
-
-  <!-- ===== i18n (多语言) ===== -->
-  <link rel="alternate" hreflang="zh-CN" href="https://menglayer.lol/">
-  <link rel="alternate" hreflang="x-default" href="https://menglayer.lol/">
-  <!-- <link rel="alternate" hreflang="en" href="https://menglayer.lol/en/"> -->
-
-  <!-- ===== Open Graph / Twitter ===== -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="MengLayer｜萌芽社区">
-  <meta property="og:description" content="萌芽社区——官方链接&工具导航">
   <meta property="og:url" content="https://menglayer.lol/">
-  <meta property="og:image" content="https://menglayer.lol/og-cover0817.jpg?v=20250817">
-  <meta name="twitter:image" content="https://menglayer.lol/og-cover0817.jpg?v=20250817">
+  <meta property="og:title" content="陈小萌｜MengLayer 工具导航">
+  <meta property="og:description" content="萌芽社区官方工具导航：空投计算、DeFi 工具、收益分析一站式聚合。">
+  <meta property="og:image" content="assets/images/avatar.jpg">
   <meta name="twitter:card" content="summary_large_image">
 
-  <!-- ===== JSON-LD 结构化数据（Person） ===== -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "陈小萌",
-    "alternateName": "MengLayer",
-    "url": "https://menglayer.lol/",
-    "sameAs": [
-      "https://x.com/MengLayer",
-      "https://t.me/MengYaWeb3",
-      "https://discord.gg/Vk7tKpPZmB"
-    ]
-  }
-  </script>
-
-  <!-- Styles -->
+  <link rel="icon" type="image/png" href="assets/images/favicon.jpg" />
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
-  <div class="wrap" id="app">
-    <div class="navbar">
+  <main class="wrap" id="app">
+    <nav class="navbar">
       <div class="brand">
-        <img src="assets/images/favicon.jpg" alt="MengLayer icon" />
+        <img src="assets/images/favicon.jpg" alt="Icon" />
         <h1 class="title" data-i18n="site_title">萌芽社区</h1>
       </div>
       <div class="controls">
         <div class="searchbar">
-          <input id="search" class="search" type="search" placeholder="" aria-label="Search" autocomplete="off" />
+          <input id="search" class="search" type="search" aria-label="Search" autocomplete="off" />
         </div>
         <select id="lang" class="select" aria-label="Language">
           <option value="zh">中文</option>
           <option value="en">English</option>
         </select>
       </div>
-    </div>
+    </nav>
 
-    <div class="hero">
-      <div class="avatar"><img src="assets/images/avatar.jpg" alt="avatar" /></div>
+    <header class="hero">
+      <div class="avatar"><img src="assets/images/avatar.jpg" alt="Meng" /></div>
       <div>
         <h1 data-i18n="hero_title">陈小萌</h1>
-        <p class="tagline" data-i18n="hero_tagline">萌芽社区 Founder/BTC Holder/DEFI 玩家</p>
+        <p class="tagline" data-i18n="hero_tagline">萌芽社区 Founder/BTC Holder</p>
         <div class="actions">
-          <a class="pill" href="https://x.com/menglayer" target="_blank" rel="noopener" data-i18n="btn_x">关注 X（Twitter）</a>
-          <a class="pill" href="https://t.me/MengYaWeb3" target="_blank" rel="noopener" data-i18n="btn_tg">加入 Telegram 群</a>
-          <a class="pill" href="#" id="btnWeChat" data-open="wechat" data-i18n="btn_wechat">加入 微信群</a>
-          <a class="pill" href="https://discord.gg/Vk7tKpPZmB" target="_blank" rel="noopener" data-i18n="btn_discord">加入 Discord</a>
+          <a class="pill" href="https://x.com/menglayer" target="_blank" data-i18n="btn_x">关注 X</a>
+          <a class="pill" href="https://t.me/MengYaWeb3" target="_blank" data-i18n="btn_tg">Telegram</a>
+          <a class="pill" href="#" data-open="wechat" data-i18n="btn_wechat">微信群</a>
+          <a class="pill" href="https://discord.gg/Vk7tKpPZmB" target="_blank" data-i18n="btn_discord">Discord</a>
         </div>
-		<!-- 独立捐赠方块（在 .hero 里面，和 .avatar/.actions 同级） -->
-		<a class="donate-cta" href="#" data-open="donate" id="btnDonate" data-i18n-attr="aria-label:btn_donate" aria-label="请我喝咖啡">
-		  <span class="donate-inner"><span class="emoji" aria-hidden="true">☕</span></span>
-		</a>
+        <a class="donate-cta" href="#" data-open="donate" data-i18n-attr="aria-label:btn_donate">
+          <span class="donate-inner">☕</span>
+        </a>
       </div>
-    </div>
+    </header>
 
-    <!-- 新增：工具模块（位于交易所上方） -->
     <section>
-      <div class="headerline"></div>
       <h2 data-i18n="tools_title">工具</h2>
       <div class="grid" id="tools"></div>
     </section>
@@ -104,75 +72,67 @@
     </section>
 
     <section>
-      <h2 data-i18n="broker_title">出入金渠道 · 美/港股</h2>
+      <div class="headerline"></div>
+      <h2 data-i18n="broker_title">出入金渠道</h2>
       <div class="grid" id="broker"></div>
     </section>
 
-    <footer>
-      <p data-i18n="footer_note"></p>
-    </footer>
-  </div>
+    <div id="emptyState" class="empty-state">
+      <div class="empty-emoji">🌵</div>
+      <div id="emptyText" data-i18n="no_results_found">没有找到相关工具</div>
+    </div>
 
-  <!-- 工具弹窗 -->
+    <footer>
+      <p data-i18n="footer_note">made by @Menglayer</p>
+    </footer>
+  </main>
+
   <div class="modal" id="toolModal" aria-hidden="true">
-    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="toolTitle">
+    <div class="modal-box">
       <div class="modal-head">
-        <div id="toolTitle" class="title" data-i18n="falcon_modal_title">Falcon 空投计算器</div>
+        <div id="toolTitle" class="title">Tool</div>
         <button class="modal-close" id="toolClose" data-i18n="modal_close">关闭</button>
       </div>
-	        <!-- 👉 新增：加载进度条覆盖层（放在 iframe 前面） -->
-	        <div id="toolLoader" class="tool-loader" aria-hidden="true">
-	          <div class="tool-loader-box">
-	            <div class="tool-loader-title" data-i18n="loading_tool">正在加载工具…</div>
-	            <div class="tool-loader-bar">
-	              <span class="tool-loader-fill" style="width:0%"></span>
-	            </div>
-	            <p class="tool-loader-hint" data-i18n="loading_slow_tip">
-	              如 10 秒内未加载完成，可能对方站点较慢或屏蔽 iframe。
-	            </p>
-	            <button class="modal-close tool-open-newtab" id="toolOpenNewtab" data-i18n="open_newtab">
-	              新窗口打开
-	            </button>
-	          </div>
-	        </div>
-      <iframe id="toolFrame" class="modal-iframe" src="" title="Falcon Airdrop Estimator"></iframe>
+      <div id="toolLoader" class="tool-loader">
+        <div class="tool-loader-box">
+          <div class="tool-loader-title" data-i18n="loading_tool">正在加载...</div>
+          <div class="tool-loader-bar"><span class="tool-loader-fill"></span></div>
+          <p class="tool-loader-hint" data-i18n="loading_slow_tip">如加载慢请新窗口打开</p>
+          <button class="modal-close tool-open-newtab" id="toolOpenNewtab" data-i18n="open_newtab">新窗口打开</button>
+        </div>
+      </div>
+      <iframe id="toolFrame" class="modal-iframe" src="" sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-modals"></iframe>
     </div>
   </div>
 
-  <!-- 微信群二维码弹窗 -->
   <div class="modal" id="wechatModal" aria-hidden="true">
-    <div class="qr-box" role="dialog" aria-modal="true" aria-labelledby="wechatTitle">
+    <div class="qr-box modal-box" style="height:auto; width:min(400px,90vw);">
       <div class="modal-head">
-        <div id="wechatTitle" class="title">加入 微信群</div>
-        <button class="modal-close" id="wechatClose" data-close="wechat" data-i18n="modal_close">关闭</button>
+        <div class="title" data-i18n="btn_wechat">微信群</div>
+        <button class="modal-close" data-close="wechat">✕</button>
       </div>
-      <div class="qr-body">
-        <p class="qr-tip">请加小助手微信邀请入群：<strong>monii_xu</strong></p>
-        <img class="qr-img" src="assets/images/wechat-qr.jpg" alt="WeChat QR">
+      <div class="qr-body" style="padding:24px; text-align:center;">
+        <p class="qr-tip" style="margin-bottom:16px;">添加小助手邀请入群：<br><strong>monii_xu</strong></p>
+        <img class="qr-img" src="assets/images/wechat-qr.jpg" alt="QR" style="width:100%;border-radius:12px;">
       </div>
     </div>
   </div>
-  
-  <!-- 捐赠弹窗 -->
+
   <div class="modal" id="donateModal" aria-hidden="true">
-    <div class="donate-box" role="dialog" aria-modal="true" aria-labelledby="donateTitle">
+    <div class="donate-box">
       <div class="modal-head">
-        <div id="donateTitle" class="title" data-i18n="donate_title">请我喝杯咖啡</div>
-        <button class="modal-close" id="donateClose" data-close="donate" data-i18n="modal_close">关闭</button>
+        <div class="title" data-i18n="donate_title">支持我</div>
+        <button class="modal-close" data-close="donate">✕</button>
       </div>
       <div class="donate-body">
-        <p class="donate-tip" data-i18n="donate_desc">如果这个网站对你有帮助，欢迎小额捐赠支持。</p>
-        <div class="donate-grid"><!-- 由 JS 渲染具体卡片 --></div>
+        <p class="donate-tip" data-i18n="donate_desc">感谢支持！</p>
+        <div class="donate-grid"></div>
       </div>
     </div>
   </div>
 
-
-  <!-- Scripts -->
-  <script src="assets/js/i18n.js" defer></script>
-  <script src="assets/js/links.js" defer></script>
-  <script src="assets/js/app.js" defer></script>
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/links.js"></script>
+  <script src="assets/js/app.js"></script>
 </body>
 </html>
-
-

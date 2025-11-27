@@ -1,0 +1,20 @@
+{
+  "name": "MengLayer Community",
+  "short_name": "MengLayer",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#e9fcff",
+  "theme_color": "#e9fcff",
+  "icons": [
+    {
+      "src": "assets/images/favicon.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "assets/images/favicon.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}
