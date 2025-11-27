@@ -5,7 +5,7 @@ window.LINKS = {
   tools: [
 	  // ✅ 新增：人类文明基石定投计算器
   {
-    id: "dca_calc",
+    id: "civcalc",
     href: "https://civ.menglayer.lol/",
     img: IMG + "civ.png",
     open: "modal"
@@ -148,6 +148,7 @@ window.LINKS = {
     { id:"t212",        href:"https://www.trading212.com/invite/19BZbbUMir", img:IMG + "icon-t212.jpg" }
   ]
 };
+
 
 
 
