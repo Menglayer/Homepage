@@ -7,7 +7,7 @@ window.LINKS = {
   {
     id: "dca_calc",
     href: "https://civ.menglayer.lol/",
-    img: IMG + "civ.jpg",
+    img: IMG + "civ.png",
     open: "modal"
   },
     {
@@ -148,6 +148,7 @@ window.LINKS = {
     { id:"t212",        href:"https://www.trading212.com/invite/19BZbbUMir", img:IMG + "icon-t212.jpg" }
   ]
 };
+
 
 
 
