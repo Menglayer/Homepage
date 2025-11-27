@@ -29,7 +29,7 @@
     return i===q.length ? score : 0;
   }
   
-  // ✅ 新增：防抖函数 (优化性能)
+  // ✅ 防抖函数
   function debounce(fn, delay) {
     let timer = null;
     return function(...args) {
@@ -76,7 +76,7 @@
     const dictCards = (window.I18N?.[lang] || {}).cards || {};
     const q = (searchQuery || "").trim().toLowerCase();
 
-    // ✅ 优化：防止 window.LINKS 未加载导致的报错
+    // ✅ 数据健壮性检查
     const containers = {
       tools: window.LINKS?.tools || [],
       exchanges: window.LINKS?.exchanges || [],
@@ -112,14 +112,16 @@
             ? `href="${item.href}" target="_blank" rel="noopener noreferrer"`
             : `href="#" rel="noopener" data-open="tool" data-href="${item.href}" data-id="${item.id}"`;
           
-          // ✅ 优化：图片 onerror 处理 (如果图片挂了，显示 favicon)
+          // ✅ 图片加载优化 (淡入 + 失败兜底)
           return `
           <div class="card" ${delayStyle}>
             <a ${aAttrs}>
               <div class="row">
                 <div class="icon">
                   <img src="${item.img}" alt="${item.id}" loading="lazy" 
-                       onerror="this.onerror=null;this.src='assets/images/favicon.jpg';" />
+                       style="opacity:0; transition:opacity 0.4s"
+                       onload="this.style.opacity='1'"
+                       onerror="this.onerror=null;this.src='assets/images/favicon.jpg';this.style.opacity='1';" />
                 </div>
                 <div>
                   <p class="title">${(dictCards[item.id]?.title) || item.id}</p>
@@ -163,6 +165,10 @@
 
   function openToolModal(url, id){
     if (!toolModal || !toolFrame) return;
+    
+    // ✅ Analytics Hook (预留)
+    console.log(`[Analytics] Tool: ${id}`);
+
     const lang = localStorage.getItem("lang") || "zh";
     $("#toolTitle").textContent = (window.I18N?.[lang]?.cards?.[id]?.title) || "Tool";
     startLoader();
@@ -219,11 +225,22 @@
 
     const searchInput = $("#search");
     if (searchInput){
-      // ✅ 优化：使用防抖，输入停止 300ms 后再执行搜索
+      // ✅ 搜索防抖
       on(searchInput, "input", debounce(() => { 
         searchQuery = searchInput.value; 
         renderCards(); 
       }, 300));
+    }
+
+    // ✅ 回到顶部逻辑
+    const backBtn = $("#backToTop");
+    if (backBtn) {
+      window.addEventListener("scroll", () => {
+        backBtn.classList.toggle("show", window.scrollY > 300);
+      }, { passive: true });
+      backBtn.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
     }
 
     // Global Click Delegation
