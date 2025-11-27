@@ -1,430 +1,258 @@
 (function(){
   'use strict';
 
-  // ---------------------- Tiny helpers ----------------------
   const $  = (sel, ctx=document) => ctx.querySelector(sel);
   const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
   const on = (el, ev, fn, opts) => el && el.addEventListener(ev, fn, opts);
 
-  // ---------------------- Force-top domains (don't iframe) ----------------------
+  // Configuration
   const FORCE_TOP_DOMAINS = [
-    "addrproof.top",
-    "alipay.com", "alipayobjects.com",
-    "checkout.stripe.com", "hooks.stripe.com", "stripe.com",
-    "weixin.qq.com", "wx.tenpay.com",
-    "paypal.com", "pay.google.com", "pay.apple.com"
+    "addrproof.top", "alipay.com", "stripe.com", "paypal.com"
   ];
-  
   const IFRAME_ALLOW_HOSTS = ["menglayer.lol"];
+
+  // Helpers
   function canIframe(url){
-    try{
-      const h = new URL(url).hostname;
-      return IFRAME_ALLOW_HOSTS.some(d => h === d || h.endsWith("." + d));
-    }catch{ return false; }
-  }
-  function hostnameMatch(h, domain){
-    return h === domain || h.endsWith("." + domain);
+    try{ const h = new URL(url).hostname; return IFRAME_ALLOW_HOSTS.some(d => h === d || h.endsWith("."+d)); }catch{ return false; }
   }
   function shouldForceTop(url){
-    try{
-      const u = new URL(url);
-      return FORCE_TOP_DOMAINS.some(d => hostnameMatch(u.hostname, d));
-    }catch(e){
-      return false;
-    }
+    try{ const u = new URL(url); return FORCE_TOP_DOMAINS.some(d => u.hostname.includes(d)); }catch{ return false; }
   }
-
-  // ---------------------- Fuzzy search (very light) ----------------------
   function fuzzyScore(q, text){
     if (!q) return 1;
-    q = q.toLowerCase();
-    text = (text || "").toLowerCase();
-    let i = 0, score = 0;
+    q = q.toLowerCase(); text = (text||"").toLowerCase();
+    let i=0, score=0;
     for (const ch of text){
-      if (ch === q[i]){ score += 2; i++; if (i === q.length) break; }
-      else if (q.includes(ch)) score += 1;
+      if (ch===q[i]){ score+=2; i++; if(i===q.length) break; }
+      else if(q.includes(ch)) score+=1;
     }
-    return i === q.length ? score : 0;
+    return i===q.length ? score : 0;
+  }
+  
+  // ✅ 新增：防抖函数 (优化性能)
+  function debounce(fn, delay) {
+    let timer = null;
+    return function(...args) {
+      clearTimeout(timer);
+      timer = setTimeout(() => fn.apply(this, args), delay);
+    };
   }
 
-  // ---------------------- Global state ----------------------
+  // State
   let searchQuery = "";
 
-  // ---------------------- i18n apply ----------------------
+  // i18n
   function applyLang(lang){
     const dict = (window.I18N?.[lang]) || {};
     document.documentElement.setAttribute("lang", lang);
-
-    // Fill [data-i18n]
     $$("[data-i18n]").forEach(el => {
       const key = el.getAttribute("data-i18n");
-      const val = key ? (dict[key] ?? el.textContent) : null;
-      if (val != null) el.textContent = val;
+      if (dict[key]) el.textContent = dict[key];
     });
-	    // Fill [data-i18n-attr], e.g. data-i18n-attr="aria-label:btn_donate,title:btn_donate"
-	    $$("[data-i18n-attr]").forEach(el => {
-	      const spec = el.getAttribute("data-i18n-attr") || "";
-	      spec.split(",").forEach(pair => {
-	        const [attr, key] = pair.split(":").map(s => (s||"").trim());
-	        if (attr && key && dict[key] != null) {
-	          el.setAttribute(attr, dict[key]);
-	        }
-	      });
-	    });
-
-
-    // Search placeholder
+    $$("[data-i18n-attr]").forEach(el => {
+      el.getAttribute("data-i18n-attr").split(",").forEach(pair => {
+        const [attr, key] = pair.split(":").map(s=>s.trim());
+        if (dict[key]) el.setAttribute(attr, dict[key]);
+      });
+    });
     const search = $("#search");
-    if (search && dict.search_placeholder){
-      search.placeholder = dict.search_placeholder;
-      search.setAttribute("aria-label", dict.search_placeholder);
-    }
-
-    // Lang selector
+    if (search && dict.search_placeholder) search.placeholder = dict.search_placeholder;
     const sel = $("#lang");
-    if (sel){
-      const options = [
-        { value: "zh", label: "中文" },
-        { value: "en", label: "English" }
-      ];
-      sel.innerHTML = options.map(o => `<option value="${o.value}" ${o.value===lang?'selected':''}>${o.label}</option>`).join("");
-    }
+    if (sel) sel.innerHTML = `
+      <option value="zh" ${lang==='zh'?'selected':''}>中文</option>
+      <option value="en" ${lang==='en'?'selected':''}>English</option>
+    `;
 
-    // Re-render sections and donation cards
     renderCards();
     renderDonateCards();
+    
+    const emptyTxt = $("#emptyText");
+    if (emptyTxt) emptyTxt.textContent = dict.no_results_found || "No results found";
   }
 
-  // ---------------------- Render cards ----------------------
+  // Render Cards
   function renderCards(){
     const lang = localStorage.getItem("lang") || "zh";
     const dictCards = (window.I18N?.[lang] || {}).cards || {};
     const q = (searchQuery || "").trim().toLowerCase();
 
+    // ✅ 优化：防止 window.LINKS 未加载导致的报错
     const containers = {
       tools: window.LINKS?.tools || [],
       exchanges: window.LINKS?.exchanges || [],
       broker: window.LINKS?.broker || []
     };
 
+    let totalItems = 0;
+    let animDelayIndex = 0; 
+
     Object.entries(containers).forEach(([container, list]) => {
       const el = $(`#${container}`);
       if (!el) return;
 
-      // Score + filter by fuzzy
       const scored = (q ? list.map(item => {
-        const text = [
-          item.id,
-          (dictCards[item.id]?.title)||"",
-          (dictCards[item.id]?.desc)||""
-        ].join(" ");
+        const text = [item.id, dictCards[item.id]?.title, dictCards[item.id]?.desc].join(" ");
         return { item, score: fuzzyScore(q, text) };
       }).filter(x => x.score > 0).sort((a,b)=>b.score-a.score) : list.map(item => ({ item, score: 1 })));
 
-      // Hide empty section during search
       const section = el.closest("section");
-      if (q && scored.length === 0){
+      if (scored.length === 0){
         el.innerHTML = "";
         if (section) section.style.display = "none";
-        return;
       } else {
         if (section) section.style.display = "";
-      }
-
-      el.innerHTML = scored.map(({ item }) => {
-        const isTool = container === "tools";
-        const openBlank = isTool ? (!canIframe(item.href) || item.open === "blank" || shouldForceTop(item.href)) : true;
-        const relAttr = `rel="noopener noreferrer nofollow ugc"`;
-        const aAttrs = openBlank
-          ? `href="${item.href}" target="_blank" ${relAttr}`
-          : `href="#" ${relAttr} data-open="tool" data-href="${item.href}" data-id="${item.id}" data-img="${item.img || ''}"`;
-        return `
-        <div class="card">
-          <a ${aAttrs}>
-            <div class="row">
-              <div class="icon"><img src="${item.img}" alt="${item.id} logo" /></div>
-              <div>
-                <p class="title">${(dictCards[item.id]?.title) || ""}</p>
-                <p class="desc">${(dictCards[item.id]?.desc) || ""}</p>
+        totalItems += scored.length;
+        
+        el.innerHTML = scored.map(({ item }) => {
+          const isTool = container === "tools";
+          const openBlank = isTool ? (!canIframe(item.href) || item.open === "blank" || shouldForceTop(item.href)) : true;
+          const delayStyle = `style="animation-delay: ${animDelayIndex++ * 0.04}s"`;
+          
+          const aAttrs = openBlank
+            ? `href="${item.href}" target="_blank" rel="noopener noreferrer"`
+            : `href="#" rel="noopener" data-open="tool" data-href="${item.href}" data-id="${item.id}"`;
+          
+          // ✅ 优化：图片 onerror 处理 (如果图片挂了，显示 favicon)
+          return `
+          <div class="card" ${delayStyle}>
+            <a ${aAttrs}>
+              <div class="row">
+                <div class="icon">
+                  <img src="${item.img}" alt="${item.id}" loading="lazy" 
+                       onerror="this.onerror=null;this.src='assets/images/favicon.jpg';" />
+                </div>
+                <div>
+                  <p class="title">${(dictCards[item.id]?.title) || item.id}</p>
+                  <p class="desc">${(dictCards[item.id]?.desc) || ""}</p>
+                </div>
               </div>
-            </div>
-          </a>
-        </div>
-        `;
-      }).join("");
+            </a>
+          </div>
+          `;
+        }).join("");
+      }
     });
+
+    const emptyState = $("#emptyState");
+    if (emptyState) {
+      if (q && totalItems === 0) emptyState.classList.add("show");
+      else emptyState.classList.remove("show");
+    }
   }
 
-  // ---------------------- Tool Modal ----------------------
+  // Tool Modal
   const toolModal = $("#toolModal");
   const toolFrame = $("#toolFrame");
-  const toolClose = $("#toolClose");
-  
-    // ---- Tool Loader (progress) ----
-    const toolHead    = toolModal ? toolModal.querySelector(".modal-head") : null;
-    const toolLoader  = $("#toolLoader");
-    const openNewtab  = $("#toolOpenNewtab");
-    const barFillEl   = () => toolLoader?.querySelector(".tool-loader-fill");
-  
-    let toolProg = 0, toolTick = null, toolSlow = null, currentToolURL = "";
-  
-    function setToolProg(p){
-      toolProg = Math.max(0, Math.min(100, p));
-      const el = barFillEl(); if (el) el.style.width = toolProg + "%";
-    }
-    function resetLoaderImmediate(){
-      clearTimeout(toolTick); clearTimeout(toolSlow);
-      setToolProg(0);
-      if (toolLoader){
-        toolLoader.classList.remove("show","slow");
-        toolLoader.setAttribute("aria-hidden","true");
-        toolLoader.style.top = "0px";
-      }
-    }
-    function startLoader(){
-      if (!toolLoader) return;
-      resetLoaderImmediate();
-      // 让覆盖层不要遮住标题栏：同步头部高度
-      if (toolHead) toolLoader.style.top = toolHead.offsetHeight + "px";
-      toolLoader.classList.add("show");
-      toolLoader.setAttribute("aria-hidden","false");
-      setToolProg(8);
-  
-      const tick = () => {
-        if (toolProg < 92){
-          const delta = Math.max(0.5, (92 - toolProg) * 0.03);
-          setToolProg(toolProg + delta);
-          toolTick = setTimeout(tick, 160);
-        }
-      };
-      tick();
-  
-      // 10 秒兜底：显示“新窗口打开”按钮
-      toolSlow = setTimeout(()=>{ toolLoader.classList.add("slow"); }, 10000);
-    }
-    function finishLoader(){
-      clearTimeout(toolTick); clearTimeout(toolSlow);
-      setToolProg(100);
-      setTimeout(()=>{ resetLoaderImmediate(); }, 300);
-    }
-  
-    // 监听 iframe 完成（包括 about:blank）
-    function handleToolLoad(){ if (toolLoader?.classList.contains("show")) finishLoader(); }
-    on(toolFrame, "load", handleToolLoad);
-  
-    // 慢时兜底：新窗口打开
-    on(openNewtab, "click", (e)=>{
-      e.preventDefault();
-      if (currentToolURL) window.open(currentToolURL, "_blank", "noopener");
-    });
+  const toolLoader = $("#toolLoader");
+  let toolTick = null, toolSlow = null;
 
-
-   function openToolModal(url, id, img){
-     if (!toolModal || !toolFrame) return;
- 
-     // 标题
-     const lang = localStorage.getItem("lang") || "zh";
-     const dict = (window.I18N?.[lang] || {}).cards || {};
-     const title = dict?.[id]?.title || "Tool";
-     const titleEl = $("#toolTitle");
-     if (titleEl) titleEl.textContent = title;
- 
-     // 记录 URL，启动加载动画（先显示再设 src，避免白屏）
-     currentToolURL = url;
-     startLoader();
-     requestAnimationFrame(()=>{ toolFrame.src = url; });
- 
-     toolModal.classList.add("open");
-     toolModal.setAttribute("aria-hidden","false");
-     document.body.style.overflow = "hidden";
-   }
- 
-   function closeToolModal(){
-     if (!toolModal) return;
-     // 立刻收起 loader，防止关闭时闪烁
-     resetLoaderImmediate();
-     if (toolFrame) toolFrame.src = "about:blank";
-     currentToolURL = "";
- 
-     toolModal.classList.remove("open");
-     toolModal.setAttribute("aria-hidden","true");
-     document.body.style.overflow = "";
-   }
-  on(toolClose, "click", e => { e.preventDefault(); closeToolModal(); });
-
-  // ---------------------- WeChat Modal ----------------------
-  const wechatModal = $("#wechatModal");
-  function openWechatModal(){
-    if (!wechatModal) return;
-    wechatModal.classList.add("open");
-    wechatModal.setAttribute("aria-hidden","false");
-    document.body.style.overflow = "hidden";
+  function resetLoader(){
+    clearTimeout(toolTick); clearTimeout(toolSlow);
+    if(toolLoader) { toolLoader.classList.remove("show","slow"); toolLoader.querySelector(".tool-loader-fill").style.width="0%"; }
   }
-  function closeWechatModal(){
-    if (!wechatModal) return;
-    wechatModal.classList.remove("open");
-    wechatModal.setAttribute("aria-hidden","true");
-    document.body.style.overflow = "";
+  function startLoader(){
+    if(!toolLoader) return;
+    resetLoader();
+    toolLoader.classList.add("show");
+    let p = 5;
+    const fill = toolLoader.querySelector(".tool-loader-fill");
+    const tick = () => { if(p<95){ p += (95-p)*0.05; fill.style.width=p+"%"; toolTick=setTimeout(tick, 200); }};
+    tick();
+    toolSlow = setTimeout(()=>{ toolLoader.classList.add("slow"); }, 8000);
   }
 
-  // ---------------------- Donate Modal (NEW) ----------------------
-  // Configurable addresses – update these to your own
-  window.DONATE_METHODS = window.DONATE_METHODS || [
-    { id: "btc", icon: "₿", labelKey: "donate_btc", address: "bc1p3u0hpz4cyfyk6sxsjlnqaj97gctxpjruc70cpp0rf3cm7p96ejwsgkfa98" },
-    { id: "eth", icon: "Ξ", labelKey: "donate_eth", address: "0xe682aca5ee271827c828214952811ac34c90b8b5" },
-    { id: "sol", icon: "◎", labelKey: "donate_sol", address: "EYC2CX5ddSSzGbT88RzeiBNFDVntan8yYmPx5sNEmZ7K" },
-	 { id: "Tron", icon: "☘️", labelKey: "USDT（TRC20）", address: "TWiQw7UkZrwpG9orCbZ4NmSQN2ej1QjHAk" }
-  ];
-
-  const donateModal = $("#donateModal");
-  const donateGrid  = donateModal ? donateModal.querySelector(".donate-grid") : null;
-
-  function renderDonateCards(){
-    if (!donateGrid || !Array.isArray(window.DONATE_METHODS)) return;
+  function openToolModal(url, id){
+    if (!toolModal || !toolFrame) return;
     const lang = localStorage.getItem("lang") || "zh";
-    const dict = (window.I18N?.[lang] || {});
-    donateGrid.innerHTML = window.DONATE_METHODS.map(m => {
-      const label = dict[m.labelKey] || m.labelKey || "";
-      const addr  = m.address || "";
-      const safeId = `addr_${m.id}`;
-      const copyText = dict.donate_copy || "Copy";
-      return `
-        <div class="donate-card">
-          <div class="donate-head">
-            <span class="donate-emoji" aria-hidden="true">${m.icon || ""}</span>
-            <span class="donate-label">${label}</span>
-          </div>
-          <div class="donate-addr">
-            <code id="${safeId}" class="addr-code" title="${addr}">${addr}</code>
-            <button class="copybtn" data-copy="${addr}" aria-label="${copyText}">${copyText}</button>
-          </div>
-        </div>
-      `;
-    }).join("");
-  }
-
-  function openDonateModal(){
-    if (!donateModal) return;
-    renderDonateCards();
-    donateModal.classList.add("open");
-    donateModal.setAttribute("aria-hidden", "false");
+    $("#toolTitle").textContent = (window.I18N?.[lang]?.cards?.[id]?.title) || "Tool";
+    startLoader();
+    toolFrame.src = url;
+    toolModal.classList.add("open");
     document.body.style.overflow = "hidden";
   }
-  function closeDonateModal(){
-    if (!donateModal) return;
-    donateModal.classList.remove("open");
-    donateModal.setAttribute("aria-hidden", "true");
+  function closeToolModal(){
+    resetLoader();
+    toolModal.classList.remove("open");
+    toolFrame.src = "about:blank";
     document.body.style.overflow = "";
   }
+  
+  if (toolFrame) on(toolFrame, "load", resetLoader);
 
-  // ---------------------- Init ----------------------
+  // Donate & WeChat
+  const donateModal = $("#donateModal");
+  const wechatModal = $("#wechatModal");
+  
+  function renderDonateCards(){
+    const grid = donateModal?.querySelector(".donate-grid");
+    if (!grid || !window.DONATE_METHODS) return;
+    const lang = localStorage.getItem("lang") || "zh";
+    const dict = window.I18N?.[lang] || {};
+    grid.innerHTML = window.DONATE_METHODS.map(m => `
+      <div class="donate-card">
+        <div class="donate-head"><span class="donate-emoji">${m.icon}</span><span>${dict[m.labelKey]||m.labelKey}</span></div>
+        <div class="donate-addr">
+          <div class="addr-code">${m.address}</div>
+          <button class="copybtn" data-copy="${m.address}">${dict.donate_copy||"Copy"}</button>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  function toggleModal(m, show){
+    if(!m) return;
+    m.classList.toggle("open", show);
+    document.body.style.overflow = show ? "hidden" : "";
+    if (show && m === donateModal) renderDonateCards();
+  }
+
+  // Init
   document.addEventListener("DOMContentLoaded", () => {
-    // language init
     let lang = localStorage.getItem("lang");
-    if (!lang) {
-      const sys = (navigator.language || "zh").toLowerCase();
-      lang = sys.startsWith("zh") ? "zh" : "en";
-      localStorage.setItem("lang", lang);
-    }
+    if (!lang) { lang = navigator.language.toLowerCase().startsWith("zh") ? "zh" : "en"; localStorage.setItem("lang", lang); }
     applyLang(lang);
 
-    // lang switch
-    const sel = $("#lang");
-    if (sel) {
-      sel.addEventListener("change", () => {
-        const v = sel.value === "en" ? "en" : "zh";
-        localStorage.setItem("lang", v);
-        applyLang(v);
-      });
-    }
-
-    // search
-    const input = $("#search");
-    if (input){
-      const handler = () => { searchQuery = input.value || ""; renderCards(); };
-      on(input, "input", handler);
-      on(input, "change", handler);
-    }
-
-    // Click delegation
-    document.addEventListener("click", (e) => {
-      // Open tool in modal (unless forced-top)
-      const toolLink = e.target.closest('[data-open="tool"]');
-      if (toolLink){
-        e.preventDefault();
-        const href = toolLink.getAttribute("data-href");
-        const id   = toolLink.getAttribute("data-id");
-        if (href && !shouldForceTop(href)){
-          openToolModal(href, id, toolLink.getAttribute("data-img")||"");
-        } else if (href){
-          window.open(href, "_blank", "noopener");
-        }
-        return;
-      }
-
-      // WeChat modal
-      const openWechat = e.target.closest('[data-open="wechat"]');
-      if (openWechat){ e.preventDefault(); openWechatModal(); return; }
-
-      const closeWechat = e.target.closest('[data-close="wechat"]');
-      if (closeWechat){ e.preventDefault(); closeWechatModal(); return; }
-
-      // Donate modal
-      const openDonate = e.target.closest('[data-open="donate"]');
-      if (openDonate){ e.preventDefault(); openDonateModal(); return; }
-
-      const closeDonate = e.target.closest('[data-close="donate"]');
-      if (closeDonate){ e.preventDefault(); closeDonateModal(); return; }
-
-      // Copy buttons in donate modal
-      const copyBtn = e.target.closest('.copybtn');
-      if (copyBtn && copyBtn.dataset.copy){
-        const text = copyBtn.dataset.copy;
-        const lang2 = localStorage.getItem("lang") || "zh";
-        const dict2 = (window.I18N?.[lang2] || {});
-        const orig = copyBtn.textContent;
-        const doneText = dict2.donate_copied || "Copied!";
-        (async () => {
-          try{
-            await navigator.clipboard.writeText(text);
-          }catch{
-            // Fallback
-            const ta = document.createElement("textarea");
-            ta.value = text; document.body.appendChild(ta);
-            ta.select(); document.execCommand("copy"); ta.remove();
-          } finally {
-            copyBtn.textContent = doneText;
-            setTimeout(()=>{ copyBtn.textContent = orig; }, 1200);
-          }
-        })();
-        return;
-      }
-
-      // Tool modal close via head button
-      if (e.target.closest('#toolClose')) { e.preventDefault(); closeToolModal(); return; }
+    on($("#lang"), "change", (e) => {
+      localStorage.setItem("lang", e.target.value);
+      applyLang(e.target.value);
     });
 
-    // Keyboard: ESC to close modals
-    document.addEventListener("keydown", (e) => {
-      if (e.key !== "Escape") return;
-      if (toolModal?.classList.contains("open")) { e.preventDefault(); closeToolModal(); return; }
-      if (wechatModal?.classList.contains("open")) { e.preventDefault(); closeWechatModal(); return; }
-      if (donateModal?.classList.contains("open")) { e.preventDefault(); closeDonateModal(); return; }
+    const searchInput = $("#search");
+    if (searchInput){
+      // ✅ 优化：使用防抖，输入停止 300ms 后再执行搜索
+      on(searchInput, "input", debounce(() => { 
+        searchQuery = searchInput.value; 
+        renderCards(); 
+      }, 300));
+    }
+
+    // Global Click Delegation
+    document.addEventListener("click", e => {
+      const tool = e.target.closest('[data-open="tool"]');
+      if (tool) { e.preventDefault(); openToolModal(tool.dataset.href, tool.dataset.id); return; }
+
+      if (e.target.closest('[data-open="wechat"]')) { e.preventDefault(); toggleModal(wechatModal, true); return; }
+      if (e.target.closest('[data-close="wechat"]')) { e.preventDefault(); toggleModal(wechatModal, false); return; }
+
+      if (e.target.closest('[data-open="donate"]')) { e.preventDefault(); toggleModal(donateModal, true); return; }
+      if (e.target.closest('[data-close="donate"]')) { e.preventDefault(); toggleModal(donateModal, false); return; }
+      if (e.target.id === "toolClose") { e.preventDefault(); closeToolModal(); return; }
+
+      const btn = e.target.closest(".copybtn");
+      if (btn) {
+        navigator.clipboard.writeText(btn.dataset.copy).then(() => {
+          const raw = btn.textContent; btn.textContent = "OK!"; setTimeout(()=>btn.textContent=raw, 1000);
+        });
+      }
+      
+      if (e.target.classList.contains("modal")) {
+        if (e.target === toolModal) closeToolModal();
+        else toggleModal(e.target, false);
+      }
     });
 
-    // Safety: blur clicked card buttons/links to remove persistent focus ring
-    document.addEventListener('click', e => {
-      const el = e.target.closest('.card a, .card button');
-      if (el) el.blur();
+    document.addEventListener("keydown", e => {
+      if (e.key === "Escape") { closeToolModal(); toggleModal(wechatModal, false); toggleModal(donateModal, false); }
     });
   });
-
-  // Expose small debug surface
-  window.__ML__ = {
-    applyLang,
-    renderCards,
-    openToolModal, closeToolModal,
-    openWechatModal, closeWechatModal,
-    openDonateModal, closeDonateModal, renderDonateCards
-  };
 })();
