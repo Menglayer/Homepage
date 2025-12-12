@@ -1,0 +1,18 @@
+# secrets
+.env
+.env.*
+**/*.pem
+**/*.key
+**/*secret*
+**/*token*
+**/*credentials*
+
+# build/cache
+node_modules/
+dist/
+build/
+out/
+.next/
+.cache/
+coverage/
+**/*.log

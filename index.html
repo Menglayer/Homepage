@@ -1,59 +1,147 @@
 <!doctype html>
 <html lang="zh-CN">
+
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-  <title>陈小萌｜MengLayer</title>
-  <meta name="description" content="萌芽社区官方工具导航">
-  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
+  <title>陈小萌｜MengLayer - 萌芽社区官方工具导航</title>
+  <meta name="description"
+    content="萌芽社区官方工具导航：空投计算、DeFi 工具、收益分析一站式聚合。提供 Falcon、Backpack 等空投计算器，以及 Jane 收益面板、Pendle YT 计算器等专业工具。">
+  <meta name="keywords" content="MengLayer,萌芽社区,空投计算器,DeFi工具,加密货币工具,区块链工具">
+  <meta name="author" content="Menglayer">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://menglayer.lol/">
+
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#e9fcff">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  
+  <meta name="apple-mobile-web-app-title" content="MengLayer">
+  <link rel="apple-touch-icon" href="assets/images/favicon.jpg">
+
+  <!-- DNS预解析和预连接优化 -->
   <link rel="dns-prefetch" href="//www.binance.com">
   <link rel="dns-prefetch" href="//x.com">
-  <link rel="preload" as="image" href="assets/images/avatar.jpg">
+  <link rel="dns-prefetch" href="//t.me">
+  <link rel="dns-prefetch" href="//discord.gg">
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 
+  <!-- 关键资源预加载 -->
+  <link rel="preload" as="image" href="assets/images/avatar.jpg" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/images/favicon.jpg">
+  <link rel="preload" as="style" href="assets/css/style.css">
+  <link rel="preload" as="script" href="assets/js/i18n.js">
+  <link rel="preload" as="script" href="assets/js/links.js">
+  <link rel="preload" as="script" href="assets/js/app.js">
+
+  <!-- 资源提示：预获取可能需要的资源 -->
+  <link rel="prefetch" href="assets/images/wechat-qr.jpg">
+
+  <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://menglayer.lol/">
   <meta property="og:title" content="陈小萌｜MengLayer 工具导航">
   <meta property="og:description" content="萌芽社区官方工具导航：空投计算、DeFi 工具、收益分析一站式聚合。">
-  <meta property="og:image" content="assets/images/avatar.jpg">
-  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:image" content="https://menglayer.lol/assets/images/avatar.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:site_name" content="MengLayer">
 
-  <link rel="icon" type="image/png" href="assets/images/favicon.jpg" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://menglayer.lol/">
+  <meta name="twitter:title" content="陈小萌｜MengLayer 工具导航">
+  <meta name="twitter:description" content="萌芽社区官方工具导航：空投计算、DeFi 工具、收益分析一站式聚合。">
+  <meta name="twitter:image" content="https://menglayer.lol/assets/images/avatar.jpg">
+
+  <!-- 结构化数据 (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "MengLayer",
+    "alternateName": "萌芽社区",
+    "url": "https://menglayer.lol/",
+    "description": "萌芽社区官方工具导航：空投计算、DeFi 工具、收益分析一站式聚合",
+    "author": {
+      "@type": "Person",
+      "name": "陈小萌",
+      "alternateName": "Menglayer",
+      "url": "https://x.com/menglayer"
+    },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://menglayer.lol/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+  <link rel="icon" type="image/jpeg" href="assets/images/favicon.jpg" />
+  <style>
+    /* 屏幕阅读器专用 - 视觉隐藏但可访问 */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+  </style>
   <link rel="stylesheet" href="assets/css/style.css" />
 
   <script defer src="assets/js/i18n.js"></script>
   <script defer src="assets/js/links.js"></script>
   <script defer src="assets/js/app.js"></script>
 </head>
+
 <body>
-  <div id="crash-screen" style="display:none; position:fixed; inset:0; z-index:9999; background:#e9fcff; align-items:center; justify-content:center; flex-direction:column; text-align:center; padding:20px;">
+  <div id="crash-screen" role="alert" aria-live="assertive"
+    style="display:none; position:fixed; inset:0; z-index:9999; background:#e9fcff; align-items:center; justify-content:center; flex-direction:column; text-align:center; padding:20px;">
     <h2 style="color:#0e1220; margin:0 0 10px;">😵‍💫 糟糕，页面出错了</h2>
     <p style="color:#5c6b82; font-size:14px;">可能是网络问题或配置文件有误。</p>
-    <p style="font-family:monospace; margin-top:10px; opacity:0.6; font-size:12px;" id="crash-log"></p>
+    <p style="font-family:monospace; margin-top:10px; opacity:0.6; font-size:12px;" id="crash-log" aria-label="错误详情">
+    </p>
   </div>
   <script>
-    window.onerror = function(msg, url, line) {
-      document.getElementById('crash-screen').style.display = 'flex';
-      document.getElementById('crash-log').textContent = msg + " (Line: " + line + ")";
-      var app = document.getElementById('app'); if(app) app.style.display = 'none';
-    };
+    (function () {
+      'use strict';
+      window.addEventListener('error', function (e) {
+        const crashScreen = document.getElementById('crash-screen');
+        const crashLog = document.getElementById('crash-log');
+        const app = document.getElementById('app');
+        if (crashScreen && crashLog) {
+          crashScreen.style.display = 'flex';
+          crashLog.textContent = (e.message || '未知错误') + ' (Line: ' + (e.lineno || '?') + ')';
+        }
+        if (app) app.style.display = 'none';
+        if (window.console && console.error) {
+          console.error('页面错误:', e);
+        }
+      }, false);
+    })();
   </script>
 
   <main class="wrap" id="app">
-    <nav class="navbar">
+    <nav class="navbar" role="navigation" aria-label="主导航">
       <div class="brand">
-        <img src="assets/images/favicon.jpg" alt="Icon" />
+        <img src="assets/images/favicon.jpg" alt="MengLayer Logo" width="40" height="40" loading="eager"
+          decoding="async" />
         <h1 class="title" data-i18n="site_title">萌芽社区</h1>
       </div>
       <div class="controls">
         <div class="searchbar">
-          <input id="search" class="search" type="search" aria-label="Search" autocomplete="off" />
+          <label for="search" class="sr-only">搜索工具、交易所或券商</label>
+          <input id="search" class="search" type="search" aria-label="搜索工具、交易所或券商" autocomplete="off"
+            enterkeyhint="search" />
         </div>
-        <select id="lang" class="select" aria-label="Language">
+        <label for="lang" class="sr-only">选择语言</label>
+        <select id="lang" class="select" aria-label="选择语言">
           <option value="zh">中文</option>
           <option value="en">English</option>
         </select>
@@ -61,37 +149,39 @@
     </nav>
 
     <header class="hero">
-      <div class="avatar"><img src="assets/images/avatar.jpg" alt="Meng" /></div>
+      <div class="avatar">
+        <img src="assets/images/avatar.jpg" alt="陈小萌头像" width="120" height="120" loading="eager" decoding="async" />
+      </div>
       <div>
         <h1 data-i18n="hero_title">陈小萌</h1>
         <p class="tagline" data-i18n="hero_tagline">萌芽社区 Founder/BTC Holder</p>
-        <div class="actions">
-          <a class="pill" href="https://x.com/menglayer" target="_blank" data-i18n="btn_x">关注 X</a>
-          <a class="pill" href="https://t.me/MengYaWeb3" target="_blank" data-i18n="btn_tg">Telegram</a>
-          <a class="pill" href="#" data-open="wechat" data-i18n="btn_wechat">微信群</a>
-          <a class="pill" href="https://discord.gg/Vk7tKpPZmB" target="_blank" data-i18n="btn_discord">Discord</a>
-        </div>
-        <a class="donate-cta" href="#" data-open="donate" data-i18n-attr="aria-label:btn_donate">
-          <span class="donate-inner">☕</span>
-        </a>
+        <nav class="actions" aria-label="社交媒体链接">
+          <a class="pill" href="https://x.com/menglayer" target="_blank" rel="noopener noreferrer" data-i18n="btn_x"
+            aria-label="在X（Twitter）上关注">关注 X</a>
+          <a class="pill" href="https://t.me/MengYaWeb3" target="_blank" rel="noopener noreferrer" data-i18n="btn_tg"
+            aria-label="加入Telegram群组">Telegram</a>
+          <a class="pill" href="#" data-open="wechat" data-i18n="btn_wechat" aria-label="查看微信群二维码">微信群</a>
+          <a class="pill" href="https://discord.gg/Vk7tKpPZmB" target="_blank" rel="noopener noreferrer"
+            data-i18n="btn_discord" aria-label="加入Discord服务器">Discord</a>
+        </nav>
       </div>
     </header>
 
-    <section>
-      <h2 data-i18n="tools_title">工具</h2>
-      <div class="grid" id="tools"></div>
+    <section aria-labelledby="tools-heading">
+      <h2 id="tools-heading" data-i18n="tools_title">工具</h2>
+      <div class="grid" id="tools" role="list" aria-label="工具列表"></div>
     </section>
 
-    <section>
-      <div class="headerline"></div>
-      <h2 data-i18n="exchanges_title">交易所</h2>
-      <div class="grid" id="exchanges"></div>
+    <section aria-labelledby="exchanges-heading">
+      <div class="headerline" aria-hidden="true"></div>
+      <h2 id="exchanges-heading" data-i18n="exchanges_title">交易所</h2>
+      <div class="grid" id="exchanges" role="list" aria-label="交易所列表"></div>
     </section>
 
-    <section>
-      <div class="headerline"></div>
-      <h2 data-i18n="broker_title">出入金渠道</h2>
-      <div class="grid" id="broker"></div>
+    <section aria-labelledby="broker-heading">
+      <div class="headerline" aria-hidden="true"></div>
+      <h2 id="broker-heading" data-i18n="broker_title">出入金渠道</h2>
+      <div class="grid" id="broker" role="list" aria-label="出入金渠道列表"></div>
     </section>
 
     <div id="emptyState" class="empty-state">
@@ -104,50 +194,43 @@
     </footer>
   </main>
 
-  <button id="backToTop" class="back-to-top" aria-label="Back to Top">↑</button>
+  <button id="backToTop" class="back-to-top" aria-label="返回顶部" title="返回顶部">↑</button>
 
-  <div class="modal" id="toolModal" aria-hidden="true">
+  <div class="modal" id="toolModal" role="dialog" aria-modal="true" aria-labelledby="toolTitle" aria-hidden="true">
     <div class="modal-box">
       <div class="modal-head">
-        <div id="toolTitle" class="title">Tool</div>
-        <button class="modal-close" id="toolClose" data-i18n="modal_close">关闭</button>
+        <h3 id="toolTitle" class="title">Tool</h3>
+        <button class="modal-close" id="toolClose" data-i18n="modal_close" aria-label="关闭对话框">关闭</button>
       </div>
-      <div id="toolLoader" class="tool-loader">
+      <div id="toolLoader" class="tool-loader" role="status" aria-live="polite" aria-label="加载中">
         <div class="tool-loader-box">
           <div class="tool-loader-title" data-i18n="loading_tool">正在加载...</div>
-          <div class="tool-loader-bar"><span class="tool-loader-fill"></span></div>
+          <div class="tool-loader-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+            <span class="tool-loader-fill"></span>
+          </div>
           <p class="tool-loader-hint" data-i18n="loading_slow_tip">如加载慢请新窗口打开</p>
           <button class="modal-close tool-open-newtab" id="toolOpenNewtab" data-i18n="open_newtab">新窗口打开</button>
         </div>
       </div>
-      <iframe id="toolFrame" class="modal-iframe" src="" sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-modals"></iframe>
+      <iframe id="toolFrame" class="modal-iframe" src="" title="工具内容"
+        sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-modals" loading="lazy"></iframe>
     </div>
   </div>
 
-  <div class="modal" id="wechatModal" aria-hidden="true">
+  <div class="modal" id="wechatModal" role="dialog" aria-modal="true" aria-labelledby="wechatTitle" aria-hidden="true">
     <div class="qr-box modal-box" style="height:auto; width:min(400px,90vw);">
       <div class="modal-head">
-        <div class="title" data-i18n="btn_wechat">微信群</div>
-        <button class="modal-close" data-close="wechat">✕</button>
+        <h3 id="wechatTitle" class="title" data-i18n="btn_wechat">微信群</h3>
+        <button class="modal-close" data-close="wechat" aria-label="关闭对话框">✕</button>
       </div>
       <div class="qr-body" style="padding:24px; text-align:center;">
         <p class="qr-tip" style="margin-bottom:16px;">添加小助手邀请入群：<br><strong>monii_xu</strong></p>
-        <img class="qr-img" src="assets/images/wechat-qr.jpg" alt="QR" style="width:100%;border-radius:12px;">
+        <img class="qr-img" src="assets/images/wechat-qr.jpg" alt="微信群二维码" width="400" height="400"
+          style="width:100%;border-radius:12px;" loading="lazy" decoding="async" />
       </div>
     </div>
   </div>
 
-  <div class="modal" id="donateModal" aria-hidden="true">
-    <div class="donate-box">
-      <div class="modal-head">
-        <div class="title" data-i18n="donate_title">支持我</div>
-        <button class="modal-close" data-close="donate">✕</button>
-      </div>
-      <div class="donate-body">
-        <p class="donate-tip" data-i18n="donate_desc">感谢支持！</p>
-        <div class="donate-grid"></div>
-      </div>
-    </div>
-  </div>
 </body>
+
 </html>
