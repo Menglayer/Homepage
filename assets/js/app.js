@@ -9,7 +9,7 @@
   const FORCE_TOP_DOMAINS = [
     "addrproof.top", "alipay.com", "stripe.com", "paypal.com"
   ];
-  const IFRAME_ALLOW_HOSTS = ["menglayer.lol"];
+  const IFRAME_ALLOW_HOSTS = ["menglayer.cc"];
 
   // Tiny placeholder used for lazy-loaded icons
   const TRANSPARENT_PIXEL = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
@@ -112,6 +112,8 @@
 
     if (window.__searchTextCache) window.__searchTextCache.clear();
     renderCards();
+    // ✅ 重新观察新渲染的图片（解决语言切换后图标变白的问题）
+    setupImageObserver();
 
     const emptyTxt = $("#emptyText");
     if (emptyTxt) emptyTxt.textContent = dict.no_results_found || "No results found";
@@ -227,6 +229,23 @@
         el.innerHTML = "";
         el.appendChild(fragment);
       }
+    });
+
+    // ✅ 渲染完成后，立即检查并加载已在视口中的图片
+    requestAnimationFrame(() => {
+      document.querySelectorAll('img[data-src]').forEach(img => {
+        const rect = img.getBoundingClientRect();
+        const isVisible = rect.top < window.innerHeight + 100 && rect.bottom > -100;
+        if (isVisible) {
+          const src = img.dataset.src;
+          if (src) {
+            img.src = src;
+            img.removeAttribute('data-src');
+            img.removeAttribute('data-observed');
+            if (__imageObserver) __imageObserver.unobserve(img);
+          }
+        }
+      });
     });
 
     const emptyState = $("#emptyState");
@@ -381,7 +400,17 @@
   // ✅ 图片加载优化：Intersection Observer
   let __imageObserver = null;
   function setupImageObserver() {
-    if (!('IntersectionObserver' in window)) return;
+    if (!('IntersectionObserver' in window)) {
+      // 降级：如果没有 IntersectionObserver，直接加载所有图片
+      document.querySelectorAll('img[data-src]').forEach(img => {
+        const src = img.dataset.src;
+        if (src) {
+          img.src = src;
+          img.removeAttribute('data-src');
+        }
+      });
+      return;
+    }
 
     if (!__imageObserver) {
       __imageObserver = new IntersectionObserver((entries, observer) => {
@@ -399,10 +428,23 @@
       }, { rootMargin: '50px' });
     }
 
-    // Observe only new lazy images (avoid re-observing on every re-render)
+    // 观察所有未观察的懒加载图片
     document.querySelectorAll('img[data-src]:not([data-observed])').forEach(img => {
       img.setAttribute('data-observed', '1');
       __imageObserver.observe(img);
+
+      // ✅ 如果图片已经在视口中，立即加载（解决语言切换后图标变白的问题）
+      const rect = img.getBoundingClientRect();
+      const isVisible = rect.top < window.innerHeight + 50 && rect.bottom > -50;
+      if (isVisible) {
+        const src = img.dataset.src;
+        if (src) {
+          img.src = src;
+          img.removeAttribute('data-src');
+          img.removeAttribute('data-observed');
+          __imageObserver.unobserve(img);
+        }
+      }
     });
   }
 
