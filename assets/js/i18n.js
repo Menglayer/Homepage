@@ -33,9 +33,9 @@ window.I18N = {
     fomo_progress: "本期招募进度",
     // 注意：这里保留了 span 标签以便数字闪烁，所以等下 HTML 里要用 data-i18n-html
     fomo_alert: "🔥 仅剩最后 <span class='blink-num'>2</span> 个席位",
-    fomo_b1: "📈 <strong>项目埋伏：</strong>早期项目内幕与研报",
+    fomo_b1: "📈 <strong>项目埋伏：</strong>早期项目资源与研报",
     fomo_b2: "⚡ <strong>循环策略：</strong>高息挖矿与套利方案",
-    fomo_b3: "🛡️ <strong>资产验资：</strong>拒绝白嫖与人脉核心",
+    fomo_b3: "🛡️ <strong>资产验资：</strong>得Deal/Offer拒绝白嫖",
     fomo_action: "添加小助手微信 (备注: <strong>核心群</strong>)",
     fomo_copy: "复制 ID",
     fomo_tip: "⚠️ 萌芽核心群不定时开放，也可添加小助手排队等待。",
