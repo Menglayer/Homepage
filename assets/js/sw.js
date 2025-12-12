@@ -1,14 +1,22 @@
 /* Simple offline shell cache for MengLayer */
-const VERSION = "v1.0.0";
+const VERSION = "v1.0.1";
 const CACHE = `menglayer-shell-${VERSION}`;
 const ASSETS = [
+  
   "./",
   "./index.html",
   "./manifest.json",
   "./assets/css/style.css",
   "./assets/js/i18n.js",
   "./assets/js/links.js",
-  "./assets/js/app.js"
+  "./assets/js/app.js",
+  "./assets/images/avatar.jpg",
+  "./assets/images/favicon.jpg",
+  "./assets/images/wechat-qr.jpg",
+  "./assets/images/icon-192.png",
+  "./assets/images/icon-512.png",
+  "./assets/images/icon-512-maskable.png"
+
 ];
 
 self.addEventListener("install", (event) => {

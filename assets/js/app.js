@@ -11,6 +11,10 @@
   ];
   const IFRAME_ALLOW_HOSTS = ["menglayer.lol"];
 
+  // Tiny placeholder used for lazy-loaded icons
+  const TRANSPARENT_PIXEL = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+  const FALLBACK_ICON = "assets/images/favicon.jpg";
+
   // Helpers
   function canIframe(url) {
     try { const h = new URL(url).hostname; return IFRAME_ALLOW_HOSTS.some(d => h === d || h.endsWith("." + d)); } catch { return false; }
@@ -106,6 +110,7 @@
       <option value="en" ${lang === 'en' ? 'selected' : ''}>English</option>
     `;
 
+    if (window.__searchTextCache) window.__searchTextCache.clear();
     renderCards();
 
     const emptyTxt = $("#emptyText");
@@ -147,13 +152,9 @@
 
         // ✅ 使用 DocumentFragment 优化 DOM 操作
         const fragment = document.createDocumentFragment();
-        const tempDiv = document.createElement('div');
-
         scored.forEach(({ item }) => {
           const isTool = container === "tools";
           const openBlank = isTool ? (!canIframe(item.href) || item.open === "blank" || shouldForceTop(item.href)) : true;
-          const delayStyle = `animation-delay: ${animDelayIndex++ * 0.04}s`;
-
           const card = document.createElement('div');
           card.className = 'card';
           card.style.animationDelay = `${(animDelayIndex - 1) * 0.04}s`;
@@ -177,21 +178,35 @@
 
           const iconDiv = document.createElement('div');
           iconDiv.className = 'icon';
+
           const img = document.createElement('img');
-          img.src = item.img;
+          // Lazy-load via IntersectionObserver (fallbacks to native lazy-loading)
+          img.dataset.src = item.img;
+          img.src = TRANSPARENT_PIXEL;
+
           img.alt = dictCards[item.id]?.title || item.id;
           img.loading = "lazy";
           img.decoding = "async";
           img.style.opacity = "0";
           img.style.transition = "opacity 0.4s";
-          img.onload = function () { this.style.opacity = '1'; };
+
+          img.onload = function () {
+            // Ignore placeholder load; only fade in after real src is applied
+            if (this.dataset && this.dataset.src) return;
+            this.style.opacity = "1";
+            iconDiv.classList.add("loaded");
+          };
+
           img.onerror = function () {
             this.onerror = null;
-            this.src = 'assets/images/favicon.jpg';
-            this.style.opacity = '1';
+            // Stop trying to lazy-load and show a deterministic fallback
+            try { delete this.dataset.src; } catch (e) { this.removeAttribute("data-src"); }
+            this.src = FALLBACK_ICON;
+            this.style.opacity = "1";
+            iconDiv.classList.add("loaded");
           };
-          iconDiv.appendChild(img);
 
+          iconDiv.appendChild(img);
           const textDiv = document.createElement('div');
           const title = document.createElement('p');
           title.className = 'title';
@@ -278,7 +293,7 @@
     // ✅ 无障碍：隐藏并禁用背景
     const appRoot = document.getElementById("app");
     if (appRoot) {
-      try { appRoot.inert = true; } catch (e) {}
+      try { appRoot.inert = true; } catch (e) { }
       appRoot.setAttribute("aria-hidden", "true");
     }
     document.documentElement.classList.add("modal-open");
@@ -287,7 +302,6 @@
 
     toolModal.classList.add("open");
     toolModal.setAttribute("aria-hidden", "false");
-    document.body.style.overflow = "hidden";
 
     // ✅ 焦点管理：将焦点移到模态框
     const closeBtn = $("#toolClose");
@@ -305,13 +319,14 @@
     // ✅ 恢复背景交互
     const appRoot = document.getElementById("app");
     if (appRoot) {
-      try { appRoot.inert = false; } catch (e) {}
+      try { appRoot.inert = false; } catch (e) { }
       appRoot.removeAttribute("aria-hidden");
     }
-    document.documentElement.classList.remove("modal-open");
-    document.body.classList.remove("modal-open");
-    document.body.style.overflow = "";
-
+    // Keep scroll lock if any other modal is still open
+    const wm = document.getElementById("wechatModal");
+    const anyOpen = !!(wm && wm.classList.contains("open"));
+    document.documentElement.classList.toggle("modal-open", anyOpen);
+    document.body.classList.toggle("modal-open", anyOpen);
     // ✅ 恢复焦点
     if (lastToolTrigger && typeof lastToolTrigger.focus === "function") {
       lastToolTrigger.focus();
@@ -331,7 +346,11 @@
     if (!m) return;
     m.classList.toggle("open", show);
     m.setAttribute("aria-hidden", show ? "false" : "true");
-    document.body.style.overflow = show ? "hidden" : "";
+
+    // ✅ Scroll lock via CSS class (and keep it if another modal is open)
+    const anyOpen = !!(show || (toolModal && toolModal.classList.contains("open")));
+    document.documentElement.classList.toggle("modal-open", anyOpen);
+    document.body.classList.toggle("modal-open", anyOpen);
 
     // ✅ 焦点管理
     if (show) {
@@ -360,35 +379,39 @@
   }
 
   // ✅ 图片加载优化：Intersection Observer
+  let __imageObserver = null;
   function setupImageObserver() {
     if (!('IntersectionObserver' in window)) return;
 
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const img = entry.target;
-          if (img.dataset.src) {
-            img.src = img.dataset.src;
-            img.removeAttribute('data-src');
+    if (!__imageObserver) {
+      __imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            const src = img.dataset && img.dataset.src;
+            if (src) {
+              img.src = src;
+              try { delete img.dataset.src; } catch (e) { img.removeAttribute('data-src'); }
+            }
             observer.unobserve(img);
           }
-        }
-      });
-    }, {
-      rootMargin: '50px'
-    });
+        });
+      }, { rootMargin: '50px' });
+    }
 
-    // 观察所有懒加载图片
-    document.querySelectorAll('img[data-src]').forEach(img => {
-      imageObserver.observe(img);
+    // Observe only new lazy images (avoid re-observing on every re-render)
+    document.querySelectorAll('img[data-src]:not([data-observed])').forEach(img => {
+      img.setAttribute('data-observed', '1');
+      __imageObserver.observe(img);
     });
   }
+
 
   // Init
   document.addEventListener("DOMContentLoaded", () => {
     // ✅ PWA: Service Worker
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./sw.js').catch(() => {});
+      navigator.serviceWorker.register('./assets/js/sw.js').catch(() => { });
     }
 
     perfMark('dom-ready');
@@ -518,4 +541,8 @@
       }
     });
   });
+
+  // ✅ Observe newly rendered lazy images
+  setupImageObserver();
+
 })();
