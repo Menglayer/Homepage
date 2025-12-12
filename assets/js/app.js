@@ -33,7 +33,7 @@
     return i === q.length ? score : 0;
   }
 
-  // ✅ 降级复制方案
+  // 降级复制方案
   function fallbackCopyText(text, btn) {
     const textArea = document.createElement("textarea");
     textArea.value = text;
@@ -60,7 +60,7 @@
     document.body.removeChild(textArea);
   }
 
-  // ✅ 防抖函数（优化版）
+  // 防抖函数
   function debounce(fn, delay) {
     let timer = null;
     return function (...args) {
@@ -73,7 +73,7 @@
     };
   }
 
-  // ✅ 节流函数（用于滚动等高频事件）
+  // 节流函数
   function throttle(fn, delay) {
     let lastCall = 0;
     return function (...args) {
@@ -92,16 +92,27 @@
   function applyLang(lang) {
     const dict = (window.I18N?.[lang]) || {};
     document.documentElement.setAttribute("lang", lang);
+
+    // 1. 普通文本替换
     $$("[data-i18n]").forEach(el => {
       const key = el.getAttribute("data-i18n");
       if (dict[key]) el.textContent = dict[key];
     });
+
+    // 2. HTML 内容替换 (用于 Social Proof 的加粗数字)
+    $$("[data-i18n-html]").forEach(el => {
+      const key = el.getAttribute("data-i18n-html");
+      if (dict[key]) el.innerHTML = dict[key];
+    });
+
+    // 3. 属性替换
     $$("[data-i18n-attr]").forEach(el => {
       el.getAttribute("data-i18n-attr").split(",").forEach(pair => {
         const [attr, key] = pair.split(":").map(s => s.trim());
         if (dict[key]) el.setAttribute(attr, dict[key]);
       });
     });
+
     const search = $("#search");
     if (search && dict.search_placeholder) search.placeholder = dict.search_placeholder;
     const sel = $("#lang");
@@ -110,22 +121,20 @@
       <option value="en" ${lang === 'en' ? 'selected' : ''}>English</option>
     `;
 
-    if (window.__searchTextCache) window.__searchTextCache.clear();
-    renderCards();
-    // ✅ 重新观察新渲染的图片（解决语言切换后图标变白的问题）
-    setupImageObserver();
+    renderCards(); // 重新渲染卡片以更新内容和标签语言
+    setupImageObserver(); // 重新观察图片
 
     const emptyTxt = $("#emptyText");
     if (emptyTxt) emptyTxt.textContent = dict.no_results_found || "No results found";
   }
 
-  // Render Cards（性能优化版）
+  // Render Cards（商业化升级版）
   function renderCards() {
     const lang = localStorage.getItem("lang") || "zh";
-    const dictCards = (window.I18N?.[lang] || {}).cards || {};
+    const i18nRoot = window.I18N?.[lang] || {};
+    const dictCards = i18nRoot.cards || {};
     const q = (searchQuery || "").trim().toLowerCase();
 
-    // ✅ 数据健壮性检查
     const containers = {
       tools: window.LINKS?.tools || [],
       exchanges: window.LINKS?.exchanges || [],
@@ -152,15 +161,27 @@
         if (section) section.style.display = "";
         totalItems += scored.length;
 
-        // ✅ 使用 DocumentFragment 优化 DOM 操作
         const fragment = document.createDocumentFragment();
         scored.forEach(({ item }) => {
           const isTool = container === "tools";
           const openBlank = isTool ? (!canIframe(item.href) || item.open === "blank" || shouldForceTop(item.href)) : true;
+
           const card = document.createElement('div');
-          card.className = 'card';
-          card.style.animationDelay = `${(animDelayIndex - 1) * 0.04}s`;
+          // ✅ 修改点：处理 highlight 高亮样式
+          card.className = 'card' + (item.highlight ? ' highlight' : '');
+          card.style.animationDelay = `${(animDelayIndex++ % 12) * 0.05}s`;
           card.setAttribute('role', 'listitem');
+
+          // ✅ 修改点：处理 Tag 标签 (HOT/NEW/REC/PRO)
+          if (item.tag) {
+            const tagEl = document.createElement('div');
+            tagEl.className = `card-tag ${item.tag}`;
+            // 尝试从 i18n 获取翻译 (例如 tag_hot)，没有则用原始值大写
+            const i18nTagKey = `tag_${item.tag}`;
+            const tagText = i18nRoot[i18nTagKey] || item.tag.toUpperCase();
+            tagEl.textContent = tagText;
+            card.appendChild(tagEl);
+          }
 
           const link = document.createElement('a');
           if (openBlank) {
@@ -182,7 +203,7 @@
           iconDiv.className = 'icon';
 
           const img = document.createElement('img');
-          // Lazy-load via IntersectionObserver (fallbacks to native lazy-loading)
+          // Lazy-load via IntersectionObserver
           img.dataset.src = item.img;
           img.src = TRANSPARENT_PIXEL;
 
@@ -193,7 +214,6 @@
           img.style.transition = "opacity 0.4s";
 
           img.onload = function () {
-            // Ignore placeholder load; only fade in after real src is applied
             if (this.dataset && this.dataset.src) return;
             this.style.opacity = "1";
             iconDiv.classList.add("loaded");
@@ -201,7 +221,6 @@
 
           img.onerror = function () {
             this.onerror = null;
-            // Stop trying to lazy-load and show a deterministic fallback
             try { delete this.dataset.src; } catch (e) { this.removeAttribute("data-src"); }
             this.src = FALLBACK_ICON;
             this.style.opacity = "1";
@@ -231,7 +250,6 @@
       }
     });
 
-    // ✅ 渲染完成后，立即检查并加载已在视口中的图片
     requestAnimationFrame(() => {
       document.querySelectorAll('img[data-src]').forEach(img => {
         const rect = img.getBoundingClientRect();
@@ -263,7 +281,6 @@
   let lastToolTrigger = null;
   let lastToolUrl = "";
 
-
   function resetLoader() {
     clearTimeout(toolTick); clearTimeout(toolSlow);
     if (toolLoader) { toolLoader.classList.remove("show", "slow"); toolLoader.querySelector(".tool-loader-fill").style.width = "0%"; }
@@ -290,12 +307,9 @@
   }
 
   function openToolModal(url, id) {
-    // 记录触发元素，关闭时恢复焦点
     lastToolTrigger = document.activeElement;
-
     if (!toolModal || !toolFrame) return;
 
-    // ✅ Analytics Hook (预留)
     if (window.console && console.log) {
       console.log(`[Analytics] Tool: ${id}`);
     }
@@ -309,7 +323,6 @@
     toolFrame.src = url;
     lastToolUrl = url;
 
-    // ✅ 无障碍：隐藏并禁用背景
     const appRoot = document.getElementById("app");
     if (appRoot) {
       try { appRoot.inert = true; } catch (e) { }
@@ -318,16 +331,15 @@
     document.documentElement.classList.add("modal-open");
     document.body.classList.add("modal-open");
 
-
     toolModal.classList.add("open");
     toolModal.setAttribute("aria-hidden", "false");
 
-    // ✅ 焦点管理：将焦点移到模态框
     const closeBtn = $("#toolClose");
     if (closeBtn) {
       setTimeout(() => closeBtn.focus(), 100);
     }
   }
+
   function closeToolModal() {
     resetLoader();
     if (!toolModal) return;
@@ -335,26 +347,22 @@
     toolModal.setAttribute("aria-hidden", "true");
     if (toolFrame) toolFrame.src = "about:blank";
 
-    // ✅ 恢复背景交互
     const appRoot = document.getElementById("app");
     if (appRoot) {
       try { appRoot.inert = false; } catch (e) { }
       appRoot.removeAttribute("aria-hidden");
     }
-    // Keep scroll lock if any other modal is still open
     const wm = document.getElementById("wechatModal");
     const anyOpen = !!(wm && wm.classList.contains("open"));
     document.documentElement.classList.toggle("modal-open", anyOpen);
     document.body.classList.toggle("modal-open", anyOpen);
-    // ✅ 恢复焦点
+
     if (lastToolTrigger && typeof lastToolTrigger.focus === "function") {
       lastToolTrigger.focus();
     }
     lastToolTrigger = null;
     lastToolUrl = "";
   }
-
-
 
   if (toolFrame) on(toolFrame, "load", resetLoader);
 
@@ -366,12 +374,10 @@
     m.classList.toggle("open", show);
     m.setAttribute("aria-hidden", show ? "false" : "true");
 
-    // ✅ Scroll lock via CSS class (and keep it if another modal is open)
     const anyOpen = !!(show || (toolModal && toolModal.classList.contains("open")));
     document.documentElement.classList.toggle("modal-open", anyOpen);
     document.body.classList.toggle("modal-open", anyOpen);
 
-    // ✅ 焦点管理
     if (show) {
       const closeBtn = m.querySelector('.modal-close');
       if (closeBtn) {
@@ -380,7 +386,7 @@
     }
   }
 
-  // ✅ 性能监控（开发环境）
+  // Performance Monitor
   function perfMark(name) {
     if (window.performance && window.performance.mark) {
       window.performance.mark(name);
@@ -391,17 +397,14 @@
     if (window.performance && window.performance.measure) {
       try {
         window.performance.measure(name, startMark, endMark);
-      } catch (e) {
-        // 忽略测量错误
-      }
+      } catch (e) { }
     }
   }
 
-  // ✅ 图片加载优化：Intersection Observer
+  // Image Observer
   let __imageObserver = null;
   function setupImageObserver() {
     if (!('IntersectionObserver' in window)) {
-      // 降级：如果没有 IntersectionObserver，直接加载所有图片
       document.querySelectorAll('img[data-src]').forEach(img => {
         const src = img.dataset.src;
         if (src) {
@@ -428,12 +431,10 @@
       }, { rootMargin: '50px' });
     }
 
-    // 观察所有未观察的懒加载图片
     document.querySelectorAll('img[data-src]:not([data-observed])').forEach(img => {
       img.setAttribute('data-observed', '1');
       __imageObserver.observe(img);
 
-      // ✅ 如果图片已经在视口中，立即加载（解决语言切换后图标变白的问题）
       const rect = img.getBoundingClientRect();
       const isVisible = rect.top < window.innerHeight + 50 && rect.bottom > -50;
       if (isVisible) {
@@ -448,10 +449,8 @@
     });
   }
 
-
   // Init
   document.addEventListener("DOMContentLoaded", () => {
-    // ✅ PWA: Service Worker
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('./assets/js/sw.js').catch(() => { });
     }
@@ -465,9 +464,6 @@
     }
     applyLang(lang);
 
-    // ✅ 设置图片观察器
-    setupImageObserver();
-
     perfMark('init-complete');
     perfMeasure('init-duration', 'dom-ready', 'init-complete');
 
@@ -478,7 +474,6 @@
 
     const searchInput = $("#search");
     if (searchInput) {
-      // ✅ 支持 URL 参数：/?q=xxx
       const params = new URLSearchParams(window.location.search);
       const initialQ = params.get("q") || "";
       if (initialQ) {
@@ -495,7 +490,6 @@
         window.history.replaceState(null, "", next);
       };
 
-      // ✅ 搜索防抖 + 同步 URL（方便分享）
       on(searchInput, "input", debounce(() => {
         searchQuery = searchInput.value;
         syncUrl(searchQuery);
@@ -503,7 +497,6 @@
       }, 250));
     }
 
-    // ✅ 回到顶部逻辑（节流优化）
     const backBtn = $("#backToTop");
     if (backBtn) {
       window.addEventListener("scroll", throttle(() => {
@@ -514,7 +507,6 @@
       });
     }
 
-    // Global Click Delegation
     document.addEventListener("click", e => {
       const tool = e.target.closest('[data-open="tool"]');
       if (tool) { e.preventDefault(); openToolModal(tool.dataset.href, tool.dataset.id); return; }
@@ -546,7 +538,6 @@
             }, 1000);
           }).catch(err => {
             console.warn('复制失败:', err);
-            // 降级方案：使用传统方法
             fallbackCopyText(text, btn);
           });
         } else {
@@ -565,7 +556,6 @@
         closeToolModal();
         toggleModal(wechatModal, false);
       }
-      // ✅ Tab 键陷阱：在模态框内循环焦点
       if (e.key === "Tab" && (toolModal?.classList.contains("open") || wechatModal?.classList.contains("open"))) {
         const modal = toolModal?.classList.contains("open") ? toolModal : wechatModal;
         if (!modal) return;
@@ -584,7 +574,6 @@
     });
   });
 
-  // ✅ Observe newly rendered lazy images
   setupImageObserver();
 
 })();

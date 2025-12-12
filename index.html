@@ -150,20 +150,36 @@
       <div class="avatar">
         <img src="assets/images/avatar.jpg" alt="陈小萌头像" width="120" height="120" loading="eager" decoding="async" />
       </div>
-      <div>
+      <div style="flex:1; min-width:0;">
         <h1 data-i18n="hero_title">陈小萌</h1>
-        <p class="tagline" data-i18n="hero_tagline">萌芽社区 Founder/BTC Holder</p>
+
+        <div class="social-proof">
+          <span data-i18n-html="sp_fans">全网粉丝 <strong>10K+</strong></span>
+          <span data-i18n-html="sp_value">社区空投 <strong>$1000W+</strong></span>
+          <span data-i18n-html="sp_yield">实盘年化 <strong>30%+</strong></span>
+        </div>
+
+        <p class="tagline" data-i18n="hero_tagline">萌芽社区 Founder/BTC Holder/DEFI 玩家</p>
+
         <nav class="actions" aria-label="社交媒体链接">
-          <a class="pill" href="https://x.com/menglayer" target="_blank" rel="noopener noreferrer" data-i18n="btn_x"
-            aria-label="在X（Twitter）上关注">关注 X</a>
-          <a class="pill" href="https://t.me/MengYaWeb3" target="_blank" rel="noopener noreferrer" data-i18n="btn_tg"
-            aria-label="加入Telegram群组">Telegram</a>
-          <a class="pill" href="#" data-open="wechat" data-i18n="btn_wechat" aria-label="查看微信群二维码">微信群</a>
-          <a class="pill" href="https://discord.gg/Vk7tKpPZmB" target="_blank" rel="noopener noreferrer"
-            data-i18n="btn_discord" aria-label="加入Discord服务器">Discord</a>
+          <a class="pill vip" href="#" data-open="wechat" data-i18n="btn_vip">👑 加入核心群</a>
+          <a class="pill" href="https://x.com/menglayer" target="_blank" data-i18n="btn_x">关注 X</a>
+          <a class="pill" href="https://t.me/MengYaWeb3" target="_blank" data-i18n="btn_tg">Telegram</a>
+          <a class="pill biz" href="https://t.me/menglayer" target="_blank" data-i18n="btn_biz">🤝 商务合作</a>
         </nav>
       </div>
     </header>
+
+    <div class="banner-area">
+      <a href="#" data-open="wechat" class="banner-link">
+        <div class="ad-tag">Ad</div>
+        <div class="banner-content">
+          <h3 data-i18n="banner_title">加入萌芽 VIP 实战群</h3>
+          <p data-i18n="banner_desc">获取最新链上异动监控、空投埋伏策略与 Alpha 信号。</p>
+        </div>
+        <div class="banner-icon">🚀</div>
+      </a>
+    </div>
 
     <section aria-labelledby="tools-heading">
       <h2 id="tools-heading" data-i18n="tools_title">工具</h2>
@@ -216,15 +232,42 @@
   </div>
 
   <div class="modal" id="wechatModal" role="dialog" aria-modal="true" aria-labelledby="wechatTitle" aria-hidden="true">
-    <div class="qr-box modal-box" style="height:auto; width:min(400px,90vw);">
-      <div class="modal-head">
-        <h3 id="wechatTitle" class="title" data-i18n="btn_wechat">微信群</h3>
-        <button class="modal-close" data-close="wechat" aria-label="关闭对话框">✕</button>
+    <div class="fomo-modal-box">
+      <button class="fomo-close" data-close="wechat" aria-label="关闭">✕</button>
+
+      <div class="fomo-header">
+        <div class="fomo-badge" data-i18n="fomo_badge">INTERNAL ONLY</div>
+        <h3 id="wechatTitle" class="fomo-title" data-i18n="fomo_title">萌芽核心群</h3>
       </div>
-      <div class="qr-body" style="padding:24px; text-align:center;">
-        <p class="qr-tip" style="margin-bottom:16px;">添加小助手邀请入群：<br><strong>monii_xu</strong></p>
-        <img class="qr-img" src="assets/images/wechat-qr.jpg" alt="微信群二维码" width="400" height="400"
-          style="width:100%;border-radius:12px;" loading="lazy" decoding="async" />
+
+      <div class="fomo-body">
+        <div class="fomo-status-bar">
+          <div class="fomo-status-text">
+            <span data-i18n="fomo_progress">本期招募进度</span>
+            <span class="fomo-percent">98%</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill"></div>
+          </div>
+          <div class="fomo-alert" data-i18n-html="fomo_alert">
+            🔥 仅剩最后 <span class="blink-num">2</span> 个席位
+          </div>
+        </div>
+
+        <ul class="fomo-benefits">
+          <li data-i18n-html="fomo_b1">📈 <strong>项目埋伏：</strong>早期项目内幕与研报</li>
+          <li data-i18n-html="fomo_b2">⚡ <strong>循环策略：</strong>高息挖矿与套利方案</li>
+          <li data-i18n-html="fomo_b3">🛡️ <strong>资产验资：</strong>拒绝白嫖与人脉核心</li>
+        </ul>
+
+        <div class="fomo-action-area">
+          <p class="action-tip" data-i18n-html="fomo_action">添加小助手微信 (备注: <strong>核心群</strong>)</p>
+          <div class="copy-row">
+            <div class="wx-id">monii_xu</div>
+            <button class="copybtn action-btn" data-copy="monii_xu" data-i18n="fomo_copy">复制 ID</button>
+          </div>
+          <p class="fomo-footer-tip" data-i18n="fomo_tip">⚠️ 萌芽核心群不定时开放，也可添加小助手排队等待。</p>
+        </div>
       </div>
     </div>
   </div>

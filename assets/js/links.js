@@ -8,26 +8,25 @@ window.LINKS = {
       id: "civcalc",
       href: "https://civ.menglayer.cc/",
       img: IMG + "civ.png",
-      open: "modal"
-    },
-    {
-      id: "falcon",
-      href: "https://falcon.menglayer.cc/",
-      img: IMG + "falcon.png",
-      open: "modal"          // 保持原来的弹窗打开
+      open: "modal",
+      highlight: true, // ✅ 让它变大占两列
+      tag: "hot"       // ✅ 加上 HOT 标签
     },
     // === 新增：Jane 收益面板 ===
     {
       id: "jane",
       href: "https://jane.menglayer.cc/",
       img: IMG + "jane.png",   // 建议放一张 512x512 左右的图到 assets/images/jane.jpg
-      open: "modal"            // 和其他工具一样走站内弹窗
+      open: "modal",
+      tag: "new" // ✅ 标记为新品            
     },
     {
       id: "DocMergeTool",
       href: "https://www.addrproof.top?referrerCode=8085970963",
       img: IMG + "addproof.png",
-      open: "modal"          // 新开页面
+      open: "modal",
+      highlight: true, // ✅ 明星产品
+      tag: "rec"          // 新开页面
     },
     {
       id: "bnalpha",
@@ -47,6 +46,12 @@ window.LINKS = {
       href: "https://backpack.menglayer.cc/",
       img: IMG + "icon-backpack.jpg",
       open: "modal"
+    },
+    {
+      id: "falcon",
+      href: "https://falcon.menglayer.cc/",
+      img: IMG + "falcon.png",
+      open: "modal"          // 保持原来的弹窗打开
     },
     {
       id: "tsc",

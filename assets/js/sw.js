@@ -1,8 +1,8 @@
 /* Simple offline shell cache for MengLayer */
-const VERSION = "v1.0.1";
+const VERSION = "v1.0.2";
 const CACHE = `menglayer-shell-${VERSION}`;
 const ASSETS = [
-  
+
   "./",
   "./index.html",
   "./manifest.json",
@@ -48,7 +48,7 @@ self.addEventListener("fetch", (event) => {
     event.respondWith(
       fetch(req).then((r) => {
         const copy = r.clone();
-        caches.open(CACHE).then((c) => c.put("./index.html", copy)).catch(() => {});
+        caches.open(CACHE).then((c) => c.put("./index.html", copy)).catch(() => { });
         return r;
       }).catch(() => caches.match("./index.html"))
     );
@@ -58,7 +58,7 @@ self.addEventListener("fetch", (event) => {
   event.respondWith(
     caches.match(req).then((cached) => cached || fetch(req).then((r) => {
       const copy = r.clone();
-      caches.open(CACHE).then((c) => c.put(req, copy)).catch(() => {});
+      caches.open(CACHE).then((c) => c.put(req, copy)).catch(() => { });
       return r;
     }))
   );

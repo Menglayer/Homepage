@@ -1,9 +1,20 @@
 /* Global i18n dictionary */
 window.I18N = {
   zh: {
-    site_title: "萌芽社区",
-    hero_title: "陈小萌",
-    hero_tagline: "萌芽社区 Founder/BTC Holder/DEFI 玩家",
+    site_title: "萌芽社区丨陈小萌",
+    // 新增文案
+    sp_fans: "全网粉丝 <strong>10K+</strong>",
+    sp_value: "捕获空投 <strong>$1000W+</strong>",
+    sp_yield: "投资年化 <strong>30%+</strong>",
+    btn_vip: "👑 加入核心群",
+    btn_biz: "🤝 商务合作",
+    banner_title: "加入萌芽 VIP 实战群",
+    banner_desc: "获取最新独家研报、空投埋伏策略与 Alpha 信号。",
+    // 标签
+    tag_hot: "热门",
+    tag_new: "最新",
+    tag_rec: "推荐",
+    tag_pro: "付费",
     btn_tg: "加入 Telegram 群",
     btn_x: "关注 X（Twitter）",
     search_placeholder: "搜索 工具 / 交易所 / 券商…",
@@ -16,6 +27,18 @@ window.I18N = {
     exchanges_title: "交易所",
     broker_title: "美/港股",
     footer_note: "made by @Menglayer",
+    // === 新增 FOMO 弹窗文案 ===
+    fomo_badge: "INTERNAL ONLY",
+    fomo_title: "萌芽核心群",
+    fomo_progress: "本期招募进度",
+    // 注意：这里保留了 span 标签以便数字闪烁，所以等下 HTML 里要用 data-i18n-html
+    fomo_alert: "🔥 仅剩最后 <span class='blink-num'>2</span> 个席位",
+    fomo_b1: "📈 <strong>项目埋伏：</strong>早期项目内幕与研报",
+    fomo_b2: "⚡ <strong>循环策略：</strong>高息挖矿与套利方案",
+    fomo_b3: "🛡️ <strong>资产验资：</strong>拒绝白嫖与人脉核心",
+    fomo_action: "添加小助手微信 (备注: <strong>核心群</strong>)",
+    fomo_copy: "复制 ID",
+    fomo_tip: "⚠️ 萌芽核心群不定时开放，也可添加小助手排队等待。",
 
     // === zh Donate / Modal ===
     btn_donate: "请我喝咖啡 ☕",
@@ -72,6 +95,17 @@ window.I18N = {
 
   en: {
     site_title: "MengLayer Community",
+    sp_fans: "Fans <strong>10K+</strong>",
+    sp_value: "Airdrops <strong>$10M+</strong>",
+    sp_yield: "APY <strong>30%+</strong>",
+    btn_vip: "👑 Join VIP",
+    btn_biz: "🤝 Business",
+    banner_title: "Join MengLayer VIP Alpha",
+    banner_desc: "Get exclusive on-chain alerts, airdrop strategies and Alpha signals.",
+    tag_hot: "HOT",
+    tag_new: "NEW",
+    tag_rec: "REC",
+    tag_pro: "PRO",
     hero_title: "Menglayer",
     hero_tagline: "MengLayer Community Founder/BTC Holder/DEFI Players",
     btn_tg: "Join Telegram",
@@ -86,6 +120,17 @@ window.I18N = {
     exchanges_title: "Exchanges",
     broker_title: "US/HK Brokerage",
     footer_note: "made by @Menglayer",
+    // === New FOMO Modal Content ===
+    fomo_badge: "INTERNAL ONLY",
+    fomo_title: "Menglayer VIP Group",
+    fomo_progress: "Current Batch Progress",
+    fomo_alert: "🔥 Only <span class='blink-num'>2</span> spots left",
+    fomo_b1: "📈 <strong>Alpha Hunter:</strong> Early access & exclusive reports",
+    fomo_b2: "⚡ <strong>Yield Strategy:</strong> High APY farming & arbitrage",
+    fomo_b3: "🛡️ <strong>Verification:</strong> High net-worth network only",
+    fomo_action: "Add Assistant WeChat (Note: <strong>Core</strong>)",
+    fomo_copy: "Copy ID",
+    fomo_tip: "⚠️ Group opens sporadically. Add assistant to waitlist.",
 
     // === en Donate / Modal ===
     btn_donate: "Buy me a coffee ☕",

@@ -162,8 +162,10 @@ body::before {
   border-radius: inherit;
   padding: 1px;
   background: linear-gradient(135deg, rgba(34, 211, 238, 0.3), rgba(8, 145, 178, 0.1));
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
+  /* === 新增标准属性兼容 (修复) === */
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   mask-composite: exclude;
   opacity: 0;
   transition: opacity var(--transition-base);
@@ -437,7 +439,6 @@ h2::before {
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 16px;
   contain: layout;
-
   content-visibility: auto;
   contain-intrinsic-size: 1000px 800px;
 }
@@ -469,7 +470,6 @@ h2::before {
   contain: layout style paint;
   will-change: transform;
   overflow: hidden;
-
   content-visibility: auto;
   contain-intrinsic-size: 320px 220px;
 }
@@ -488,6 +488,8 @@ h2::before {
   background: linear-gradient(135deg, rgba(34, 211, 238, 0.4), rgba(8, 145, 178, 0.3));
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
+  /* === 新增标准属性兼容 (修复) === */
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   mask-composite: exclude;
   opacity: 0;
   transition: opacity var(--transition-base);
@@ -787,7 +789,7 @@ footer {
 .tool-loader {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.95));
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.95));
   display: none;
   align-items: center;
   justify-content: center;
@@ -804,7 +806,7 @@ footer {
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   border-radius: 20px;
-  box-shadow: var(--shadow-xl), inset 0 1px 0 rgba(255,255,255,0.9);
+  box-shadow: var(--shadow-xl), inset 0 1px 0 rgba(255, 255, 255, 0.9);
   padding: 26px 22px;
   text-align: center;
   backdrop-filter: blur(16px) saturate(180%);
@@ -829,7 +831,7 @@ footer {
   overflow: hidden;
   background: #e9f4fb;
   margin: 18px 0 14px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 .tool-loader-fill {
@@ -843,8 +845,13 @@ footer {
 }
 
 @keyframes loader-stripe {
-  0% { background-position: 0% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 0% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 .modal-close,
@@ -859,14 +866,14 @@ footer {
   font-weight: 600;
   cursor: pointer;
   transition: all var(--transition-base);
-  box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255,255,255,0.85);
+  box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255, 255, 255, 0.85);
 }
 
 .modal-close:hover,
 .tool-open-newtab:hover {
   border-color: var(--accent);
   color: var(--accent);
-  box-shadow: var(--shadow-md), inset 0 1px 0 rgba(255,255,255,0.9);
+  box-shadow: var(--shadow-md), inset 0 1px 0 rgba(255, 255, 255, 0.9);
   transform: translateY(-1px);
 }
 
@@ -1039,4 +1046,442 @@ footer {
 html.modal-open,
 body.modal-open {
   overflow: hidden;
+}
+
+/* === 新增商业化组件样式 === */
+
+/* 1. 信任背书数据条 */
+.social-proof {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 8px 0 16px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.social-proof span {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(8, 145, 178, 0.15);
+  padding: 4px 10px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  backdrop-filter: blur(4px);
+}
+
+.social-proof strong {
+  color: #0369a1;
+  /* 深蓝强调色 */
+  margin-right: 4px;
+  font-weight: 800;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* 2. 按钮分级 (VIP & 商务) */
+.pill.vip {
+  background: linear-gradient(135deg, #FCD34D 0%, #F59E0B 100%);
+  color: #78350f;
+  border: none;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+  order: -1;
+  /* 让它排在最前 */
+}
+
+.pill.vip:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(245, 158, 11, 0.4);
+  color: #451a03;
+}
+
+.pill.biz {
+  background: transparent;
+  border: 1.5px dashed var(--muted);
+  color: var(--muted);
+}
+
+.pill.biz:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* 3. 变现 Banner 广告位 */
+.banner-area {
+  margin: 32px 0 16px;
+  position: relative;
+}
+
+.banner-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(110deg, #0ea5e9 0%, #06b6d4 100%);
+  border-radius: 20px;
+  padding: 24px 32px;
+  color: #fff;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(6, 182, 212, 0.25);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  position: relative;
+}
+
+.banner-link::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDQwIDQwIiBvcGFjaXR5PSIwLjEiPjxwYXRoIGZpbGw9IiNmZmZmZmYiIGQ9Ik0wIDBoNDB2NDBIMHoiLz48L3N2Zz4=') opacity 0.1;
+  pointer-events: none;
+}
+
+.banner-link:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(6, 182, 212, 0.35);
+}
+
+.banner-content h3 {
+  margin: 0 0 6px;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.banner-content p {
+  margin: 0;
+  font-size: 14px;
+  opacity: 0.9;
+  font-weight: 500;
+}
+
+.banner-icon {
+  font-size: 32px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.ad-tag {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.2);
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+/* 4. 明星工具 & 标签系统 */
+.card-tag {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  color: #fff;
+  z-index: 5;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.card-tag.hot {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.card-tag.new {
+  background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.card-tag.rec {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.card-tag.pro {
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+}
+
+/* 高亮大卡片 (PC端占两列) */
+@media (min-width: 700px) {
+  .card.highlight {
+    grid-column: span 2;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(236, 254, 255, 0.8));
+    border: 1px solid rgba(34, 211, 238, 0.4);
+  }
+
+  .card.highlight .icon {
+    width: 64px;
+    height: 64px;
+  }
+
+  .card.highlight .title {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  .card.highlight .desc {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 700px) {
+  .banner-link {
+    padding: 20px;
+  }
+
+  .social-proof {
+    gap: 6px;
+    font-size: 12px;
+  }
+}
+
+/* === FOMO 弹窗专用样式 (全局通用，已移出 @media) === */
+.fomo-modal-box {
+  width: min(380px, 90vw);
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  position: relative;
+  animation: fadeUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.fomo-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgba(0, 0, 0, 0.05);
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #666;
+  font-weight: bold;
+  transition: all 0.2s;
+  z-index: 10;
+}
+
+.fomo-close:hover {
+  background: #f1f5f9;
+  color: #000;
+  transform: rotate(90deg);
+}
+
+/* 头部视觉 */
+.fomo-header {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  padding: 32px 24px 24px;
+  color: #fff;
+  text-align: center;
+  position: relative;
+}
+
+.fomo-header::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  right: 0;
+  height: 20px;
+  background: #fff;
+  border-radius: 20px 20px 0 0;
+}
+
+.fomo-badge {
+  display: inline-block;
+  background: rgba(245, 158, 11, 0.2);
+  color: #fbbf24;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 4px 8px;
+  border-radius: 4px;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+  border: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+.fomo-title {
+  font-size: 22px;
+  font-weight: 800;
+  margin: 0 0 6px;
+  background: linear-gradient(to right, #fff, #cbd5e1);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.fomo-subtitle {
+  font-size: 12px;
+  color: #94a3b8;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* 内容区域 */
+.fomo-body {
+  padding: 16px 24px 32px;
+}
+
+/* 进度条 */
+.fomo-status-bar {
+  margin-bottom: 24px;
+}
+
+.fomo-status-text {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #64748b;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.fomo-percent {
+  color: #ef4444;
+}
+
+.progress-track {
+  height: 8px;
+  background: #f1f5f9;
+  border-radius: 99px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+/* === 修复后的进度条样式 === */
+.progress-fill {
+  height: 100%;
+  width: 98%;
+  /* 关键修改：将条纹和红色渐变写在同一个 background 属性里，条纹在前，红色在后 */
+  background:
+    linear-gradient(45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent),
+    linear-gradient(90deg, #ef4444, #dc2626);
+  /* 分别设置大小：条纹是平铺的小格子，红色是铺满 */
+  background-size: 1rem 1rem, 100% 100%;
+  border-radius: 99px;
+  position: relative;
+  animation: progress-stripe 1s linear infinite;
+}
+
+@keyframes progress-stripe {
+  0% {
+    background-position: 1rem 0;
+  }
+
+  100% {
+    background-position: 0 0;
+  }
+}
+
+.fomo-alert {
+  font-size: 12px;
+  color: #dc2626;
+  background: #fef2f2;
+  padding: 8px;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 600;
+  border: 1px dashed #fecaca;
+}
+
+.blink-num {
+  font-size: 14px;
+  font-weight: 800;
+  animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* 权益列表 */
+.fomo-benefits {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px;
+}
+
+.fomo-benefits li {
+  font-size: 13px;
+  color: #334155;
+  margin-bottom: 10px;
+  padding-left: 20px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.fomo-benefits li strong {
+  color: #0f172a;
+}
+
+/* 行动区 */
+.fomo-action-area {
+  background: #f8fafc;
+  border-radius: 16px;
+  padding: 16px;
+  text-align: center;
+  border: 1px solid #e2e8f0;
+}
+
+.action-tip {
+  font-size: 12px;
+  color: #64748b;
+  margin: 0 0 10px;
+}
+
+.copy-row {
+  display: flex;
+  gap: 8px;
+}
+
+.wx-id {
+  flex: 1;
+  background: #fff;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: monospace;
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.action-btn {
+  background: #0f172a;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+}
+
+.action-btn:hover {
+  background: #334155;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+}
+
+.action-btn:active {
+  transform: translateY(0);
+}
+
+.fomo-footer-tip {
+  font-size: 10px;
+  color: #94a3b8;
+  margin: 12px 0 0;
 }
