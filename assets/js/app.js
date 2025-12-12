@@ -226,6 +226,9 @@
   const toolFrame = $("#toolFrame");
   const toolLoader = $("#toolLoader");
   let toolTick = null, toolSlow = null;
+  let lastToolTrigger = null;
+  let lastToolUrl = "";
+
 
   function resetLoader() {
     clearTimeout(toolTick); clearTimeout(toolSlow);
@@ -253,6 +256,9 @@
   }
 
   function openToolModal(url, id) {
+    // 记录触发元素，关闭时恢复焦点
+    lastToolTrigger = document.activeElement;
+
     if (!toolModal || !toolFrame) return;
 
     // ✅ Analytics Hook (预留)
@@ -267,6 +273,18 @@
     }
     startLoader();
     toolFrame.src = url;
+    lastToolUrl = url;
+
+    // ✅ 无障碍：隐藏并禁用背景
+    const appRoot = document.getElementById("app");
+    if (appRoot) {
+      try { appRoot.inert = true; } catch (e) {}
+      appRoot.setAttribute("aria-hidden", "true");
+    }
+    document.documentElement.classList.add("modal-open");
+    document.body.classList.add("modal-open");
+
+
     toolModal.classList.add("open");
     toolModal.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
@@ -279,18 +297,30 @@
   }
   function closeToolModal() {
     resetLoader();
+    if (!toolModal) return;
     toolModal.classList.remove("open");
     toolModal.setAttribute("aria-hidden", "true");
-    toolFrame.src = "about:blank";
+    if (toolFrame) toolFrame.src = "about:blank";
+
+    // ✅ 恢复背景交互
+    const appRoot = document.getElementById("app");
+    if (appRoot) {
+      try { appRoot.inert = false; } catch (e) {}
+      appRoot.removeAttribute("aria-hidden");
+    }
+    document.documentElement.classList.remove("modal-open");
+    document.body.classList.remove("modal-open");
     document.body.style.overflow = "";
 
-    // ✅ 恢复焦点到触发元素
-    const activeElement = document.activeElement;
-    if (activeElement && activeElement.closest('.modal')) {
-      const trigger = document.querySelector('[data-open="tool"]:focus, [data-open="tool"]:hover');
-      if (trigger) trigger.focus();
+    // ✅ 恢复焦点
+    if (lastToolTrigger && typeof lastToolTrigger.focus === "function") {
+      lastToolTrigger.focus();
     }
+    lastToolTrigger = null;
+    lastToolUrl = "";
   }
+
+
 
   if (toolFrame) on(toolFrame, "load", resetLoader);
 
@@ -356,6 +386,11 @@
 
   // Init
   document.addEventListener("DOMContentLoaded", () => {
+    // ✅ PWA: Service Worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js').catch(() => {});
+    }
+
     perfMark('dom-ready');
 
     let lang = localStorage.getItem("lang");
@@ -378,11 +413,29 @@
 
     const searchInput = $("#search");
     if (searchInput) {
-      // ✅ 搜索防抖
+      // ✅ 支持 URL 参数：/?q=xxx
+      const params = new URLSearchParams(window.location.search);
+      const initialQ = params.get("q") || "";
+      if (initialQ) {
+        searchInput.value = initialQ;
+        searchQuery = initialQ;
+      }
+
+      const syncUrl = (q) => {
+        const p = new URLSearchParams(window.location.search);
+        if (q && q.trim()) p.set("q", q.trim());
+        else p.delete("q");
+        const qs = p.toString();
+        const next = window.location.pathname + (qs ? `?${qs}` : "") + window.location.hash;
+        window.history.replaceState(null, "", next);
+      };
+
+      // ✅ 搜索防抖 + 同步 URL（方便分享）
       on(searchInput, "input", debounce(() => {
         searchQuery = searchInput.value;
+        syncUrl(searchQuery);
         renderCards();
-      }, 300));
+      }, 250));
     }
 
     // ✅ 回到顶部逻辑（节流优化）
@@ -403,6 +456,14 @@
 
       if (e.target.closest('[data-open="wechat"]')) { e.preventDefault(); toggleModal(wechatModal, true); return; }
       if (e.target.closest('[data-close="wechat"]')) { e.preventDefault(); toggleModal(wechatModal, false); return; }
+
+      if (e.target.id === "toolOpenNewtab") {
+        e.preventDefault();
+        const url = (toolFrame && toolFrame.src) ? toolFrame.src : lastToolUrl;
+        if (url && url !== "about:blank") window.open(url, "_blank", "noopener,noreferrer");
+        closeToolModal();
+        return;
+      }
 
       if (e.target.id === "toolClose") { e.preventDefault(); closeToolModal(); return; }
 

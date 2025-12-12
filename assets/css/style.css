@@ -325,6 +325,9 @@ h2::before {
   grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
   gap:16px;
   contain: layout;
+
+  content-visibility: auto;
+  contain-intrinsic-size: 1000px 800px;
 }
 
 @keyframes fadeUp {
@@ -346,6 +349,9 @@ h2::before {
   contain: layout style paint;
   will-change: transform;
   overflow: hidden;
+
+  content-visibility: auto;
+  contain-intrinsic-size: 320px 220px;
 }
 
 /* === 移动端按压回弹 (Tap Feedback) === */
@@ -663,3 +669,6 @@ footer{
 /* 错误页面样式 */
 #crash-screen h2 { color: #0e1220; margin: 0 0 10px; }
 #crash-screen p { color: #5c6b82; font-size: 14px; }
+
+/* Prevent background scroll when modal open */
+html.modal-open, body.modal-open{overflow:hidden;}
