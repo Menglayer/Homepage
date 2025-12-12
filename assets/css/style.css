@@ -787,12 +787,12 @@ footer {
 .tool-loader {
   position: absolute;
   inset: 0;
-  background: rgba(255, 255, 255, 0.95);
+  background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.95));
   display: none;
   align-items: center;
   justify-content: center;
   z-index: 20;
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(6px) saturate(160%);
 }
 
 .tool-loader.show {
@@ -800,29 +800,79 @@ footer {
 }
 
 .tool-loader-box {
-  width: min(400px, 90vw);
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  box-shadow: var(--shadow-lg);
-  padding: 24px;
+  width: min(420px, 90vw);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  box-shadow: var(--shadow-xl), inset 0 1px 0 rgba(255,255,255,0.9);
+  padding: 26px 22px;
   text-align: center;
+  backdrop-filter: blur(16px) saturate(180%);
+}
+
+.tool-loader-title {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--text);
+}
+
+.tool-loader-hint {
+  color: var(--muted);
+  font-size: 13px;
+  margin: 10px 0 14px;
+  line-height: 1.5;
 }
 
 .tool-loader-bar {
-  height: 6px;
+  height: 8px;
   border-radius: 99px;
   overflow: hidden;
-  background: #eef3f8;
-  margin: 16px 0;
+  background: #e9f4fb;
+  margin: 18px 0 14px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
 }
 
 .tool-loader-fill {
   display: block;
   height: 100%;
   width: 0%;
-  background: linear-gradient(90deg, #22d3ee, #0284c7);
-  transition: width .3s ease;
+  background: linear-gradient(90deg, #06b6d4, #0ea5e9, #22d3ee);
+  transition: width .35s ease;
+  background-size: 200% 100%;
+  animation: loader-stripe 2.2s linear infinite;
+}
+
+@keyframes loader-stripe {
+  0% { background-position: 0% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.modal-close,
+.tool-open-newtab {
+  appearance: none;
+  border: 1.4px solid var(--border);
+  background: #fff;
+  color: var(--text);
+  border-radius: 10px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255,255,255,0.85);
+}
+
+.modal-close:hover,
+.tool-open-newtab:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: var(--shadow-md), inset 0 1px 0 rgba(255,255,255,0.9);
+  transform: translateY(-1px);
+}
+
+.modal-close:active,
+.tool-open-newtab:active {
+  transform: translateY(0);
 }
 
 @media (max-width: 840px) {
