@@ -89,7 +89,13 @@ window.I18N = {
       /* 出入金/券商 */
       ifast: { title: "iFAST 英国银行（送 £40）", desc: "英国受监管的数字银行，提供多币种账户与支付卡。" },
       longbridge: { title: "长桥证券 终身免佣（送￥900）", desc: "港美股券商，长期 0 佣金，研究与行情工具完整。" },
-      t212: { title: "Trading212（送 £100）", desc: "英国券商，支持零碎股与免佣 ETF/股票投资。" }
+      t212: { title: "Trading212（送 £100）", desc: "英国券商，支持零碎股与免佣 ETF/股票投资。" },
+      /* ...原有的出入金/券商... */
+      t212: { title: "Trading212（送 £100）", desc: "英国券商，支持零碎股与免佣 ETF/股票投资。" },
+      // === 新增部分 ===
+      ibkr: { title: "盈透证券 (IBKR)", desc: "全球顶尖券商，超低佣金直连全球市场 (最高赚取 $1000 股票)。" },
+      bybit_card: { title: "Bybit Card U卡", desc: "加密货币消费卡，支持全球万事达商户支付与 ATM 取现。" },
+      bitget_card: { title: "Bitget Card U卡", desc: "高额度多币种虚拟卡，支持绑定支付宝/微信消费。" }
     }
   },
 
@@ -181,7 +187,13 @@ window.I18N = {
       /* Brokerage */
       ifast: { title: "iFAST UK Bank (Free £40)", desc: "UK-regulated digital bank with multi-currency accounts and cards." },
       longbridge: { title: "Longbridge (Zero-Commission ¥900)", desc: "US/HK broker with long-term zero commission and robust tools." },
-      t212: { title: "Trading212 (Free £100)", desc: "UK broker offering fractional shares and commission-free ETFs." }
+      t212: { title: "Trading212 (Free £100)", desc: "UK broker offering fractional shares and commission-free ETFs." },
+      /* ...Original Brokerage... */
+      t212: { title: "Trading212 (Free £100)", desc: "UK broker offering fractional shares and commission-free ETFs." },
+      // === New Additions ===
+      ibkr: { title: "Interactive Brokers", desc: "Top-tier global broker. Low commissions. Earn up to $1000 in IBKR stock." },
+      bybit_card: { title: "Bybit Card", desc: "Spend crypto globally with Mastercard. Auto-savings & rewards." },
+      bitget_card: { title: "Bitget Card", desc: "High-limit virtual card supporting multi-currency instant payments." }
     }
   }
 };

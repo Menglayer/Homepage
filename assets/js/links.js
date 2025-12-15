@@ -150,7 +150,24 @@ window.LINKS = {
   broker: [
     { id: "ifast", href: "https://www.ifastgb.com/en/account-opening-home?component=new-or-old-client", img: IMG + "icon-ifast.jpg" },
     { id: "longbridge", href: "https://activity.longbridgehk.com/pipeline/2023welcomegift/index.html?account_channel=lb&app_id=longbridge&channel=HM2023001&invite-code=G70BUL&org_id=1", img: IMG + "icon-longbridge.jpg" },
-    { id: "t212", href: "https://www.trading212.com/invite/19BZbbUMir", img: IMG + "icon-t212.jpg" }
+    { id: "t212", href: "https://www.trading212.com/invite/19BZbbUMir", img: IMG + "icon-t212.jpg" },
+    {
+      id: "ibkr",
+      href: "https://ibkr.com/referral/minhao662",
+      img: IMG + "ibkr.png", // 请确保上传了此图片
+      tag: "rec" // 标记为推荐
+    },
+    {
+      id: "bybit_card",
+      href: "https://www.bybit.com/cards/?ref=MYWZMD8&source=applet_invite",
+      img: IMG + "bybitcard.png", // 请确保上传了此图片
+      tag: "hot" // 标记为热门
+    },
+    {
+      id: "bitget_card",
+      href: "https://web3.bitget.com/invite/card/LHKD3i",
+      img: IMG + "bgcard.png" // 请确保上传了此图片
+    }
   ]
 };
 
