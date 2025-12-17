@@ -32,12 +32,12 @@ window.I18N = {
     fomo_title: "萌芽核心群",
     fomo_progress: "本期招募进度",
     // 注意：这里保留了 span 标签以便数字闪烁，所以等下 HTML 里要用 data-i18n-html
-    fomo_alert: "🔥 仅剩最后 <span class='blink-num'>1</span> 个席位",
+    fomo_alert: "🔥 仅剩最后 <span class='blink-num'>3</span> 个席位",
     fomo_b1: "📈 <strong>项目埋伏：</strong>早期项目资源与研报",
     fomo_b2: "⚡ <strong>循环策略：</strong>高息挖矿与套利方案",
     fomo_b3: "🛡️ <strong>资产复利：</strong>获取独家DEAL/OFFER机会",
-    fomo_action: "添加小助手微信 (备注: <strong>核心群</strong>)",
-    fomo_copy: "复制 ID",
+    fomo_action: "点击下方按钮，联系小助手入群（请备注：核心群）",
+    fomo_btn_tg: "✈️ 添加小助手", // 新增按钮文案
     fomo_tip: "⚠️ 萌芽核心群不定时开放，也可添加小助手排队等待。",
 
     // === zh Donate / Modal ===
@@ -130,12 +130,12 @@ window.I18N = {
     fomo_badge: "INTERNAL ONLY",
     fomo_title: "Menglayer VIP Group",
     fomo_progress: "Current Batch Progress",
-    fomo_alert: "🔥 Only <span class='blink-num'>2</span> spots left",
+    fomo_alert: "🔥 Only <span class='blink-num'>3</span> spots left",
     fomo_b1: "📈 <strong>Alpha Hunter:</strong> Early access & exclusive reports",
     fomo_b2: "⚡ <strong>Yield Strategy:</strong> High APY farming & arbitrage",
     fomo_b3: "🛡️ <strong>Verification:</strong> High net-worth network only",
-    fomo_action: "Add Assistant WeChat (Note: <strong>Core</strong>)",
-    fomo_copy: "Copy ID",
+    fomo_action: "Click below to contact assistant for waitlist",
+    fomo_btn_tg: "✈️ Contact Assistant (@monii00001)", // 新增按钮文案
     fomo_tip: "⚠️ Group opens sporadically. Add assistant to waitlist.",
 
     // === en Donate / Modal ===
