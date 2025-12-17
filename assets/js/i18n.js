@@ -15,7 +15,7 @@ window.I18N = {
     tag_new: "最新",
     tag_rec: "推荐",
     tag_pro: "付费",
-    btn_tg: "加入 Telegram 群",
+    btn_tg: "加入萌芽社区",
     btn_x: "关注 X（Twitter）",
     search_placeholder: "搜索 工具 / 交易所 / 券商…",
     no_results_found: "没有找到相关结果 🫠",  // ✅ 新增
