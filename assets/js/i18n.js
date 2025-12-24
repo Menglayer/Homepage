@@ -29,7 +29,7 @@ window.I18N = {
     footer_note: "made by @Menglayer",
     // === 新增 FOMO 弹窗文案 ===
     fomo_badge: "INTERNAL ONLY",
-    fomo_title: "萌芽核心群",
+    fomo_title: "萌芽核心群（付费）",
     fomo_progress: "本期招募进度",
     // 注意：这里保留了 span 标签以便数字闪烁，所以等下 HTML 里要用 data-i18n-html
     fomo_alert: "🔥 仅剩最后 <span class='blink-num'>3</span> 个席位",
