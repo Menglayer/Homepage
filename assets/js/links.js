@@ -21,14 +21,6 @@ window.LINKS = {
       tag: "new" // ✅ 标记为新品            
     },
     {
-      id: "DocMergeTool",
-      href: "https://www.addrproof.top?referrerCode=8085970963",
-      img: IMG + "addproof.png",
-      open: "modal",
-      highlight: true, // ✅ 明星产品
-      tag: "rec"          // 新开页面
-    },
-    {
       id: "bnalpha",
       href: "https://www.bn-alpha.top/register.html?referralCode=9651614813",
       img: IMG + "icon-binance.jpg", // 
