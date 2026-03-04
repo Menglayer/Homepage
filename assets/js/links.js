@@ -29,13 +29,6 @@ window.LINKS = {
       tag: "new" // ✅ 标记为新品            
     },
     {
-      id: "bnalpha",
-      href: "https://www.bn-alpha.top/register.html?referralCode=9651614813",
-      img: IMG + "icon-binance.jpg", // 
-      open: "modal"    // 改成 "blank" 可新开页
-
-    },
-    {
       id: "pendleyt",
       href: "https://quantsheep.com/",
       img: IMG + "YT.jpg",
