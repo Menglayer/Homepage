@@ -56,6 +56,7 @@ window.I18N = {
     cards: {
       /* 工具 */
       civcalc: { title: "人类文明基石定投计算器", desc: "人类文明基石资产定投收益分析。" },
+      watermark: { title: "萌芽水印", desc: "一键为图片添加文字/图片水印，支持批量处理与自定义样式。" },
       falcon: { title: "Falcon 空投计算器", desc: "估算你的 $Falcon 空投额度。" },
       jane: { title: "Jane 收益面板", desc: "Jane的日收益、权重与总年化。" },
       bnalpha: { title: "币安 Alpha 助手", desc: "Alpha信号助手,空投闹钟提醒。" },
@@ -153,6 +154,7 @@ window.I18N = {
     cards: {
       /* Tools */
       civcalc: { title: "Civilization Foundation DCA Calculator", desc: "Backtest DCA into BTC, gold and index 'civilization base assets' with returns & drawdowns." },
+      watermark: { title: "MengYa Watermark", desc: "Add text/image watermarks to your photos with batch processing & custom styles." },
       falcon: { title: "Falcon Airdrop Calculator", desc: "Estimate your $Falcon airdrop value" },
       jane: { title: "Jane Yield Dashboard", desc: "Compare daily returns and weights of USD3 / LP / YT positions in one view." },
       bnalpha: { title: "Binance Alpha Assistant", desc: "Alpha signal assistant, airdrop alarm reminder!" },

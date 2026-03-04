@@ -12,6 +12,14 @@ window.LINKS = {
       highlight: true, // ✅ 让它变大占两列
       tag: "hot"       // ✅ 加上 HOT 标签
     },
+    // === 新增：萌芽水印 ===
+    {
+      id: "watermark",
+      href: "https://pic.menglayer.cc/",
+      img: IMG + "watermark.png",
+      open: "modal",
+      tag: "new"
+    },
     // === 新增：Jane 收益面板 ===
     {
       id: "jane",
