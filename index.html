@@ -99,11 +99,10 @@
 </head>
 
 <body>
-  <div id="crash-screen" role="alert" aria-live="assertive"
-    style="display:none; position:fixed; inset:0; z-index:9999; background:#e9fcff; align-items:center; justify-content:center; flex-direction:column; text-align:center; padding:20px;">
-    <h2 style="color:#0e1220; margin:0 0 10px;">😵‍💫 糟糕，页面出错了</h2>
-    <p style="color:#5c6b82; font-size:14px;">可能是网络问题或配置文件有误。</p>
-    <p style="font-family:monospace; margin-top:10px; opacity:0.6; font-size:12px;" id="crash-log" aria-label="错误详情">
+  <div id="crash-screen" role="alert" aria-live="assertive">
+    <h2>😵‍💫 糟糕，页面出错了</h2>
+    <p>可能是网络问题或配置文件有误。</p>
+    <p id="crash-log" aria-label="错误详情">
     </p>
   </div>
   <script>

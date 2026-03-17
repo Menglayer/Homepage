@@ -34,6 +34,22 @@
   }
 
   // 降级复制方案
+  function applyCopySuccessFeedback(btn) {
+    if (!btn) return;
+    const raw = btn.dataset.copyFeedbackOriginal || btn.textContent;
+    btn.dataset.copyFeedbackOriginal = raw;
+    if (btn.__copyFeedbackTimer) {
+      clearTimeout(btn.__copyFeedbackTimer);
+    }
+    btn.textContent = "OK!";
+    btn.setAttribute('aria-label', '已复制');
+    btn.__copyFeedbackTimer = setTimeout(() => {
+      btn.textContent = btn.dataset.copyFeedbackOriginal || raw;
+      btn.removeAttribute('aria-label');
+      btn.__copyFeedbackTimer = null;
+    }, 1000);
+  }
+
   function fallbackCopyText(text, btn) {
     const textArea = document.createElement("textarea");
     textArea.value = text;
@@ -46,13 +62,7 @@
     try {
       const successful = document.execCommand('copy');
       if (successful) {
-        const raw = btn.textContent;
-        btn.textContent = "OK!";
-        btn.setAttribute('aria-label', '已复制');
-        setTimeout(() => {
-          btn.textContent = raw;
-          btn.removeAttribute('aria-label');
-        }, 1000);
+        applyCopySuccessFeedback(btn);
       }
     } catch (err) {
       console.warn('降级复制也失败:', err);
@@ -122,7 +132,6 @@
     `;
 
     renderCards(); // 重新渲染卡片以更新内容和标签语言
-    setupImageObserver(); // 重新观察图片
 
     const emptyTxt = $("#emptyText");
     if (emptyTxt) emptyTxt.textContent = dict.no_results_found || "No results found";
@@ -250,27 +259,13 @@
       }
     });
 
-    requestAnimationFrame(() => {
-      document.querySelectorAll('img[data-src]').forEach(img => {
-        const rect = img.getBoundingClientRect();
-        const isVisible = rect.top < window.innerHeight + 100 && rect.bottom > -100;
-        if (isVisible) {
-          const src = img.dataset.src;
-          if (src) {
-            img.src = src;
-            img.removeAttribute('data-src');
-            img.removeAttribute('data-observed');
-            if (__imageObserver) __imageObserver.unobserve(img);
-          }
-        }
-      });
-    });
-
     const emptyState = $("#emptyState");
     if (emptyState) {
       if (q && totalItems === 0) emptyState.classList.add("show");
       else emptyState.classList.remove("show");
     }
+
+    setupImageObserver();
   }
 
   // Tool Modal
@@ -310,7 +305,7 @@
     lastToolTrigger = document.activeElement;
     if (!toolModal || !toolFrame) return;
 
-    if (window.console && console.log) {
+    if (window.__ML_DEBUG && window.console && console.log) {
       console.log(`[Analytics] Tool: ${id}`);
     }
 
@@ -379,7 +374,7 @@
     document.body.classList.toggle("modal-open", anyOpen);
 
     if (show) {
-      const closeBtn = m.querySelector('.modal-close');
+      const closeBtn = m.querySelector('[data-close="wechat"], .modal-close, .fomo-close, button, [href], [tabindex]:not([tabindex="-1"])');
       if (closeBtn) {
         setTimeout(() => closeBtn.focus(), 100);
       }
@@ -473,13 +468,14 @@
     });
 
     const searchInput = $("#search");
-    if (searchInput) {
-      const params = new URLSearchParams(window.location.search);
-      const initialQ = params.get("q") || "";
-      if (initialQ) {
-        searchInput.value = initialQ;
-        searchQuery = initialQ;
-      }
+      if (searchInput) {
+        const params = new URLSearchParams(window.location.search);
+        const initialQ = params.get("q") || "";
+        if (initialQ) {
+          searchInput.value = initialQ;
+          searchQuery = initialQ;
+          renderCards();
+        }
 
       const syncUrl = (q) => {
         const p = new URLSearchParams(window.location.search);
@@ -529,13 +525,7 @@
         const text = btn.dataset.copy;
         if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(text).then(() => {
-            const raw = btn.textContent;
-            btn.textContent = "OK!";
-            btn.setAttribute('aria-label', '已复制');
-            setTimeout(() => {
-              btn.textContent = raw;
-              btn.removeAttribute('aria-label');
-            }, 1000);
+            applyCopySuccessFeedback(btn);
           }).catch(err => {
             console.warn('复制失败:', err);
             fallbackCopyText(text, btn);

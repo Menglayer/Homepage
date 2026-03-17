@@ -127,7 +127,7 @@ window.LINKS = {
     {
       id: "vanity",
       href: "https://vanity.menglayer.cc/",
-      img: IMG + "vanity.png"   // 放一张图到 assets/images/vanity.jpg
+      img: IMG + "vanity.png",   // 放一张图到 assets/images/vanity.jpg
       // 不写 open 或 open:"modal" => 默认以弹窗方式在 iframe 内打开
     }
   ],
@@ -163,7 +163,6 @@ window.LINKS = {
     }
   ]
 };
-
 
 
 
