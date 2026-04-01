@@ -20,6 +20,14 @@ window.LINKS = {
       open: "modal",
       tag: "new"
     },
+    // === 新增：Strc 收益追踪器 ===
+    {
+      id: "strc",
+      href: "https://strc.menglayer.cc/",
+      img: IMG + "strc.png",
+      open: "modal",
+      tag: "new"
+    },
     // === 新增：Jane 收益面板 ===
     {
       id: "jane",

@@ -57,6 +57,7 @@ window.I18N = {
       /* 工具 */
       civcalc: { title: "人类文明基石定投计算器", desc: "人类文明基石资产定投收益分析。" },
       watermark: { title: "萌芽水印", desc: "一键为图片添加文字/图片水印，支持批量处理与自定义样式。" },
+      strc: { title: "Strc 收益追踪器", desc: "追踪微策略 STRC 分红权益。" },
       falcon: { title: "Falcon 空投计算器", desc: "估算你的 $Falcon 空投额度。" },
       jane: { title: "Jane 收益面板", desc: "Jane的日收益、权重与总年化。" },
       pendleyt: { title: "Pendle YT计算器", desc: "计算 YT 到期赎回价值、贴现/年化收益率与盈亏平衡点." },
@@ -152,6 +153,7 @@ window.I18N = {
       /* Tools */
       civcalc: { title: "Civilization Foundation DCA Calculator", desc: "Backtest DCA into BTC, gold and index 'civilization base assets' with returns & drawdowns." },
       watermark: { title: "MengYa Watermark", desc: "Add text/image watermarks to your photos with batch processing & custom styles." },
+      strc: { title: "Strc Yield Tracker", desc: "Track MicroStrategy STRC dividend rights & yields." },
       falcon: { title: "Falcon Airdrop Calculator", desc: "Estimate your $Falcon airdrop value" },
       jane: { title: "Jane Yield Dashboard", desc: "Compare daily returns and weights of USD3 / LP / YT positions in one view." },
       pendleyt: { title: "Pendle YT Calculator", desc: "Compute YT redemption value, discount/APY." },
