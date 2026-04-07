@@ -3,6 +3,14 @@
 const IMG = "assets/images/";
 window.LINKS = {
   tools: [
+    // === 新增：Defi 收益聚合器 ===
+    {
+      id: "yyy",
+      href: "https://yyy.menglayer.cc/",
+      img: IMG + "yyy.png",
+      open: "modal",
+      tag: "new"
+    },
     // ✅ 新增：人类文明基石定投计算器
     {
       id: "civcalc",

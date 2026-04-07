@@ -55,6 +55,7 @@ window.I18N = {
 
     cards: {
       /* 工具 */
+      yyy: { title: "DeFi 收益聚合器", desc: "全网 DeFi 协议收益率聚合对比，一站式发现最高年化及挖矿机会。" },
       civcalc: { title: "人类文明基石定投计算器", desc: "人类文明基石资产定投收益分析。" },
       watermark: { title: "萌芽水印", desc: "一键为图片添加文字/图片水印，支持批量处理与自定义样式。" },
       strc: { title: "Strc 收益追踪器", desc: "追踪微策略 STRC 分红权益。" },
@@ -151,6 +152,7 @@ window.I18N = {
 
     cards: {
       /* Tools */
+      yyy: { title: "DeFi Yield Aggregator", desc: "One-stop aggregator for DeFi protocol yields. Find the highest APY and farming opportunities." },
       civcalc: { title: "Civilization Foundation DCA Calculator", desc: "Backtest DCA into BTC, gold and index 'civilization base assets' with returns & drawdowns." },
       watermark: { title: "MengYa Watermark", desc: "Add text/image watermarks to your photos with batch processing & custom styles." },
       strc: { title: "Strc Yield Tracker", desc: "Track MicroStrategy STRC dividend rights & yields." },
