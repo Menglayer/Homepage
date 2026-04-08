@@ -11,6 +11,14 @@ window.LINKS = {
       open: "modal",
       tag: "new"
     },
+    // === 新增：加密理财十五问 ===
+    {
+      id: "earnfaq",
+      href: "https://earnfaq.menglayer.cc/",
+      img: IMG + "earnfaq.png",
+      open: "modal",
+      tag: "new"
+    },
     // ✅ 新增：人类文明基石定投计算器
     {
       id: "civcalc",
@@ -41,8 +49,7 @@ window.LINKS = {
       id: "jane",
       href: "https://jane.menglayer.cc/",
       img: IMG + "jane.png",   // 建议放一张 512x512 左右的图到 assets/images/jane.jpg
-      open: "modal",
-      tag: "new" // ✅ 标记为新品            
+      open: "modal"
     },
     {
       id: "pendleyt",
