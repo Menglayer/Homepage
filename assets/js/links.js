@@ -28,13 +28,12 @@ window.LINKS = {
       highlight: true, // ✅ 让它变大占两列
       tag: "hot"       // ✅ 加上 HOT 标签
     },
-    // === 新增：萌芽水印 ===
     {
-      id: "watermark",
-      href: "https://pic.menglayer.cc/",
-      img: IMG + "watermark.png",
-      open: "modal",
-      tag: "new"
+      id: "addrproof",
+      href: "https://www.addrproof.com?referrerCode=8085970963",
+      img: IMG + "address.png",
+      open: "blank",
+      tag: "hot"
     },
     // === 新增：Strc 收益追踪器 ===
     {
@@ -58,11 +57,10 @@ window.LINKS = {
       open: "blank"
     },
     {
-      id: "addrproof",
-      href: "https://www.addrproof.com?referrerCode=8085970963",
-      img: IMG + "address.png",
-      open: "blank",
-      tag: "hot"
+      id: "watermark",
+      href: "https://pic.menglayer.cc/",
+      img: IMG + "watermark.png",
+      open: "modal"
     },
     {
       id: "tsc",
