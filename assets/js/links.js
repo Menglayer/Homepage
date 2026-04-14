@@ -61,7 +61,8 @@ window.LINKS = {
       id: "addrproof",
       href: "https://www.addrproof.com?referrerCode=8085970963",
       img: IMG + "address.png",
-      open: "blank"
+      open: "blank",
+      tag: "hot"
     },
     {
       id: "tsc",
