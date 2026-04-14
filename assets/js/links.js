@@ -156,10 +156,11 @@ window.LINKS = {
   ],
   exchanges: [
     { id: "binance", href: "https://www.binance.com/en/join?ref=UYSU519R", img: IMG + "icon-binance.jpg" },
+    { id: "okx", href: "https://www.okx.com/zh-hans/join/5367051", img: IMG + "icon-okx.jpg" },
+    { id: "deribit", href: "https://www.deribit.com/?reg=20870.4314", img: IMG + "icon-derbit.png" },
+    { id: "bybit", href: "https://www.bybit.com/sign-up?affiliate_id=91392", img: IMG + "icon-bybit.jpg" },
     { id: "backpack", href: "https://backpack.exchange/signup?code=mengya", img: IMG + "icon-backpack.jpg" },
     { id: "bitget", href: "https://www.bitget.com/zh-CN/expressly?channelCode=1hql&vipCode=meng66&languageType=1&groupId=436589", img: IMG + "icon-bitget.png" },
-    { id: "bybit", href: "https://www.bybit.com/sign-up?affiliate_id=91392&group_id=533607&group_type=1&ref_code=91392", img: IMG + "icon-bybit.jpg" },
-    { id: "okx", href: "https://www.okx.com/zh-hans/join/5367051", img: IMG + "icon-okx.jpg" },
     { id: "ourbit", href: "https://www.ourbit.com/register?inviteCode=FPL69V", img: IMG + "icon-ourbit.jpg" },
     { id: "gate", href: "https://www.gateweb.store/share/xiaomeng", img: IMG + "icon-gate.jpg" }
   ],
@@ -186,9 +187,6 @@ window.LINKS = {
     }
   ]
 };
-
-
-
 
 
 

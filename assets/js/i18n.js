@@ -85,6 +85,7 @@ window.I18N = {
       bitget: { title: "Bitget", desc: "以合约见长的交易平台，支持复制交易与量化工具。" },
       bybit: { title: "Bybit", desc: "头部衍生品交易所，深度充足、撮合稳定，产品完善。" },
       okx: { title: "OKX", desc: "综合型交易所，集交易、Web3 钱包与 DeFi 聚合于一体。" },
+      deribit: { title: "Deribit", desc: "专注期权与永续合约的专业衍生品交易所，适合进阶交易者。" },
       ourbit: { title: "Ourbit", desc: "新兴现货与衍生品平台，提供多资产交易与返佣激励。" },
       gate: { title: "Gate", desc: "老牌平台，币种丰富、上新快速，支持现货、合约与理财。" },
 
@@ -183,6 +184,7 @@ window.I18N = {
       bitget: { title: "Bitget", desc: "Derivatives-focused platform with copy trading and quant tools." },
       bybit: { title: "Bybit", desc: "Top derivatives exchange with deep liquidity and fast matching." },
       okx: { title: "OKX", desc: "Full-stack exchange with trading, Web3 wallet, and DeFi hub." },
+      deribit: { title: "Deribit", desc: "A professional derivatives exchange focused on options and perpetuals." },
       ourbit: { title: "Ourbit", desc: "Emerging spot & derivatives venue with multi-asset trading." },
       gate: { title: "Gate", desc: "Established exchange offering wide listings, spot and futures." },
 
