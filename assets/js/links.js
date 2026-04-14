@@ -43,13 +43,6 @@ window.LINKS = {
       open: "modal",
       tag: "new"
     },
-    // === 新增：Jane 收益面板 ===
-    {
-      id: "jane",
-      href: "https://jane.menglayer.cc/",
-      img: IMG + "jane.png",   // 建议放一张 512x512 左右的图到 assets/images/jane.jpg
-      open: "modal"
-    },
     {
       id: "pendleyt",
       href: "https://quantsheep.com/",
@@ -184,7 +177,6 @@ window.LINKS = {
     }
   ]
 };
-
 
 
 
