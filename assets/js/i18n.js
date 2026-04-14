@@ -62,6 +62,7 @@ window.I18N = {
       strc: { title: "Strc 收益追踪器", desc: "追踪微策略 STRC 分红权益。" },
       jane: { title: "Jane 收益面板", desc: "Jane的日收益、权重与总年化。" },
       pendleyt: { title: "Pendle YT计算器", desc: "计算 YT 到期赎回价值、贴现/年化收益率与盈亏平衡点." },
+      addrproof: { title: "地址证明生成器", desc: "生成钱包地址签名证明，用于账户归属与身份验证场景。" },
       tsc: { title: "代币合约检测", desc: "一键检测 ERC/BEP 等合约的常见风险与权限。" },
       airdrop_universal: { title: "通用空投计算器", desc: "自定义 FDV/空投比例，估算积分/代币价值与份额。" },
       fundingfee: { title: "合约价差/资金费看板", desc: "多交易所基差、资金费率与期现价差对比。" },
@@ -93,7 +94,9 @@ window.I18N = {
       // === 新增部分 ===
       ibkr: { title: "盈透证券 (IBKR)", desc: "全球顶尖券商，超低佣金直连全球市场 (最高赚取 $1000 股票)。" },
       bybit_card: { title: "Bybit Card U卡", desc: "加密货币消费卡，支持全球万事达商户支付与 ATM 取现。" },
-      bitget_card: { title: "Bitget Card U卡", desc: "高额度多币种虚拟卡，支持绑定支付宝/微信消费。" }
+      bitget_card: { title: "Bitget Card U卡", desc: "高额度多币种虚拟卡，支持绑定支付宝/微信消费。" },
+      kast_card: { title: "Kast 卡", desc: "支持链上资产消费的加密支付卡入口。" },
+      etherfi_card: { title: "Ether.fi 卡", desc: "Ether.fi 提供的加密支付卡推荐入口。" }
     }
   },
 
@@ -158,6 +161,7 @@ window.I18N = {
       strc: { title: "Strc Yield Tracker", desc: "Track MicroStrategy STRC dividend rights & yields." },
       jane: { title: "Jane Yield Dashboard", desc: "Compare daily returns and weights of USD3 / LP / YT positions in one view." },
       pendleyt: { title: "Pendle YT Calculator", desc: "Compute YT redemption value, discount/APY." },
+      addrproof: { title: "Address Proof Generator", desc: "Generate signed wallet address proof for ownership and identity verification." },
       tsc: { title: "Token Smart Contract Checker", desc: "Scan ERC/BEP contracts for common risks and privileged roles." },
       airdrop_universal: { title: "Universal Airdrop Estimator", desc: "Estimate point/token value by FDV and airdrop rate." },
       fundingfee: { title: "Funding/Basis Dashboard", desc: "Cross-exchange basis, funding rate & spot–futures spread." },
@@ -189,7 +193,9 @@ window.I18N = {
       // === New Additions ===
       ibkr: { title: "Interactive Brokers", desc: "Top-tier global broker. Low commissions. Earn up to $1000 in IBKR stock." },
       bybit_card: { title: "Bybit Card", desc: "Spend crypto globally with Mastercard. Auto-savings & rewards." },
-      bitget_card: { title: "Bitget Card", desc: "High-limit virtual card supporting multi-currency instant payments." }
+      bitget_card: { title: "Bitget Card", desc: "High-limit virtual card supporting multi-currency instant payments." },
+      kast_card: { title: "Kast Card", desc: "Crypto payment card gateway for spending on-chain assets." },
+      etherfi_card: { title: "Ether.fi Card", desc: "Referral entry for the Ether.fi crypto payment card." }
     }
   }
 };

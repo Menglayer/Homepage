@@ -58,6 +58,12 @@ window.LINKS = {
       open: "blank"
     },
     {
+      id: "addrproof",
+      href: "https://www.addrproof.com?referrerCode=8085970963",
+      img: IMG + "address.png",
+      open: "blank"
+    },
+    {
       id: "tsc",
       href: "https://tsc.menglayer.cc/",
       img: IMG + "tsc.jpg",
@@ -166,11 +172,19 @@ window.LINKS = {
       id: "bitget_card",
       href: "https://web3.bitget.com/invite/card/LHKD3i",
       img: IMG + "bgcard.png" // 请确保上传了此图片
+    },
+    {
+      id: "kast_card",
+      href: "https://join.kast.xyz/click?offer_id=6&pub_id=646",
+      img: IMG + "icon-kast.png"
+    },
+    {
+      id: "etherfi_card",
+      href: "https://www.ether.fi/refer/ca307199",
+      img: IMG + "icon-etherfi.png"
     }
   ]
 };
-
-
 
 
 
