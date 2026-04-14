@@ -58,18 +58,6 @@ window.LINKS = {
       open: "blank"
     },
     {
-      id: "backpack_calc",
-      href: "https://backpack.menglayer.cc/",
-      img: IMG + "icon-backpack.jpg",
-      open: "modal"
-    },
-    {
-      id: "falcon",
-      href: "https://falcon.menglayer.cc/",
-      img: IMG + "falcon.png",
-      open: "modal"          // 保持原来的弹窗打开
-    },
-    {
       id: "tsc",
       href: "https://tsc.menglayer.cc/",
       img: IMG + "tsc.jpg",
@@ -98,12 +86,6 @@ window.LINKS = {
       href: "https://borrow.menglayer.cc/",
       img: IMG + "borrow-risk.jpg",
       open: "modal"   // 如需新开页，改为 "blank"
-    },
-    {
-      id: "kaito_yaps",
-      href: "https://gomtu.xyz/yapper-stats",
-      img: IMG + "icon-kaito.png",
-      open: "modal"     // 如需新开页改成 "blank"
     },
     {
       id: "clammv3",
@@ -187,7 +169,6 @@ window.LINKS = {
     }
   ]
 };
-
 
 
 
