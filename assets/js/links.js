@@ -3,6 +3,14 @@
 const IMG = "assets/images/";
 window.LINKS = {
   tools: [
+    // === 新增：双币赢处刑器 ===
+    {
+      id: "option",
+      href: "https://option.menglayer.cc/",
+      img: IMG + "option.png",
+      open: "modal",
+      tag: "hot"
+    },
     // === 新增：Defi 收益聚合器 ===
     {
       id: "yyy",

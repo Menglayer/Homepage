@@ -55,6 +55,7 @@ window.I18N = {
 
     cards: {
       /* 工具 */
+      option: { title: "双币赢处刑器", desc: "双币投资高阶策略与收益回测对比分析。" },
       earnfaq: { title: "加密理财十五问", desc: "用十五个问题判断理财项目能不能存。" },
       yyy: { title: "DeFi 收益聚合器", desc: "全网 DeFi 协议收益率聚合对比，一站式发现最高年化及挖矿机会。" },
       civcalc: { title: "人类文明基石定投计算器", desc: "人类文明基石资产定投收益分析。" },
@@ -153,6 +154,7 @@ window.I18N = {
 
     cards: {
       /* Tools */
+      option: { title: "Dual Investment Executioner", desc: "Advanced Dual Investment options strategy and yield backtesting analysis." },
       earnfaq: { title: "Crypto Yield FAQ", desc: "Use 15 questions to determine if a wealth management project is safe to deposit." },
       yyy: { title: "DeFi Yield Aggregator", desc: "One-stop aggregator for DeFi protocol yields. Find the highest APY and farming opportunities." },
       civcalc: { title: "Civilization Foundation DCA Calculator", desc: "Backtest DCA into BTC, gold and index 'civilization base assets' with returns & drawdowns." },
