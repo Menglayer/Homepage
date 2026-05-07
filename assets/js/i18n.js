@@ -55,6 +55,7 @@ window.I18N = {
 
     cards: {
       /* 工具 */
+      saturn: { title: "Saturn 空投计算器", desc: "Saturn (土星) 项目空投估算工具，支持多参数测算。" },
       option: { title: "双币赢处刑器", desc: "双币投资高阶策略与收益回测对比分析。" },
       earnfaq: { title: "加密理财十五问", desc: "用十五个问题判断理财项目能不能存。" },
       yyy: { title: "DeFi 收益聚合器", desc: "全网 DeFi 协议收益率聚合对比，一站式发现最高年化及挖矿机会。" },
@@ -154,6 +155,7 @@ window.I18N = {
 
     cards: {
       /* Tools */
+      saturn: { title: "Saturn Airdrop Calculator", desc: "Saturn project airdrop estimation tool with multi-parameter support." },
       option: { title: "Dual Investment Executioner", desc: "Advanced Dual Investment options strategy and yield backtesting analysis." },
       earnfaq: { title: "Crypto Yield FAQ", desc: "Use 15 questions to determine if a wealth management project is safe to deposit." },
       yyy: { title: "DeFi Yield Aggregator", desc: "One-stop aggregator for DeFi protocol yields. Find the highest APY and farming opportunities." },

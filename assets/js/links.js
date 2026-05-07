@@ -3,6 +3,14 @@
 const IMG = "assets/images/";
 window.LINKS = {
   tools: [
+    // === 新增：Saturn空投计算器 ===
+    {
+      id: "saturn",
+      href: "https://saturn.menglayer.cc/",
+      img: IMG + "saturn.png",
+      open: "modal",
+      tag: "new"
+    },
     // === 新增：双币赢处刑器 ===
     {
       id: "option",
