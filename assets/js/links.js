@@ -38,16 +38,14 @@ window.LINKS = {
       id: "yyy",
       href: "https://yyy.menglayer.cc/",
       img: IMG + "yyy.png",
-      open: "modal",
-      tag: "new"
+      open: "modal"
     },
     // === 新增：加密理财十五问 ===
     {
       id: "earnfaq",
       href: "https://earnfaq.menglayer.cc/",
       img: IMG + "earnfaq.png",
-      open: "modal",
-      tag: "new"
+      open: "modal"
     },
     // ✅ 新增：人类文明基石定投计算器
     {
@@ -72,12 +70,6 @@ window.LINKS = {
       img: IMG + "strc.png",
       open: "modal",
       tag: "new"
-    },
-    {
-      id: "pendleyt",
-      href: "https://quantsheep.com/",
-      img: IMG + "YT.jpg",
-      open: "blank"
     },
     {
       id: "watermark",
@@ -207,7 +199,6 @@ window.LINKS = {
     }
   ]
 };
-
 
 
 
