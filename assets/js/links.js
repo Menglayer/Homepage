@@ -3,6 +3,20 @@
 const IMG = "assets/images/";
 window.LINKS = {
   tools: [
+    {
+      id: "3j",
+      href: "https://3j.menglayer.cc/",
+      img: IMG + "3jane.png",
+      open: "modal",
+      tag: "new"
+    },
+    {
+      id: "avlt",
+      href: "https://avlt.menglayer.cc/",
+      img: IMG + "avlt.png",
+      open: "modal",
+      tag: "new"
+    },
     // === 新增：Saturn空投计算器 ===
     {
       id: "saturn",
@@ -193,8 +207,6 @@ window.LINKS = {
     }
   ]
 };
-
-
 
 
 
