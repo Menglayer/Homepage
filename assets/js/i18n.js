@@ -37,7 +37,7 @@ window.I18N = {
     fomo_b2: "⚡ <strong>循环策略：</strong>高息挖矿与套利方案",
     fomo_b3: "🛡️ <strong>资产复利：</strong>获取独家DEAL/OFFER机会",
     fomo_action: "点击下方按钮，联系小助手入群（请备注：核心群）",
-    fomo_btn_tg: "✈️ 添加小助手", // 新增按钮文案
+    fomo_btn_tg: "✈️ 联系 TG",
     fomo_tip: "⚠️ 萌芽核心群不定时开放，也可添加小助手排队等待。",
 
     // === zh Donate / Modal ===
@@ -139,7 +139,7 @@ window.I18N = {
     fomo_b2: "⚡ <strong>Yield Strategy:</strong> High APY farming & arbitrage",
     fomo_b3: "🛡️ <strong>Verification:</strong> High net-worth network only",
     fomo_action: "Click below to contact assistant for waitlist",
-    fomo_btn_tg: "✈️ Contact Assistant (@monii00001)", // 新增按钮文案
+    fomo_btn_tg: "✈️ Contact TG (@monii00001)",
     fomo_tip: "⚠️ Group opens sporadically. Add assistant to waitlist.",
 
     // === en Donate / Modal ===
