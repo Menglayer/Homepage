@@ -56,13 +56,6 @@ window.LINKS = {
       highlight: true, // ✅ 让它变大占两列
       tag: "hot"       // ✅ 加上 HOT 标签
     },
-    {
-      id: "addrproof",
-      href: "https://www.addrproof.com?referrerCode=8085970963",
-      img: IMG + "address.png",
-      open: "blank",
-      tag: "hot"
-    },
     // === 新增：Strc 收益追踪器 ===
     {
       id: "strc",
@@ -199,7 +192,6 @@ window.LINKS = {
     }
   ]
 };
-
 
 
 
