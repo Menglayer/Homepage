@@ -55,6 +55,7 @@ window.I18N = {
 
     cards: {
       /* 工具 */
+      doppler: { title: "Doppler 空投计算器", desc: "查询 Ethereum 与 XRPL 地址的 Doppler 积分和排名，并按自定义 $XDP FDV 与空投比例估算空投价值。" },
       saturn: { title: "Saturn 空投计算器", desc: "Saturn (土星) 项目空投估算工具，支持多参数测算。" },
       option: { title: "双币赢处刑器", desc: "双币投资高阶策略与收益回测对比分析。" },
       earnfaq: { title: "加密理财十五问", desc: "用十五个问题判断理财项目能不能存。" },
@@ -157,6 +158,7 @@ window.I18N = {
 
     cards: {
       /* Tools */
+      doppler: { title: "Doppler Airdrop Calculator", desc: "Look up Doppler points and rankings for Ethereum or XRPL addresses, then estimate airdrop value using custom $XDP FDV and allocation assumptions." },
       saturn: { title: "Saturn Airdrop Calculator", desc: "Saturn project airdrop estimation tool with multi-parameter support." },
       option: { title: "Dual Investment Executioner", desc: "Advanced Dual Investment options strategy and yield backtesting analysis." },
       earnfaq: { title: "Crypto Yield FAQ", desc: "Use 15 questions to determine if a wealth management project is safe to deposit." },

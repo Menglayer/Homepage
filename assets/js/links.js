@@ -4,6 +4,13 @@ const IMG = "assets/images/";
 window.LINKS = {
   tools: [
     {
+      id: "doppler",
+      href: "https://doppler.menglayer.cc/",
+      img: IMG + "doppler.png",
+      open: "modal",
+      tag: "new"
+    },
+    {
       id: "3j",
       href: "https://3j.menglayer.cc/",
       img: IMG + "3jane.png",
@@ -192,7 +199,6 @@ window.LINKS = {
     }
   ]
 };
-
 
 
 
