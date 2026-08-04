@@ -4,6 +4,13 @@ const IMG = "assets/images/";
 window.LINKS = {
   tools: [
     {
+      id: "axis",
+      href: "https://axis.menglayer.cc/",
+      img: IMG + "axis.png",
+      open: "modal",
+      tag: "new"
+    },
+    {
       id: "tori",
       href: "https://tori.menglayer.cc/",
       img: IMG + "tori.png",
@@ -206,7 +213,6 @@ window.LINKS = {
     }
   ]
 };
-
 
 
 
