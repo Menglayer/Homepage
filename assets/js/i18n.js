@@ -55,6 +55,7 @@ window.I18N = {
 
     cards: {
       /* 工具 */
+      axis: { title: "AXIS 计算器", desc: "基于 AXIS 官方 Coordinates 总量快照，结合 FDV、空投比例、每日积分增长、TGE 日期与 Boost，估算潜在空投价值。" },
       tori: { title: "TORI 计算器", desc: "组合多种 Tori 仓位，结合 Pendle YT 实时价格、全网 Cores 与 FDV/空投比例，估算积分和潜在空投价值。" },
       doppler: { title: "Doppler 空投计算器", desc: "查询 Ethereum 与 XRPL 地址的 Doppler 积分和排名，并按自定义 $XDP FDV 与空投比例估算空投价值。" },
       saturn: { title: "Saturn 空投计算器", desc: "Saturn (土星) 项目空投估算工具，支持多参数测算。" },
@@ -159,6 +160,7 @@ window.I18N = {
 
     cards: {
       /* Tools */
+      axis: { title: "AXIS Calculator", desc: "Estimate potential airdrop value from the official AXIS Coordinates snapshot using FDV, allocation, daily point growth, TGE date, and Boost assumptions." },
       tori: { title: "TORI Calculator", desc: "Combine multiple Tori positions with live Pendle YT prices, network-wide Cores, FDV, and airdrop assumptions to estimate points and potential value." },
       doppler: { title: "Doppler Airdrop Calculator", desc: "Look up Doppler points and rankings for Ethereum or XRPL addresses, then estimate airdrop value using custom $XDP FDV and allocation assumptions." },
       saturn: { title: "Saturn Airdrop Calculator", desc: "Saturn project airdrop estimation tool with multi-parameter support." },
