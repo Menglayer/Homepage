@@ -18,23 +18,9 @@ window.LINKS = {
       tag: "new"
     },
     {
-      id: "doppler",
-      href: "https://doppler.menglayer.cc/",
-      img: IMG + "doppler.png",
-      open: "modal",
-      tag: "new"
-    },
-    {
       id: "3j",
       href: "https://3j.menglayer.cc/",
       img: IMG + "3jane.png",
-      open: "modal",
-      tag: "new"
-    },
-    {
-      id: "avlt",
-      href: "https://avlt.menglayer.cc/",
-      img: IMG + "avlt.png",
       open: "modal",
       tag: "new"
     },
