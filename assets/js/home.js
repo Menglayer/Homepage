@@ -16,7 +16,7 @@
       heroIntro1: '华语 DeFi LP 的私人流动性社区。', heroIntro2: '专属 Deal，合作共赢。', followX: '在 X 上关注我',
       portraitAlt: '陈小萌的个人头像：蓝色蝴蝶与花丛中的银发角色',
       participatedProjects: '累计参与项目', cumulativeCapital: '累计投入资金', operatingPeriod: '运行时间',
-      privateMemberLabel: 'Private Member：联系私人社群助手',
+      appButton: '打开应用', privateMemberButton: '私人收益', privateMemberLabel: '私人收益：联系私人社群助手',
       opportunitiesLabel: '我们的方向',
       opportunity1Title: '私人会员', opportunity1Desc: '聚焦 DeFi LP，在私人社群里交流研究与参与机会。',
       opportunity2Title: '专属收益机会', opportunity2Desc: '连接项目与社区，发现值得参与的专属 Deal。',
@@ -26,12 +26,12 @@
       projectsLabel: '合作项目', projectListLabel: '合作项目列表', projectsTitle: '部分合作项目',
       performanceTitle: '用结果，记录长期。', performanceDescription: '从参与资金到累计收益，记录 MengLayer LP DAO 的长期表现。',
       capitalLabel: '参与资金', capitalNote: '累计参与规模', profitLabel: '累计盈利', profitNote: '社区累计收益', yieldLabel: '年化收益率', yieldNote: '历史年化表现',
-      dataSource: '社区汇总数据', dataScope: '资金与收益按社区统计口径展示。', openApp: '打开 APP',
+      dataSource: '社区汇总数据', dataScope: '资金与收益按社区统计口径展示。', openApp: '打开应用',
       communityLine1: '私人交流，', communityLine2: '也有公开分享。',
       communityDescription: '私人社群里深挖 DeFi LP 机会，公开渠道里分享研究、工具与思考。你可以先从 X 和 Telegram 了解我们，再进一步加入私人交流。',
       joinCommunity: '加入公开社区', privateCommunity: '了解私人社群', publicChannels: '公开分享',
       footerMotto: '独立思考，长期生长。', footerContact: '商务合作 ↗', footerNote: '历史表现仅供参考，请保持独立判断。', backTop: '回到顶部 ↑',
-      menuOpen: '打开导航', menuClose: '关闭导航', homeLabel: 'MengLayer 首页', mobileNavLabel: '手机导航', portraitLabel: 'MengLayer LP DAO 社区名片'
+      menuOpen: '打开导航', menuClose: '关闭导航', homeLabel: 'MengLayer LP DAO 首页', mobileNavLabel: '手机导航', portraitLabel: 'MengLayer LP DAO 社区名片'
     },
     en: {
       title: 'MengLayer LP DAO — Private yield. Shared growth.',
@@ -41,7 +41,7 @@
       heroIntro1: 'A private liquidity community for Chinese-speaking DeFi LPs.', heroIntro2: 'Exclusive deals. Growing together.', followX: 'Follow me on X',
       portraitAlt: 'MengLayer’s avatar: a silver-haired character among blue butterflies and flowers',
       participatedProjects: 'Projects', cumulativeCapital: 'Cumulative capital', operatingPeriod: 'Operating period',
-      privateMemberLabel: 'Private Member: contact our Telegram assistant',
+      appButton: 'APP', privateMemberButton: 'Private Member', privateMemberLabel: 'Private Member: contact our Telegram assistant',
       opportunitiesLabel: 'Our focus',
       opportunity1Title: 'Private membership', opportunity1Desc: 'Discuss DeFi LP research and participation opportunities in the private community.',
       opportunity2Title: 'Exclusive opportunities', opportunity2Desc: 'Connecting projects and the community through exclusive deals.',
@@ -56,7 +56,7 @@
       communityDescription: 'We explore DeFi LP opportunities privately and share research, tools, and ideas publicly. Get to know us on X and Telegram, then explore the private community.',
       joinCommunity: 'Join the public community', privateCommunity: 'Private community', publicChannels: 'PUBLIC CHANNELS',
       footerMotto: 'Independent minds. Shared growth.', footerContact: 'Get in touch ↗', footerNote: 'Historical figures are for reference. Think independently.', backTop: 'Back to top ↑',
-      menuOpen: 'Open navigation', menuClose: 'Close navigation', homeLabel: 'MengLayer home', mobileNavLabel: 'Mobile navigation', portraitLabel: 'MengLayer LP DAO community profile'
+      menuOpen: 'Open navigation', menuClose: 'Close navigation', homeLabel: 'MengLayer LP DAO home', mobileNavLabel: 'Mobile navigation', portraitLabel: 'MengLayer LP DAO community profile'
     }
   };
 
@@ -110,7 +110,6 @@
     document.querySelectorAll('[data-copy]').forEach(el => { el.textContent = dict[el.dataset.copy] || el.textContent; });
     document.querySelectorAll('[data-copy-aria]').forEach(el => { el.setAttribute('aria-label', dict[el.dataset.copyAria]); });
     document.querySelectorAll('[data-copy-alt]').forEach(el => { el.alt = dict[el.dataset.copyAlt]; });
-    document.querySelector('.heading-period').textContent = lang === 'en' ? '.' : '。';
     languageButton.textContent = lang === 'zh' ? 'EN' : '中';
     languageButton.setAttribute('aria-label', lang === 'zh' ? 'Switch to English' : '切换到中文');
     setMenu(false);

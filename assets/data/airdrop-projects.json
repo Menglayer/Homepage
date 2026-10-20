@@ -1,0 +1,289 @@
+{
+  "schemaVersion": 1,
+  "asOf": "2026-10-20",
+  "sourceFile": "DeFi_18项目评级融资清单_2026-10-20.xlsx",
+  "sourceSheet": "项目排行榜",
+  "sourceRange": "A5:G22",
+  "currency": "USD",
+  "projects": [
+    {
+      "id": "variational",
+      "rank": 1,
+      "name": "Variational",
+      "rating": "S",
+      "raisedUsd": 61800000,
+      "note": {
+        "zh": "Perps 顶级的最后一舞",
+        "en": "A final top-tier opportunity in perps."
+      },
+      "website": "https://variational.io",
+      "x": "https://x.com/variational_io",
+      "logo": "/assets/images/airdrop/variational.ico",
+      "calculatorId": null,
+      "logoSource": "https://www.variational.io/favicon.ico?favicon.05j3bg0wsuxlq.ico"
+    },
+    {
+      "id": "falcon",
+      "rank": 2,
+      "name": "Falcon Finance S2",
+      "rating": "C",
+      "raisedUsd": 24000000,
+      "note": {
+        "zh": "S1无敌 S2 估计不会再发了",
+        "en": "S1 was exceptional; another S2 distribution looks unlikely."
+      },
+      "website": "https://falcon.finance",
+      "x": "https://x.com/FalconStable",
+      "logo": "/assets/images/falcon.png",
+      "calculatorId": null
+    },
+    {
+      "id": "usdai",
+      "rank": 3,
+      "name": "USD.AI S3",
+      "rating": "B",
+      "raisedUsd": 13400000,
+      "note": {
+        "zh": "S2 2.25%还可以 S3 做普通理财也不错",
+        "en": "S2 allocated 2.25%, which was decent. S3 also looks reasonable as a regular yield product."
+      },
+      "website": "https://usd.ai",
+      "x": "https://x.com/USDai_Official",
+      "logo": "/assets/images/projects/project-06.png",
+      "calculatorId": null
+    },
+    {
+      "id": "theo",
+      "rank": 4,
+      "name": "Theo",
+      "rating": "C",
+      "raisedUsd": 20000000,
+      "note": {
+        "zh": "RWA挺好的 但是方向难找了",
+        "en": "The RWA angle is promising, but the direction is harder to identify."
+      },
+      "website": "https://theo.xyz",
+      "x": "https://x.com/Theo_Network",
+      "logo": "/assets/images/airdrop/theo.svg",
+      "calculatorId": null,
+      "logoSource": "https://framerusercontent.com/images/VJ0hHk1je6Lx7L1QvmuaGLL3UuQ.svg"
+    },
+    {
+      "id": "re",
+      "rank": 5,
+      "name": "Re S2",
+      "rating": "A-",
+      "raisedUsd": 14000000,
+      "note": {
+        "zh": "RE 无敌",
+        "en": "RE stands out."
+      },
+      "website": "https://re.xyz",
+      "x": "https://x.com/re",
+      "logo": "/assets/images/projects/project-05.png",
+      "calculatorId": null
+    },
+    {
+      "id": "onre",
+      "rank": 6,
+      "name": "OnRe",
+      "rating": "B-",
+      "raisedUsd": 5000000,
+      "note": {
+        "zh": "应该不会发币",
+        "en": "A token launch looks unlikely."
+      },
+      "website": "https://onre.finance",
+      "x": "https://x.com/onrefinance",
+      "logo": "/assets/images/airdrop/onre.png",
+      "calculatorId": null,
+      "logoSource": "https://cdn.prod.website-files.com/67fd717e93328e7d586b1b6e/67fe53cdf21ff3e2d48e3e03_Favicon.png"
+    },
+    {
+      "id": "city",
+      "rank": 7,
+      "name": "City Protocol",
+      "rating": "B",
+      "raisedUsd": 11000000,
+      "note": {
+        "zh": "链上ETF 赛季 快结束了",
+        "en": "On-chain ETFs. The season is nearly over."
+      },
+      "website": "https://cityprotocol.co",
+      "x": "https://x.com/cityprotocolHQ",
+      "logo": "/assets/images/airdrop/city.ico",
+      "calculatorId": null,
+      "logoSource": "https://www.cityprotocol.co/favicon.ico"
+    },
+    {
+      "id": "bulk",
+      "rank": 8,
+      "name": "Bulk",
+      "rating": "B+",
+      "raisedUsd": 8000000,
+      "note": {
+        "zh": "一手好牌，打的不太好，目前在往好的地方走",
+        "en": "A strong starting hand, with execution falling short. Things are now moving in a better direction."
+      },
+      "website": "https://bulk.trade",
+      "x": "https://x.com/bulktrade",
+      "logo": "/assets/images/airdrop/bulk.ico",
+      "calculatorId": null,
+      "logoSource": "https://www.bulk.trade/favicon.ico?favicon.433f28e1.ico"
+    },
+    {
+      "id": "3jane",
+      "rank": 9,
+      "name": "3Jane",
+      "rating": "A-",
+      "raisedUsd": 5200000,
+      "note": {
+        "zh": "目前最爱的存款项目",
+        "en": "Currently my favorite deposit project."
+      },
+      "website": "https://3jane.xyz",
+      "x": "https://x.com/3janexyz",
+      "logo": "/assets/images/3jane.png",
+      "calculatorId": "3j"
+    },
+    {
+      "id": "tenbin",
+      "rank": 10,
+      "name": "Tenbin",
+      "rating": "B+",
+      "raisedUsd": 7100000,
+      "note": {
+        "zh": "FX 风口看好",
+        "en": "Positive on the FX opportunity."
+      },
+      "website": "https://tenbinlabs.xyz",
+      "x": "https://x.com/tenbinlabs",
+      "logo": "/assets/images/projects/project-10.png",
+      "calculatorId": null
+    },
+    {
+      "id": "axis",
+      "rank": 11,
+      "name": "Axis",
+      "rating": "B+",
+      "raisedUsd": 5000000,
+      "note": {
+        "zh": "多年量化韩国团队 还不错 底息就可以",
+        "en": "An established Korean quant team. Decent overall; the base yield alone is worthwhile."
+      },
+      "website": "https://axis.to",
+      "x": "https://x.com/AxisFDN",
+      "logo": "/assets/images/axis.png",
+      "calculatorId": "axis"
+    },
+    {
+      "id": "bitfi",
+      "rank": 12,
+      "name": "BitFi",
+      "rating": "C",
+      "raisedUsd": null,
+      "note": {
+        "zh": "打新之后 没活了",
+        "en": "Little activity since the initial offering."
+      },
+      "website": "https://bitfi.one",
+      "x": "https://x.com/Bitfi_Org",
+      "logo": "/assets/images/airdrop/bitfi.ico",
+      "calculatorId": null,
+      "logoSource": "https://www.bitfi.one/favicon.ico"
+    },
+    {
+      "id": "strata",
+      "rank": 13,
+      "name": "Strata",
+      "rating": "C",
+      "raisedUsd": 3000000,
+      "note": {
+        "zh": "这个更是重量级  ena系项目难啊",
+        "en": "A challenging one. Projects in the ENA ecosystem have a tough road."
+      },
+      "website": "https://strata.markets",
+      "x": "https://x.com/strata_markets",
+      "logo": "/assets/images/airdrop/strata.svg",
+      "calculatorId": null,
+      "logoSource": "https://strata.markets/favicon.svg"
+    },
+    {
+      "id": "saturn",
+      "rank": 14,
+      "name": "Saturn",
+      "rating": "B+",
+      "raisedUsd": 2800000,
+      "note": {
+        "zh": "STRC 已经好起来 STRN在路上了",
+        "en": "STRC is improving, and STRN is on the way."
+      },
+      "website": "https://saturn.credit",
+      "x": "https://x.com/saturn_credit",
+      "logo": "/assets/images/saturn.png",
+      "calculatorId": null
+    },
+    {
+      "id": "hylo",
+      "rank": 15,
+      "name": "Hylo",
+      "rating": "B",
+      "raisedUsd": 1500000,
+      "note": {
+        "zh": "拖拖拖拖",
+        "en": "Repeated delays."
+      },
+      "website": "https://hylo.so",
+      "x": "https://x.com/hylo_so",
+      "logo": "/assets/images/airdrop/hylo.ico",
+      "calculatorId": null,
+      "logoSource": "https://hylo.so/favicon.ico"
+    },
+    {
+      "id": "sierra",
+      "rank": 16,
+      "name": "Sierra",
+      "rating": "C",
+      "raisedUsd": null,
+      "note": {
+        "zh": "天下没有免费的午餐",
+        "en": "There is no free lunch."
+      },
+      "website": "https://sierra.money",
+      "x": "https://x.com/SierraIsMoney",
+      "logo": "/assets/images/airdrop/sierra.png",
+      "calculatorId": null,
+      "logoSource": "https://sierra.money"
+    },
+    {
+      "id": "tori",
+      "rank": 17,
+      "name": "Tori Finance",
+      "rating": "B+",
+      "raisedUsd": null,
+      "note": {
+        "zh": "FX Carry Trade的产品 不同于其他vault产品",
+        "en": "An FX carry-trade product, different from other vault products."
+      },
+      "website": "https://tori.finance",
+      "x": "https://x.com/tori_finance",
+      "logo": "/assets/images/tori.png",
+      "calculatorId": "tori"
+    },
+    {
+      "id": "apyx",
+      "rank": 18,
+      "name": "Apyx",
+      "rating": "C",
+      "raisedUsd": 3000000,
+      "note": {
+        "zh": "唉",
+        "en": "Sigh."
+      },
+      "website": "https://apyx.fi",
+      "x": "https://x.com/apyx_fi",
+      "logo": null,
+      "calculatorId": null
+    }
+  ]
+}
