@@ -1,7 +1,7 @@
 (function (root) {
   'use strict';
 
-  const projectCalculatorIds = ['axis', 'tori', '3j', 'saturn'];
+  const projectCalculatorIds = ['axis', 'tori', '3j'];
   const toolCalculatorIds = ['airdrop_universal', 'option', 'civcalc', 'apr', 'borrow_risk', 'clammv3'];
   const toolGroups = ['yield', 'markets', 'safety', 'utilities'];
   const registerGroups = ['exchanges', 'brokers', 'payments'];

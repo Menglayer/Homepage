@@ -6,7 +6,7 @@ try {
  await access(path.join(target,'sources.json'));
  if(!process.argv.includes('--overwrite')) throw new Error('Calculators already imported. Back up local integration changes before using --overwrite.');
 } catch(error) { if(error.code!=='ENOENT') throw error; }
-const sites={axis:'https://axis.menglayer.cc/',tori:'https://tori.menglayer.cc/','3j':'https://3j.menglayer.cc/',saturn:'https://saturn.menglayer.cc/',option:'https://option.menglayer.cc/',civcalc:'https://civ.menglayer.cc/',airdrop_universal:'https://airdropestimator.menglayer.cc/',apr:'https://apr.menglayer.cc/',borrow_risk:'https://borrow.menglayer.cc/',clammv3:'https://clamm.menglayer.cc/'};
+const sites={axis:'https://axis.menglayer.cc/',tori:'https://tori.menglayer.cc/','3j':'https://3j.menglayer.cc/',option:'https://option.menglayer.cc/',civcalc:'https://civ.menglayer.cc/',airdrop_universal:'https://airdropestimator.menglayer.cc/',apr:'https://apr.menglayer.cc/',borrow_risk:'https://borrow.menglayer.cc/',clammv3:'https://clamm.menglayer.cc/'};
 const provenance=[];
 for(const [id,origin] of Object.entries(sites)) {
  const queue=[new URL(origin)],seen=new Set(),files=[];

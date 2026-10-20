@@ -30,7 +30,6 @@ body[data-calculator=civcalc] :is(.col-left,.col-right,.main-layout,.panel,.inpu
 body[data-calculator=civcalc] th{background:#eaf2f8!important;color:#193b57!important}
 body[data-calculator=civcalc] :is(.main-title,.subtitle,.btn-glass){color:#193b57!important}
 body[data-calculator=civcalc] .table-container{overflow-x:auto}
-body[data-calculator=saturn] canvas{max-width:100%}
 body[data-calculator=axis] .earn-metrics{min-width:0;overflow-wrap:anywhere}
 html[data-embedded=true] body[data-calculator=civcalc] header{display:none}
 @media(max-width:700px){

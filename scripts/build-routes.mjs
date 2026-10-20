@@ -28,10 +28,13 @@ for (const route of routes.paths) {
   await writeFile(file, html);
 }
 
-const alias = path.join(root, 'airfrop', 'index.html');
-await mkdir(path.dirname(alias), {recursive:true});
-await writeFile(alias, '<!doctype html>\n<html lang="zh-CN"><head><meta charset="utf-8"><title>空投 · MengLayer APP</title><link rel="canonical" href="https://menglayer.cc/airdrop/"><meta name="robots" content="noindex, follow"><meta http-equiv="refresh" content="0;url=/airdrop/"></head><body><a href="/airdrop/">打开空投 / Open Airdrops</a></body></html>\n');
+const aliases = [['airfrop','/airdrop/'], ['airdrop/saturn','/airdrop/calculators/']];
+for (const [from,to] of aliases) {
+  const alias = path.join(root, from, 'index.html');
+  await mkdir(path.dirname(alias), {recursive:true});
+  await writeFile(alias, '<!doctype html>\n<html lang="zh-CN"><head><meta charset="utf-8"><title>空投 · MengLayer APP</title><link rel="canonical" href="https://menglayer.cc' + to + '"><meta name="robots" content="noindex, follow"><meta http-equiv="refresh" content="0;url=' + to + '"></head><body><a href="' + to + '">打开空投 / Open Airdrops</a></body></html>\n');
+}
 
 const urls = ['/', ...routes.paths].map(route => `  <url><loc>https://menglayer.cc${route}</loc><changefreq>weekly</changefreq><priority>${route === '/' ? '1.0' : '0.8'}</priority></url>`);
 await writeFile(path.join(root, 'sitemap.xml'), '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls.join('\n') + '\n</urlset>\n');
-console.log(JSON.stringify({pages:routes.paths.length, alias:'/airfrop/', sitemap:urls.length}));
+console.log(JSON.stringify({pages:routes.paths.length, aliases:aliases.map(([from])=>'/'+from+'/'), sitemap:urls.length}));

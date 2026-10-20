@@ -10,7 +10,6 @@
     if(id==='tori'&&(document.querySelector('#languageButton')?.textContent.trim()==='EN')===(language==='en')) document.querySelector('#languageButton')?.click();
     if(id==='airdrop_universal') document.querySelector(language==='en'?'#enBtn':'#zhBtn')?.click();
     if(id==='borrow_risk') document.querySelector(language==='en'?'#btnEN':'#btnZH')?.click();
-    if(id==='saturn'&&typeof toggleLang==='function'&&typeof t==='function'&&(t('langSwitch')==='EN')===(language==='en')) toggleLang();
     if(id==='civcalc'&&language==='en'&&document.querySelector('#langText')?.textContent.includes('EN /')) document.querySelector('[onclick="toggleLang()"]')?.click();
   }
   function ready(){
@@ -25,7 +24,8 @@
   }
   if(document.readyState!=='complete')document.addEventListener('DOMContentLoaded',ready,{once:true});else ready();
   let scheduled=false;
-  function notify(){if(scheduled||window.parent===window)return;scheduled=true;requestAnimationFrame(()=>{scheduled=false;const height=Math.ceil(document.body.getBoundingClientRect().height);if(height>0)window.parent.postMessage({type:'menglayer-calculator-size',id,height},location.origin);});}
+  function notify(){if(scheduled||window.parent===window)return;scheduled=true;const enqueue=['axis','tori','3j'].includes(id)?queueMicrotask:requestAnimationFrame;enqueue(()=>{scheduled=false;const height=Math.ceil(document.body.getBoundingClientRect().height);if(height>0)window.parent.postMessage({type:'menglayer-calculator-size',id,height},location.origin);});}
   new ResizeObserver(notify).observe(document.body);
   window.addEventListener('load',notify);window.addEventListener('resize',notify);
+  if(['axis','tori','3j'].includes(id)){document.addEventListener('toggle',notify,true);document.addEventListener('click',notify);document.addEventListener('input',notify);}
 })();

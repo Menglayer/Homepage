@@ -5,7 +5,8 @@
 - `index.html`：品牌首页；`assets/css/home.css`、`assets/js/home.js`：首页样式与双语交互。
 - APP 使用 `/airdrop/`、`/tools/`、`/register/` 地址，会员直达 Mo 的 Telegram。赚取功能暂时隐藏，旧 `app.html#earn` 链接自动转到 `/airdrop/`。`app.html` 保留为共用页面模板与旧链接入口；`assets/js/workspace-routes.js` 统一维护路径规则，`workspace.js`、`workspace-pages.js` 负责界面和双语交互。
 - 工具目录保留 19 个通用工具，按收益测算、市场看板、风险与安全、实用工具分组；通用空投计算器归入收益测算，共 6 个。项目计算器不在工具目录重复展示。注册按交易所、券商、银行与支付卡分组。两页支持分类、跨中英文关键词搜索和可分享 URL，如 `/tools/yield/`、`/register/exchanges/`。
-- 空投分为项目研究（`/airdrop/`）和项目计算器（`/airdrop/calculators/`），仅收录 AXIS、Tori、3Jane、Saturn 4 个项目计算器。详情地址如 `/airdrop/axis/`、`/tools/apr/`。两类详情的下拉菜单各自独立，旧 `app.html#...` 计算器链接会自动转到正确分类和新地址，旧 `#tools/points` 转到 `/tools/yield/`。现有 10 个计算器在 `calculators/` 保存公开原版源码并统一主题，原公式保留。原站入口和导入时间记录于 `calculators/sources.json`。AXIS 官方快照保留原始时间，数据不可用时不补造总量。期权页包含原版模型报价，页面明确标注。
+- 空投分为项目研究（`/airdrop/`）和项目计算器（`/airdrop/calculators/`），仅收录 AXIS、Tori、3Jane 3 个项目计算器。详情地址如 `/airdrop/axis/`、`/tools/apr/`。项目计算器统一使用顶部结果总览、FDV 情景选择和分步参数卡片，配色沿用网站的淡蓝、雾蓝、深海蓝。`assets/js/project-calculator-ui.js` 重组原有控件并同步原计算结果，`assets/css/project-calculator.css` 维护共享样式；原计算模型、数据快照时间、YT 费用与已有积分口径保留。Saturn 计算器源码和入口已删除，旧站内详情地址跳转到项目计算器列表。
+- 两类计算器的切换菜单各自独立，旧 `app.html#...` 链接会自动转到正确分类和新地址，旧 `#tools/points` 转到 `/tools/yield/`。现有 9 个计算器保存在 `calculators/`；原站入口和导入时间记录于 `calculators/sources.json`。数据不可用时不补造总量。期权页包含原版模型报价，页面明确标注。
 - 赚取功能和 Barker 快照采集源码暂时保留，当前导航和路由不开放赚取页面，也不加载 `assets/data/barker-campaigns.json`。恢复前需重新核实数据接口、刷新机制和数据时效。
 - 手动运行 `node scripts/refresh-barker.mjs` 刷新公开页面快照。第三方匿名 API 受限，因此没有绕过鉴权或伪装来源。未新增自动刷新任务。`scripts/import-calculators.mjs` 为首次导入工具，后续覆盖更新前须备份并合并本地 UI/数据状态修补。
 - 原有 `tools.html` 和首页 `?q=...` 搜索链接保留兼容跳转，数据继续共用 `assets/js/links.js` 和 `assets/js/i18n.js`。

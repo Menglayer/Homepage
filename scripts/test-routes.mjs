@@ -58,3 +58,12 @@ test('all six general calculators belong to the yield group', async () => {
   for (const id of routes.toolCalculatorIds) assert.ok(yieldGroup.includes("'" + id + "'"));
   assert.ok(!/points:\[/.test(script));
 });
+
+test('removed Saturn calculator is absent and old bookmarks return to the calculator list', async () => {
+  assert.ok(!routes.projectCalculatorIds.includes('saturn'));
+  assert.equal(parse('/app.html#airdrop/calculator/saturn').path, '/airdrop/calculators/');
+  const sources = JSON.parse(await readFile(new URL('calculators/sources.json',root),'utf8'));
+  assert.ok(!sources.calculators.some(item=>item.id==='saturn'));
+  const redirect = await readFile(new URL('airdrop/saturn/index.html',root),'utf8');
+  assert.ok(redirect.includes('url=/airdrop/calculators/'));
+});

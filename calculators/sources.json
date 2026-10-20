@@ -38,19 +38,6 @@
       ]
     },
     {
-      "id": "saturn",
-      "source": "https://saturn.menglayer.cc/",
-      "importedAt": "2026-10-20T04:00:05.495Z",
-      "files": [
-        "saturn/index.html",
-        "saturn/css/style.css",
-        "saturn/js/constants.js",
-        "saturn/js/i18n.js",
-        "saturn/js/calculator.js",
-        "saturn/js/app.js"
-      ]
-    },
-    {
       "id": "option",
       "source": "https://option.menglayer.cc/",
       "importedAt": "2026-10-20T04:00:09.661Z",

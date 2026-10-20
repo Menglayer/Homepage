@@ -62,10 +62,13 @@
       <div id="categoryFilters" class="category-filters" role="group" aria-label="筛选分类" data-label="filters"></div>
       <p id="resultCount" class="result-count" role="status" aria-live="polite"></p>
     </div>
-    <nav id="airdropSections" class="section-tabs" aria-label="空投栏目 / Airdrop sections" hidden>
-      <a href="/airdrop/" data-airdrop-tab="projects">项目 / Projects</a>
-      <a href="/airdrop/calculators/" data-airdrop-tab="calculator">项目计算器 / Project calculators</a>
-    </nav>
+    <div id="airdropBar" class="airdrop-bar" hidden>
+      <nav id="airdropSections" class="section-tabs" aria-label="空投栏目 / Airdrop sections" hidden>
+        <a href="/airdrop/" data-airdrop-tab="projects">项目 / Projects</a>
+        <a href="/airdrop/calculators/" data-airdrop-tab="calculator">项目计算器 / Project calculators</a>
+      </nav>
+      <select id="projectSelector" class="calculator-select" aria-label="切换项目 / Switch project" hidden></select>
+    </div>
     <section id="viewContent" aria-labelledby="viewTitle">
       <div class="empty-panel"><svg aria-hidden="true"><use href="#icon-airdrop"/></svg><h2>正在加载 APP…</h2><p>Loading projects, tools, and calculators.</p></div>
     </section>

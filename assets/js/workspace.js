@@ -111,8 +111,11 @@
   }
 
   function render() {
+    const isProjectDetail = view === 'airdrop' && category === 'calculator' && window.WorkspacePages.projectCalculatorIds.includes(calculatorId);
+    document.body.classList.toggle('project-calculator-view',isProjectDetail);
     document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
     document.title = text(view) + ' · MengLayer APP';
+    if (isProjectDetail) document.title = card(tools.find(item => item.id === calculatorId)).title.trim() + ' · MengLayer';
     document.querySelector('[rel="canonical"]').href = 'https://menglayer.cc' + window.WorkspaceRoutes.href(view, category + (calculatorId ? '/' + calculatorId : ''));
     $('[name="description"]').content = text(view + 'Description');
     document.querySelectorAll('[data-text]').forEach(el => { el.textContent = text(el.dataset.text); });
@@ -129,6 +132,15 @@
     $('#catalogToolbar').hidden = !isCatalog;
     content.replaceChildren();
     $('#airdropSections').hidden = view !== 'airdrop';
+    $('#airdropBar').hidden = view !== 'airdrop';
+    const projectSelector = $('#projectSelector');
+    projectSelector.hidden = !isProjectDetail;
+    projectSelector.replaceChildren(...window.WorkspacePages.projectCalculatorIds.map(id => {
+      const option = make('option','',id === '3j' ? '3Jane' : id.toUpperCase());
+      option.value = id;
+      option.selected = id === calculatorId;
+      return option;
+    }));
     document.querySelectorAll('[data-airdrop-tab]').forEach(el => {
       el.textContent = lang === 'zh' ? (el.dataset.airdropTab === 'projects' ? '项目' : '项目计算器') : (el.dataset.airdropTab === 'projects' ? 'Projects' : 'Project calculators');
       if (el.dataset.airdropTab === category) el.setAttribute('aria-current','page'); else el.removeAttribute('aria-current');
@@ -324,6 +336,7 @@
     try { localStorage.setItem('lang',lang); } catch (_) { /* Storage is optional. */ }
     render();
   });
+  $('#projectSelector').addEventListener('change',event => setLocation('airdrop','calculator/'+event.target.value));
   window.addEventListener('popstate',readLocation);
   window.addEventListener('hashchange',readLocation);
   $('#year').textContent = String(new Date().getFullYear());
