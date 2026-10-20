@@ -37,8 +37,6 @@ h1, h2, h3, p, dl, dd { margin: 0; }
 .header-inner { min-height: 82px; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 30px; }
 .wordmark { display: inline-flex; align-items: center; gap: 11px; justify-self: start; font-size: 27px; letter-spacing: -1.3px; font-weight: 700; white-space: nowrap; line-height: 1.2; }
 .wordmark-avatar { flex-shrink: 0; object-fit: cover; border-radius: 50%; border: 1px solid #c9dce9; }
-.wordmark-light { font-weight: 400; }
-.wordmark-suffix { font-size: .65em; font-weight: 500; letter-spacing: -.02em; }
 .brand-dot { color: var(--blue); }
 .desktop-nav { display: flex; align-items: center; justify-self: center; gap: 38px; font-size: 13.5px; font-weight: 600; }
 .desktop-nav a, .footer-links a { transition: color .2s; }
@@ -277,7 +275,6 @@ html[lang="en"] .section-heading h2, html[lang="en"] .community-panel h2 { line-
   html { scroll-padding-top: 85px; }
   .header-inner { grid-template-columns: 1fr auto; min-height: 72px; }
   .wordmark { font-size: 23px; gap: 9px; }
-  .site-header .wordmark-suffix { display: block; margin-top: 3px; font-size: 9px; letter-spacing: .13em; }
   .wordmark-avatar { width: 31px; height: 31px; }
   .desktop-nav, .header-contact { display: none; }
   .header-actions { gap: 18px; }
