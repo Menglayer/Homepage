@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="menglayer-source" content="https://axis.menglayer.cc/">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="基于 AXIS Coordinates 官方数据与最新 Earn 倍率估算潜在空投价值。默认 FDV 2 亿美元、全网积分每日复利增幅 2%、空投比例 5%。"
+    />
+    <meta name="theme-color" content="#f4f4f5" />
+    <meta property="og:title" content="AXIS 空投计算器" />
+    <meta
+      property="og:description"
+      content="输入 Coordinates，快速估算潜在 AXIS 空投价值。"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://axis.menglayer.cc/" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css?v=points-20260922" />
+    <title>AXIS 空投计算器</title>
+  <link rel="stylesheet" href="../../assets/css/calculator-theme.css"><script defer src="../../assets/js/calculator-bridge.js"></script></head>
+  <body>
+    <header class="site-header">
+      <div class="shell header-inner">
+        <a
+          class="brand"
+          href="https://app.axis.to/coordinates"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="打开 AXIS Coordinates"
+          data-i18n-aria="axisLogoAria"
+        >
+          <img src="./axis-logo.svg" width="73" height="24" alt="Axis" />
+        </a>
+        <nav class="top-nav" aria-label="主要导航" data-i18n-aria="navAria">
+          <a class="nav-link active" href="#calculator" data-i18n="navCalculator">计算器</a>
+          <a class="nav-link" href="#earn" data-i18n="navEarn">Earn 倍率</a>
+          <a class="nav-link" href="https://app.axis.to/coordinates" target="_blank" rel="noopener noreferrer">Coordinates</a>
+        </nav>
+        <div class="header-actions">
+          <button class="language-toggle" id="languageToggle" type="button" aria-label="Switch to English">EN</button>
+          <a class="official-link" href="https://app.axis.to/origin/meng" target="_blank" rel="noopener noreferrer">
+            <span data-i18n="openAxis">打开 AXIS</span>
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5" /></svg>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero shell" aria-labelledby="page-title">
+        <div class="hero-layout">
+          <div class="hero-content">
+            <div class="eyebrow"><span class="pulse" aria-hidden="true"></span> AXIS COORDINATES</div>
+            <h1 id="page-title">
+              <span class="ink-line" data-i18n="heroLine1">空投价值，</span><br />
+              <span class="muted-line" data-i18n="heroLine2">一眼算清。</span>
+            </h1>
+            <p class="hero-copy" data-i18n="heroCopy">基于 AXIS 官方 Coordinates 总量快照，输入你的积分即可估算潜在空投价值。</p>
+          </div>
+
+          <a
+            class="creator-card"
+            href="https://x.com/menglayer"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="在 X 上关注 MengLayer"
+            data-i18n-aria="creatorAria"
+          >
+            <span class="creator-x" aria-hidden="true">𝕏</span>
+            <span class="creator-copy">
+              <small>MADE BY</small>
+              <strong>MengLayer</strong>
+              <span>@menglayer</span>
+            </span>
+            <svg class="creator-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5" /></svg>
+          </a>
+        </div>
+      </section>
+
+      <aside class="boost-wrap shell" aria-label="AXIS 邀请码活动" data-i18n-aria="boostAria">
+        <a class="boost-banner" href="https://axis.to/origin/meng" target="_blank" rel="noopener noreferrer">
+          <div class="boost-mark" aria-hidden="true">+20%</div>
+          <div class="boost-copy">
+            <span class="boost-kicker">MENG EXCLUSIVE</span>
+            <strong data-i18n="boostTitle">使用邀请码，获得 20% Boost 加成</strong>
+            <span data-i18n="boostCopy">进入 AXIS Origin Vault 开始赚取 Coordinates</span>
+          </div>
+          <span class="boost-cta">
+            <span data-i18n="boostCta">立即参与</span>
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" /></svg>
+          </span>
+        </a>
+      </aside>
+
+      <section class="calculator-section shell" id="calculator" aria-labelledby="calculator-title">
+        <div class="section-heading">
+          <div>
+            <span class="section-index">01</span>
+            <h2 id="calculator-title">Airdrop Calculator</h2>
+          </div>
+          <div class="data-status" id="dataStatus" aria-live="polite">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span id="dataStatusText">正在读取官方快照</span>
+          </div>
+        </div>
+
+      <section class="earn-section" id="earn" aria-labelledby="earn-title">
+        <div class="earn-heading">
+          <div>
+            <span class="section-index">02</span>
+            <div>
+              <h2 id="earn-title" data-i18n="earnTitle">官方 Earn 倍率</h2>
+              <p data-i18n="earnCopy">不同持仓方式获得不同 Coordinates 倍率；下列数据来自 AXIS Earn 页面。</p>
+            </div>
+          </div>
+          <a class="earn-official-link" href="https://app.axis.to/earn" target="_blank" rel="noopener noreferrer">
+            <span data-i18n="earnCta">查看实时 Earn</span><span aria-hidden="true">↗</span>
+          </a>
+        </div>
+
+        <div class="strategy-calculator">
+          <form class="strategy-form" id="strategyForm">
+            <div class="strategy-form-heading">
+              <div>
+                <span class="strategy-kicker" data-i18n="strategyKicker">STRATEGY ESTIMATOR</span>
+                <h3 data-i18n="strategyTitle">策略收益计算器</h3>
+              </div>
+              <button class="reset-button" id="strategyResetButton" type="button" data-i18n="reset">恢复默认</button>
+            </div>
+
+            <label class="field strategy-select-field" for="strategySelect">
+              <span class="label-row"><span data-i18n="strategyLabel">当前策略</span><span class="field-hint">AXIS EARN</span></span>
+              <span class="select-shell">
+                <select id="strategySelect" name="strategy" autocomplete="off"></select>
+                <span aria-hidden="true">⌄</span>
+              </span>
+            </label>
+
+            <div class="strategy-fields">
+              <label class="field" for="strategyAmountInput">
+                <span class="label-row"><span data-i18n="strategyAmount">投入金额</span><span class="field-hint">USD</span></span>
+                <span class="input-shell compact">
+                  <span class="input-prefix">$</span>
+                  <input id="strategyAmountInput" name="amount" type="number" value="10000" min="0" step="100" inputmode="decimal" autocomplete="off" />
+                </span>
+              </label>
+
+              <label class="field" id="ytPriceField" for="ytPriceInput" hidden><span class="label-row" data-i18n="ytPrice">YT 实际单价</span><span class="input-shell compact"><span class="input-prefix">$</span><input id="ytPriceInput" type="number" min="0.000001" step="0.000001" readonly /></span></label>
+              <label class="field" for="strategyApyInput">
+                <span class="label-row"><span data-i18n="strategyApy">预估 APY</span><span class="field-hint">EDITABLE</span></span>
+                <span class="input-shell compact">
+                  <input id="strategyApyInput" name="apy" type="number" value="0" min="0" step="0.01" inputmode="decimal" autocomplete="off" />
+                  <span class="input-suffix">%</span>
+                </span>
+              </label>
+
+              <label class="field" for="strategyMultiplierInput">
+                <span class="label-row"><span data-i18n="strategyMultiplier">Coordinates 倍率</span><span class="field-hint">EDITABLE</span></span>
+                <span class="input-shell compact">
+                  <input id="strategyMultiplierInput" name="multiplier" type="number" value="10" min="0" step="0.1" inputmode="decimal" autocomplete="off" />
+                  <span class="input-suffix">x</span>
+                </span>
+              </label>
+
+              <label class="field" for="strategyTgeInput">
+                <span class="label-row"><span data-i18n="strategyTge">TGE 时间</span><span class="field-hint" data-i18n="ytExpiryHint">YT 到期日</span></span>
+                <span class="input-shell compact date-shell">
+                  <input id="strategyTgeInput" name="strategyTge" type="date" value="2026-12-03" autocomplete="off" />
+                </span>
+              </label>
+            </div>
+
+            <label class="strategy-boost" for="strategyBoostInput">
+              <span><strong>+20% Boost</strong><small data-i18n="strategyBoost">应用邀请码倍率加成</small></span>
+              <input id="strategyBoostInput" name="strategyBoost" type="checkbox" checked />
+              <span class="toggle-track" aria-hidden="true"><span></span></span>
+            </label>
+            <div class="valuation-settings"><h4 data-i18n="parameters">估算参数</h4>            <label class="field field-primary" for="pointsInput">
+              <span class="label-row">
+                <span data-i18n="yourPoints">你的 Coordinates</span>
+                <span class="field-hint">POINTS</span>
+              </span>
+              <span class="input-shell">
+                <input id="pointsInput" name="points" type="number" value="0" min="0" step="1000" inputmode="decimal" autocomplete="off" />
+                <span class="input-suffix">PTS</span>
+              </span>
+            </label>
+
+            <div class="field-grid">
+              <label class="field" for="fdvInput">
+                <span class="label-row"><span>FDV</span><span class="field-hint">USD · M</span></span>
+                <span class="input-shell compact">
+                  <span class="input-prefix">$</span>
+                  <input id="fdvInput" name="fdv" type="number" value="200" min="0" step="10" inputmode="decimal" autocomplete="off" />
+                  <span class="input-suffix">M</span>
+                </span>
+              </label>
+
+              <label class="field" for="airdropInput">
+                <span class="label-row"><span data-i18n="airdropRatio">空投比例</span><span class="field-hint">SUPPLY</span></span>
+                <span class="input-shell compact">
+                  <input id="airdropInput" name="airdrop" type="number" value="5" min="0" max="100" step="0.5" inputmode="decimal" autocomplete="off" />
+                  <span class="input-suffix">%</span>
+                </span>
+              </label>
+
+              <label class="field" for="growthInput">
+                <span class="label-row"><span data-i18n="growthToTge">全网积分每日复利增幅</span><span class="field-hint">DAILY</span></span>
+                <span class="input-shell compact">
+                  <input id="growthInput" name="growth" type="number" value="2" min="0" max="100" step="0.1" inputmode="decimal" autocomplete="off" />
+                  <span class="input-suffix">%</span>
+                </span>
+              </label>
+
+              <label class="field" for="tgeInput">
+                <span class="label-row"><span data-i18n="tgeDate">TGE 时间</span><span class="field-hint">DATE</span></span>
+                <span class="input-shell compact date-shell">
+                  <input id="tgeInput" name="tge" type="date" value="2026-12-03" autocomplete="off" />
+                </span>
+              </label>
+
+              <label class="boost-toggle" for="boostInput">
+                <span>
+                  <strong>20% Boost</strong>
+                  <small data-i18n="referralBoost">邀请码加成</small>
+                </span>
+                <input id="boostInput" name="boost" type="checkbox" checked />
+                <span class="toggle-track" aria-hidden="true"><span></span></span>
+              </label>
+            </div>
+
+            <p class="input-note" data-i18n="boostNote">若输入的积分已经包含邀请加成，请关闭 20% Boost。</p>
+</div>
+            <p class="strategy-source-note" id="strategyApyNote" aria-live="polite">—</p>
+          </form>
+
+          <section class="strategy-results" aria-labelledby="strategy-result-title">
+            <div class="strategy-points-highlight existing-points-card">
+              <span data-i18n="existingAirdrop">已有积分空投估值</span>
+              <strong id="existingAirdrop">$0.00</strong>
+              <small data-i18n="existingPointsNote">按统一 TGE 积分价格估值；无需新增投资。已含邀请加成的积分请关闭 Boost。</small>
+            </div>
+            <dl class="strategy-breakdown">
+              <div><dt data-i18n="effectivePoints">有效积分</dt><dd id="effectiveExistingPoints">0 PTS</dd></div>
+              <div><dt data-i18n="existingShare">已有积分预计占比</dt><dd id="existingShare">0%</dd></div>
+              <div><dt data-i18n="portfolioTotal">总回收金额 · 含已有积分</dt><dd id="portfolioTotal">—</dd></div>
+            </dl>
+            <span class="strategy-kicker" id="strategy-result-title" data-i18n="strategyResultTitle">TGE 预计收益</span>
+            <div class="total-apy-card"><span data-i18n="totalApy">总 APY · 积分 + 底息</span><strong id="totalApy">—</strong><small data-i18n="totalApyNote">按至 TGE 的总净回报复利年化；不含已有积分，非保证收益。</small></div>
+            <div class="strategy-profit" id="strategyProfit">$0</div>
+            <span class="strategy-profit-caption" data-i18n="strategyProfitCaption">按 APY 日化复利估算</span>
+            <div class="strategy-points-highlight">
+              <span data-i18n="strategyPointsTitle">TGE 预计积分收益</span>
+              <strong id="strategyPoints">0 PTS</strong>
+              <small id="strategyPointsRateNote">每 $1 每日 1 Coordinates，再乘策略倍率</small>
+            </div>
+            <dl class="strategy-breakdown"><div id="ytMarketApyRow" hidden><dt data-i18n="ytMarketApy">YT 重算 APY · 不含积分</dt><dd id="ytMarketApy">—</dd></div><div><dt data-i18n="periodReturn">期间总回报率</dt><dd id="periodReturn">—</dd></div><div><dt data-i18n="strategyYield"></dt><dd id="strategyYield">—</dd></div><div><dt data-i18n="strategyAirdrop"></dt><dd id="strategyAirdrop">—</dd></div><div><dt data-i18n="combinedAirdrop"></dt><dd id="combinedAirdrop">—</dd></div><div><dt data-i18n="sharedPointPrice"></dt><dd id="sharedPointPrice">—</dd></div>
+              <div><dt data-i18n="strategyTotal">TGE 预计总额</dt><dd id="strategyTotal">$0</dd></div>
+              <div><dt data-i18n="strategyDailyPoints">预计每日积分</dt><dd id="strategyDailyPoints">0 PTS</dd></div>
+              <div><dt data-i18n="strategyDays">计息天数</dt><dd id="strategyDays">0</dd></div>
+              <div><dt data-i18n="strategyEffectiveApy">采用 APY</dt><dd id="strategyApySummary">0%</dd></div>
+              <div><dt data-i18n="strategyEffectiveMultiplier">含 Boost 倍率</dt><dd id="strategyMultiplierSummary">12x</dd></div>
+            </dl>
+            <a class="strategy-link" id="strategyLink" href="https://app.axis.to/earn" target="_blank" rel="noopener noreferrer">
+              <span data-i18n="strategyOpen">打开所选策略</span><span aria-hidden="true">↗</span>
+            </a>
+          </section>
+        </div>
+
+        <div class="market-strip">
+          <div>
+            <span data-i18n="marketTotal">官方总 Coordinates</span>
+            <strong id="totalPoints">—</strong>
+          </div>
+          <div>
+            <span data-i18n="marketProjected">复利至 TGE 总量</span>
+            <strong id="projectedPoints">—</strong>
+          </div>
+          <div>
+            <span data-i18n="marketTge">TGE 日期</span>
+            <strong id="tgeSummary">2026.12.03</strong>
+          </div>
+          <div>
+            <span data-i18n="marketWallets">参与钱包</span>
+            <strong id="totalWallets">—</strong>
+          </div>
+          <div>
+            <span data-i18n="marketUpdated">数据更新时间</span>
+            <strong id="updatedAt">—</strong>
+          </div>
+        </div>
+
+        <div class="earn-grid">
+          <article class="earn-group">
+            <h3 data-i18n="earnGroupAxis">USDx 产品</h3>
+            <div class="earn-row" data-earn-id="origin-vault">
+              <span data-i18n="earnOriginVault">Origin Vault</span>
+              <span class="earn-metrics"><small data-earn-apy>—</small><strong data-earn-multiplier>10x</strong></span>
+            </div>
+            <div class="earn-row" data-earn-id="hold-usdx">
+              <span data-i18n="earnHoldUsdx">持有 USDx</span>
+              <span class="earn-metrics"><small data-earn-apy>—</small><strong data-earn-multiplier>16x</strong></span>
+            </div>
+            <div class="earn-row" data-earn-id="stake-usdx">
+              <span data-i18n="earnStakeUsdx">质押 USDx</span>
+              <span class="earn-metrics"><small data-earn-apy>—</small><strong data-earn-multiplier>4x</strong></span>
+            </div>
+          </article>
+
+          <article class="earn-group">
+            <h3 data-i18n="earnGroupCurve">Curve 池</h3>
+            <div class="earn-row" data-earn-id="curve-usdx-usdt">
+              <span>USDx / USDT</span>
+              <span class="earn-metrics"><small data-earn-apy>—</small><strong data-earn-multiplier>20x</strong></span>
+            </div>
+            <div class="earn-row" data-earn-id="curve-susdx-usdx">
+              <span>sUSDx / USDx</span>
+              <span class="earn-metrics"><small data-earn-apy>—</small><strong data-earn-multiplier>10x</strong></span>
+            </div>
+          </article>
+
+          <article class="earn-group">
+            <h3 data-i18n="earnGroupPendle">Pendle 市场</h3>
+            <div class="earn-row" data-earn-id="pendle-susdx-pt"><span>sUSDx PT</span><span class="earn-metrics"><small data-earn-apy>—</small><strong data-earn-multiplier>0x</strong></span></div>
+            <div class="earn-row" data-earn-id="pendle-usdx-pt"><span>USDx PT</span><span class="earn-metrics"><small data-earn-apy>—</small><strong data-earn-multiplier>0x</strong></span></div>
+            <div class="earn-row" data-earn-id="pendle-susdx-yt">
+              <span>sUSDx YT</span>
+              <span class="earn-metrics"><small data-earn-apy>—</small><strong data-earn-multiplier>6x</strong></span>
+            </div>
+            <div class="earn-row" data-earn-id="pendle-susdx-lp">
+              <span>sUSDx LP</span>
+              <span class="earn-metrics"><small data-earn-apy>—</small><strong data-earn-multiplier>5x</strong></span>
+            </div>
+            <div class="earn-row" data-earn-id="pendle-usdx-yt">
+              <span>USDx YT</span>
+              <span class="earn-metrics"><small data-earn-apy>—</small><strong data-earn-multiplier>24x</strong></span>
+            </div>
+            <div class="earn-row" data-earn-id="pendle-usdx-lp">
+              <span>USDx LP</span>
+              <span class="earn-metrics"><small data-earn-apy>—</small><strong data-earn-multiplier>20x</strong></span>
+            </div>
+          </article>
+        </div>
+
+        <div class="earn-note">
+          <span><span data-i18n="earnUpdated">倍率数据更新</span> <strong id="earnUpdatedAt">—</strong></span>
+          <span data-i18n="earnBoostNote">符合条件时，邀请码 +20% 会叠加在官方基础倍率之上；倍率不等于 APY。</span>
+        </div>
+      </section>
+
+      </section>
+
+      <section class="method shell" aria-labelledby="method-title">
+        <span class="section-index">03</span>
+        <div>
+          <h2 id="method-title" data-i18n="howTitle">计算方式</h2>
+          <p data-i18n="howCopy">从今天到 TGE，将全网 Coordinates 按每日增幅复利计算，再用 FDV 与空投比例得到空投池价值，按你的有效积分占复利后总积分的比例分配。</p>
+        </div>
+        <p class="disclaimer" data-i18n="disclaimer">本工具由 MengLayer 独立制作，仅供情景估算，不代表 AXIS 官方承诺或投资建议。FDV、TGE、空投比例、积分规则及 20% Boost 均可能变化，请以项目最终公告为准。</p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell footer-inner">
+        <span>AXIS Airdrop Calculator</span>
+        <a class="footer-maker" href="https://x.com/menglayer" target="_blank" rel="noopener noreferrer">
+          <span>MADE BY</span> MENGLAYER <strong>↗</strong>
+        </a>
+      </div>
+    </footer>
+
+    <script src="./app.js?v=points-20260922" defer></script>
+  </body>
+</html>

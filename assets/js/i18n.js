@@ -1,6 +1,7 @@
 /* Global i18n dictionary */
 window.I18N = {
   zh: {
+    back_home: "返回 MengLayer 首页",
     site_title: "萌芽社区丨陈小萌",
     // 新增文案
     sp_fans: "全网粉丝 <strong>10K+</strong>",
@@ -108,6 +109,7 @@ window.I18N = {
   },
 
   en: {
+    back_home: "Back to MengLayer home",
     site_title: "MengLayer Community",
     sp_fans: "Fans <strong>10K+</strong>",
     sp_value: "Airdrops <strong>$10M+</strong>",

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="menglayer-source" content="https://borrow.menglayer.cc/">
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>借贷风险 & 循环贷计算器 | MengLayer</title>
+  <meta name="theme-color" content="#357ef3"/><link rel="stylesheet" href="app.css"/>
+
+  <script>
+    (function(){
+      if (location.protocol === 'http:' || location.protocol === 'https:') {
+        var m = document.createElement('link');
+        m.rel = 'manifest';
+        m.href = '../../manifest.json';
+        document.head.appendChild(m);
+      } else {
+        // file:// mode → skip manifest to avoid CORS warnings
+      }
+    })();
+  </script>
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"/>
+  <link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon-180.png"/>
+
+<link rel="stylesheet" href="../../assets/css/calculator-theme.css"><script defer src="../../assets/js/calculator-bridge.js"></script></head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="title-wrap">
+        <div class="title" data-i18n="title">借贷风险 & 循环贷计算器</div>
+        <div class="subtitle" data-i18n="subtitle">Aave / Morpho / Compound / 自定义</div>
+      </div>
+      <div class="controls">
+        <div class="seg" id="langSeg">
+          <button id="btnZH" class="active">中</button>
+          <button id="btnEN">EN</button>
+        </div>
+        <button class="btn subtle" id="helpBtn" data-i18n="help">使用说明</button>
+        <button class="btn subtle" id="calcBtnTop" data-i18n="calc">计算</button>
+        <a class="btn subtle" href="https://x.com/menglayer" target="_blank" rel="noopener" data-i18n="follow">关注我 X</a>
+        <button class="btn" id="refreshBtn" data-i18n="refresh">刷新价格</button>
+      </div>
+    </header>
+
+    <section class="card">
+      <div class="grid">
+        <div class="field">
+          <label data-i18n="presetLabel">平台 Preset</label>
+          <select id="platform">
+            <option value="custom" data-i18n="opt_custom">自定义</option>
+            <option value="aavev3" selected data-i18n="opt_aavev3">Aave v3</option>
+            <option value="morphoblue" data-i18n="opt_morpho">Morpho Blue</option>
+            <option value="compoundv3" data-i18n="opt_comp">Compound v3</option>
+          </select>
+          <div class="hint" data-i18n="presetHint">注：可尝试“刷新价格”拉取 CoinGecko 价格；参数可手动改，最终以输入为准。</div>
+        </div>
+        <div class="field">
+          <label data-i18n="collateralLabel">抵押资产（Collateral）</label>
+          <select id="collateral">
+            <option>WETH</option><option>wstETH</option><option>WBTC</option><option>ETH</option>
+            <option>USDC</option><option>USDT</option><option>DAI</option>
+            <option>USDE</option><option>sUSDE</option>
+          </select>
+        </div>
+        <div class="field">
+          <label data-i18n="debtLabel">借入资产（Debt）</label>
+          <select id="debt">
+            <option>USDC</option><option>USDT</option><option>DAI</option><option>ETH</option><option>WETH</option><option>WBTC</option>
+            <option>USDE</option><option>sUSDE</option>
+          </select>
+        </div>
+        <div class="field"><label data-i18n="collAmtLabel">抵押数量（单位：抵押币）</label><input id="collAmt" type="number" value="10" step="0.0001"></div>
+        <div class="field"><label data-i18n="debtAmtLabel">借入数量（单位：借入币）</label><input id="debtAmt" type="number" value="12000" step="0.0001"></div>
+        <div class="field">
+          <label data-i18n="targetLabel">目标健康因子 HF 或安全缓冲</label>
+          <div class="grid grid-2">
+            <input id="targetHF" type="number" value="1.5" step="0.01">
+            <input id="bufferPct" type="number" value="20" step="0.1">
+          </div>
+          <div class="hint" data-i18n="targetHint">二选一：填写 HF（≥1）或安全缓冲 %（= 距离清算的余量）。用于计算“最多可借/建议借”。</div>
+        </div>
+        <div class="field"><label data-i18n="collPriceLabel">抵押价（USD）</label><input id="collPrice" type="number" value="3000" step="0.01"></div>
+        <div class="field"><label data-i18n="debtPriceLabel">借入价（USD）</label><input id="debtPrice" type="number" value="1" step="0.0001"></div>
+        <div class="field"><label data-i18n="ltvLabel">LTV（可借上限 %）</label><input id="ltv" type="number" value="75" step="0.1"></div>
+        <div class="field"><label data-i18n="liqThrLabel">清算阈值（Liquidation Threshold % / LLTV）</label><input id="liqThr" type="number" value="80" step="0.1"></div>
+        <div class="field"><label data-i18n="liqPenaltyLabel">清算罚金（%）</label><input id="liqPenalty" type="number" value="5" step="0.1"></div>
+        <div class="field"><label data-i18n="apySupplyLabel">存款年化（APY %）</label><input id="apySupply" type="number" value="2.5" step="0.01"></div>
+        <div class="field"><label data-i18n="apyBorrowLabel">借款年化（APY %）</label><input id="apyBorrow" type="number" value="6" step="0.01"></div>
+        <div class="field">
+          <label data-i18n="rateTypeLabel">稳定/浮动利率</label>
+          <select id="rateType">
+            <option data-i18n="rateVar">浮动</option>
+            <option data-i18n="rateFix">稳定</option>
+          </select>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn" id="calcBtn" data-i18n="calc">计算</button>
+        <button class="btn subtle" id="presetBtn" data-i18n="presetBtn">载入平台示例参数</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="metrics">
+        <div class="metric"><div class="k" data-i18n="m_collValLabel">抵押价值</div><div class="v" id="m_collVal">$0.00</div></div>
+        <div class="metric"><div class="k" data-i18n="m_debtValLabel">债务价值</div><div class="v" id="m_debtVal">$0.00</div></div>
+        <div class="metric"><div class="k" data-i18n="m_hfLabel">当前 HF</div><div class="v" id="m_hf">—</div></div>
+        <div class="metric"><div class="k" data-i18n="m_ltvUseLabel">LTV 用量</div><div class="v" id="m_ltvUse">—</div></div>
+        <div class="metric"><div class="k" data-i18n="m_liqPriceLabel">清算价（抵押）</div><div class="v" id="m_liqPrice">—</div></div>
+      </div>
+      <div class="hr"></div>
+      <div class="metrics">
+        <div class="metric"><div class="k" data-i18n="m_suggestLabel">建议最大可借</div><div class="v" id="m_suggest">—</div></div>
+        <div class="metric"><div class="k" data-i18n="m_netApyLabel">名义净年化（不含点差/税）</div><div class="v" id="m_netApy">—</div></div>
+        <div class="metric"><div class="k" data-i18n="m_costYearLabel">利息成本/年</div><div class="v" id="m_costYear">—</div></div>
+        <div class="metric"><div class="k" data-i18n="m_yieldYearLabel">收益/年</div><div class="v" id="m_yieldYear">—</div></div>
+        <div class="metric"><div class="k" data-i18n="m_bufferLabel">安全缓冲</div><div class="v" id="m_buffer">—</div></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="grid grid-2">
+        <div>
+          <h3 data-i18n="stressTitle">价格压力测试</h3>
+          <div class="grid">
+            <div class="field"><label data-i18n="collChangeLabel">抵押价格变化（-80%~+100%）</label><input id="stressColl" type="range" min="-80" max="100" value="-30" oninput="stressRun()"></div>
+            <div class="field"><label data-i18n="debtChangeLabel">借入价格变化（-80%~+100%）</label><input id="stressDebt" type="range" min="-80" max="100" value="0" oninput="stressRun()"></div>
+            <div class="field"><label data-i18n="rangeLabel">图表范围（%）</label><input id="stressRange" type="number" value="80" step="5"></div>
+          </div>
+          <canvas id="chartHF" height="260" style="margin-top:10px"></canvas>
+          <div class="hint" data-i18n="stressHint">图表：X 轴为抵押价变化（%），Y 轴为健康因子（HF）。横线 = HF=1（清算边界）。</div>
+        </div>
+        <div>
+          <h3 data-i18n="loopTitle">循环贷（Looping）</h3>
+          <div class="grid">
+            <div class="field"><label data-i18n="loopsLabel">循环次数 n</label><input id="loops" type="number" value="3" step="1" min="0" max="20"></div>
+            <div class="field"><label data-i18n="perRoundBorrowLabel">每轮借入比例（≤LTV %）</label><input id="loopBorrowPct" type="number" value="70" step="0.1"></div>
+            <div class="field">
+              <label data-i18n="loopStableLabel">是否借稳定币</label>
+              <select id="loopStable">
+                <option value="yes" data-i18n="loopStableYes">是（借稳定→买抵押）</option>
+                <option value="no" data-i18n="loopStableNo">否（两边波动）</option>
+              </select>
+            </div>
+            <div class="field"><label data-i18n="loopFeeLabel">交易费/轮（%）</label><input id="loopFee" type="number" value="0.05" step="0.01"></div>
+            <div class="field"><label data-i18n="loopSupplyLabel">存款 APY（%）</label><input id="loopSupply" type="number" value="2.5" step="0.01"></div>
+            <div class="field"><label data-i18n="loopBorrowLabel">借款 APY（%）</label><input id="loopBorrow" type="number" value="6" step="0.01"></div>
+          </div>
+          <canvas id="chartLoop" height="260" style="margin-top:10px"></canvas>
+          <div class="hint" data-i18n="loopHint">图表：展示 n=0..N 的“总抵押/总负债/净杠杆/净年化（按权益）”。无限循环极限杠杆 ≈ 1/(1-b)，其中 b=每轮借入比例。</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="hint" data-i18n="footHint">⚠️ 仅供教育用途：不同平台的实际参数（LTV / Liquidation Threshold / 罚金 / 速率曲线）会变动；请在链上或官方界面核对真实数据。您可尝试“载入平台示例参数”或手动修改。支持价格拉取（CoinGecko，若跨域失败请手填）。</div>
+    </section>
+  </div>
+
+  <!-- 使用说明弹窗 -->
+  <div class="modal" id="helpModal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+      <button class="modal-close" id="helpClose" title="关闭">×</button>
+      <h3 id="helpTitle" data-i18n="helpTitle">使用说明</h3>
+<div class="content" id="helpContent"></div>
+      <div class="modal-footer">
+        <button class="btn subtle" id="helpGotIt" data-i18n="gotIt">知道了</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="app.js"></script>
+</body>
+</html>

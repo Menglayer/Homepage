@@ -1,0 +1,58 @@
+@font-face{font-family:Pretendard;src:url('../fonts/pretendard-latin.woff2') format('woff2');font-display:swap}
+:root{color-scheme:light!important;--bg:#f3f8fc!important;--page:#f3f8fc!important;--bg1:#f3f8fc!important;--bg2:#fff!important;--bg-deep:#f3f8fc!important;--bg-mid:#eaf2f8!important;--bg-dark:#f3f8fc!important;--bg-card:#fff!important;--bg-card-hover:#fafdff!important;--bg-input:#f7fbfe!important;--card:#fff!important;--card-bg:#fff!important;--surface:#fff!important;--surface-raised:#eaf3fa!important;--paper:#fff!important;--text:#193b57!important;--ink:#193b57!important;--text-main:#193b57!important;--text-primary:#193b57!important;--text-secondary:#647c8f!important;--text-muted:#7c94a6!important;--muted:#647c8f!important;--line:#d8e4ed!important;--border:#d8e4ed!important;--border-card:#d8e4ed!important;--border-input:#cbdce9!important;--blue:#4b82ac!important;--blue-soft:#e5f0f8!important;--brand:#4b82ac!important;--brand-dark:#315f82!important;--accent:#4b82ac!important;--accent-strong:#315f82!important;--accent-blue:#315f82!important;--accent-purple:#6e8fa9!important;--accent-wash:#e5f0f8!important;--accent-ink:#fff!important;--accent-pale:#e5f0f8!important;--purple:#6e8fa9!important;--cyan:#4b82ac!important;--gold:#4b82ac!important;--gold-dim:#315f82!important;--shadow:0 3px 18px #23466508!important;--shadow-card:0 3px 18px #23466508!important;--font-body:Pretendard,'Microsoft YaHei',sans-serif!important;--font-family:Pretendard,'Microsoft YaHei',sans-serif!important;--sans:Pretendard,'Microsoft YaHei',sans-serif!important;--radius-lg:12px!important;--radius-xl:14px!important}
+html,body{min-width:0!important;overflow-x:visible!important;height:auto!important}
+body{background:#f3f8fc!important;background-image:none!important;color:#193b57!important;font:13px/1.65 Pretendard,'PingFang SC','Microsoft YaHei',sans-serif!important}
+button,input,select,textarea{font-family:inherit!important;font-size:13px!important}
+input:not([type=range]):not([type=checkbox]):not([type=radio]),select,textarea{background:#fff!important;color:#193b57!important;border:1px solid #cbdce9!important;border-radius:7px!important;box-shadow:none!important;min-height:40px}
+input:focus-visible,select:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid #76a7cb!important;outline-offset:3px!important}
+input[type=checkbox],input[type=radio],input[type=range]{accent-color:#4b82ac}
+button,.btn,.asset-btn{border-radius:7px!important;box-shadow:none!important}
+h1,.title,.hero-title{font-size:24px!important;line-height:1.4!important;letter-spacing:-.035em!important;text-shadow:none!important}
+h2,.section-title{font-size:16px!important;text-shadow:none!important}h3{font-size:14px!important}
+:is(.card,.panel,.calc-card,.result,.metric,.stat,.step-card,.table-card,.settings-panel,.chart-container){border-color:#d8e4ed!important;border-radius:12px!important;box-shadow:0 3px 18px #23466508!important;background:#fff!important;color:#193b57!important}
+.bg-gradient,.glow-bg,.grid-texture,.orb,.noise,.grid-bg{display:none!important}
+body[data-calculator=civcalc] :is(.header,.subtitle,.asset-btn,.control-label,.table-card,th,td){color:#193b57!important}body[data-calculator=civcalc] :is(.asset-btn,.glass-panel,.control-panel){background:#fff!important;border-color:#d8e4ed!important}body[data-calculator=civcalc] .asset-btn.active{background:#e5f0f8!important;border-color:#76a7cb!important}body[data-calculator=civcalc] .hero-title{-webkit-text-fill-color:#193b57!important}
+html[data-embedded=true] :is(.topbar,.site-header,.app-header,.promo-banner,.footer,.site-footer,footer){display:none!important}
+html[data-embedded=true] body{min-height:0!important}
+html[data-embedded=true] body[data-calculator=axis] :is(.hero,.invite-banner){display:none!important}
+html[data-embedded=true] body[data-calculator=tori] :is(.hero,.boost-banner){display:none!important}
+html[data-embedded=true] body[data-calculator=civcalc] .main-title{color:#193b57!important;-webkit-text-fill-color:#193b57!important}
+:root{--bg-glass:#fff!important;--border-light:#d8e4ed!important;--border-hover:#a8c5da!important;--primary:#4b82ac!important}
+body[data-calculator=civcalc] :is(.glass-card,.input-box,.chart-box,.result-box,.table-container){background:#fff!important;color:#193b57!important;border-color:#d8e4ed!important}
+html[data-embedded=true] :is(.container,.shell,.app-container,.page-shell){max-width:100%!important;margin:0 auto!important;padding:18px!important}
+html[data-embedded=true] :is(.hero,.header){margin-top:0!important}
+@media(max-width:600px){h1,.title,.hero-title{font-size:20px!important}html[data-embedded=true] :is(.container,.shell,.app-container,.page-shell){padding:12px!important}:is(.grid,.grid-2,.rgrid,.stats,.metrics){min-width:0}.header{flex-wrap:wrap!important}.row-input{flex-wrap:wrap}.row-input input[type=number],.row-input input[type=range]{max-width:100%}input,select{max-width:100%}th,td{overflow-wrap:anywhere}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+html[data-embedded=true] body[data-calculator="3j"] .topbar{display:flex!important;position:static;justify-content:flex-end;padding:12px 18px;border-bottom:1px solid #d8e4ed;background:#fff}
+html[data-embedded=true] body[data-calculator="3j"] .topbar .brand,html[data-embedded=true] body[data-calculator="3j"] .twitter-link,html[data-embedded=true] .entry-splash{display:none!important}
+.integration-data-note{margin:12px 18px;padding:12px 14px;background:#e5f0f8;border:1px solid #cbdce9;border-radius:8px;color:#315f82;font-size:12px;line-height:1.7}
+body[data-calculator=civcalc] :is(.col-left,.col-right,.main-layout,.panel,.input-row,.form-group,.assets-grid){min-width:0}
+body[data-calculator=civcalc] th{background:#eaf2f8!important;color:#193b57!important}
+body[data-calculator=civcalc] :is(.main-title,.subtitle,.btn-glass){color:#193b57!important}
+body[data-calculator=civcalc] .table-container{overflow-x:auto}
+body[data-calculator=saturn] canvas{max-width:100%}
+body[data-calculator=axis] .earn-metrics{min-width:0;overflow-wrap:anywhere}
+html[data-embedded=true] body[data-calculator=civcalc] header{display:none}
+@media(max-width:700px){
+  body[data-calculator=tori] :is(.leaderboard-head,.leaderboard-row){grid-template-columns:24px minmax(64px,1fr) minmax(62px,.8fr) 44px;gap:5px;font-size:10px}
+  body[data-calculator=tori] .leaderboard-head>span,body[data-calculator=tori] .leaderboard-row>span{min-width:0;overflow-wrap:anywhere}
+  body[data-calculator=civcalc] .main-layout{grid-template-columns:minmax(0,1fr)}
+  body[data-calculator=civcalc] .assets-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  body[data-calculator=civcalc] :is(.input-row,.radio-group){min-width:0}
+  body[data-calculator=option] :is(.control-type-row,.control-right){flex-wrap:wrap!important;min-width:0;max-width:100%}
+  body[data-calculator=option] .update-info-col{width:100%;align-items:flex-start}
+  body[data-calculator=option] .update-time{white-space:normal}
+  body[data-calculator=borrow_risk] :is(.grid,.grid-2){grid-template-columns:minmax(0,1fr)!important}
+  body[data-calculator=borrow_risk] :is(.grid>*,canvas){min-width:0;max-width:100%}
+  body[data-calculator=clammv3] .row{grid-template-columns:minmax(0,1fr)}
+  body[data-calculator=clammv3] :is(.row>*,.card,.stats>* ){min-width:0}
+  body[data-calculator=clammv3] .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  body[data-calculator=option] :is(.main-grid,.dashboard-grid,.content-grid,.bottom-grid,.calc-grid,.sim-grid,.summary-grid,.advanced-grid,.builder-grid,.portfolio-form,.alert-form){grid-template-columns:minmax(0,1fr)!important;min-width:0}
+  body[data-calculator=option] :is(main,section,.panel,.table-wrapper,.input-group,.calc-field){min-width:0;max-width:100%}
+  body[data-calculator=option] .table-wrapper{overflow-x:auto}
+  body[data-calculator=option] :is(.grid-2col,.grid-3col,.strategy-grid){grid-template-columns:minmax(0,1fr)!important}
+  body[data-calculator=option] .control-center{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  body[data-calculator=option] .summary-row{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  body[data-calculator=option] :is(.grid-2col>*,.grid-3col>*,.control-center>*,.summary-row>*){min-width:0}
+  body[data-calculator=option] :is(input,select,canvas){max-width:100%;min-width:0}
+}

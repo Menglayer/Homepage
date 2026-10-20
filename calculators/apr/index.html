@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="menglayer-source" content="https://apr.menglayer.cc/">
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>年化复利计算器 | 萌芽社区</title>
+  <meta name="description" content="年化/APR/APY/复利周期/定投/费用/通胀/目标时间——一站式复利计算器，带图表与 CSV 导出。">
+  <style>
+    :root{ --bg1:#eaf7ff; --bg2:#ffffff; --brand:#357ef3; --brand-dark:#2b66cc;
+      --text:#0f172a; --muted:#64748b; --border:#e5e7eb; --card:rgba(255,255,255,0.85);
+      --shadow:0 8px 30px rgba(53,126,243,.12) }
+    *{box-sizing:border-box}
+    body{ margin:0; color:var(--text);
+      background: radial-gradient(1200px 600px at 20% -10%, #b7e1ff55, transparent),
+                  linear-gradient(180deg, #e6f5ff 0%, #f7fbff 100%);
+      font-family: ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      min-height:100vh; }
+    .container{max-width:1080px;margin:32px auto;padding:0 16px}
+    .header{display:flex;justify-content:space-between;align-items:center;gap:12px}
+    .title{font-size:22px;font-weight:800}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;border:1px solid var(--brand);background:var(--brand);color:#fff;font-weight:700;cursor:pointer}
+    .btn.subtle{background:#fff;color:var(--brand)}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:20px;box-shadow:var(--shadow);padding:18px;margin-top:16px}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    @media (max-width:980px){ .grid{grid-template-columns:1fr} }
+    label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
+    input,select{ width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--border);outline:none;background:var(--bg2);font-size:14px }
+    .opt{display:flex;gap:10px;flex-wrap:wrap}
+    .metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+    .metric{border:1px dashed var(--border);border-radius:14px;padding:12px;background:#fff}
+    .k{font-size:12px;color:var(--muted)} .v{font-size:22px;font-weight:800}
+    .note{font-size:12px;color:var(--muted);margin-top:8px}
+    canvas{background:#fff;border:1px solid var(--border);border-radius:14px;padding:6px}
+    .switch{display:flex;align-items:center;gap:8px}
+    .hr{height:1px;background:var(--border);margin:12px 0}
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<link rel="stylesheet" href="../../assets/css/calculator-theme.css"><script defer src="../../assets/js/calculator-bridge.js"></script></head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="title">年化复利计算器 <span class="k">APR / APY / 复利周期 / 定投 / 手续费 / 通胀</span></div>
+      <div class="row">
+        <button class="btn subtle" id="followBtn">关注我 X</button>
+        <button class="btn" id="calcBtn">开始计算</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="grid">
+        <div><label>初始本金（USDT）</label><input id="principal" type="number" value="10000"/></div>
+        <div><label>投资年限（年）</label><input id="years" type="number" value="5" step="0.1"/></div>
+        <div>
+          <label>复利周期（Compounding）</label>
+          <select id="comp">
+            <option value="365">每日</option><option value="52">每周</option>
+            <option value="12" selected>每月</option><option value="4">每季</option>
+            <option value="2">每半年</option><option value="1">每年</option>
+            <option value="cont">连续复利 (e)</option>
+          </select>
+        </div>
+        <div><label>利率输入模式</label>
+          <select id="rateMode"><option value="apr" selected>APR（名义年利率）</option><option value="apy">APY（有效年化）</option></select>
+        </div>
+        <div><label>利率数值（%）</label><input id="rate" type="number" value="8" step="0.01"/></div>
+        <div><label>年费/管理费（%）</label><input id="fee" type="number" value="0" step="0.01"/></div>
+        <div><label>定投金额（每次，USDT）</label><input id="contrib" type="number" value="500"/></div>
+        <div><label>定投频率</label>
+          <select id="contribFreq"><option value="none">不开启</option><option value="daily">每日</option><option value="weekly">每周</option><option value="monthly" selected>每月</option><option value="quarterly">每季</option><option value="annually">每年</option></select>
+        </div>
+        <div><label>定投入金时点</label>
+          <select id="contribTiming"><option value="start" selected>每期开始</option><option value="end">每期结束</option></select>
+        </div>
+        <div><label>通胀率（%）</label><input id="infl" type="number" value="0" step="0.01"/></div>
+        <div><label>目标金额（USDT，可选）</label><input id="target" type="number" placeholder="达到此目标所需时间"/></div>
+        <div>
+          <label>图表选项</label>
+          <div class="opt">
+            <label class="switch"><input id="showReal" type="checkbox"/> 显示通胀后实际价值</label>
+            <label class="switch"><input id="showNoInt" type="checkbox" checked/> 显示“仅本金+投入”对比线</label>
+          </div>
+        </div>
+      </div>
+      <div class="note">APR 为名义年利率，APY 为在给定复利周期下的有效年化。年费会从年化利率中扣减后再计算。定投按“每期开始/结束”两种方式加入。</div>
+    </div>
+
+    <div class="card">
+      <canvas id="chart" height="280"></canvas>
+      <div class="row" style="margin-top:10px">
+        <button class="btn subtle" id="dlCsv">导出 CSV</button>
+        <button class="btn subtle" id="dlPng">下载图表 PNG</button>
+        <button class="btn subtle" id="demoBtn">示例（10 年、月复利、月定投）</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="metrics">
+        <div class="metric"><div class="k">净 APR（名义）</div><div class="v" id="m_apr">0.00%</div></div>
+        <div class="metric"><div class="k">净 APY（有效）</div><div class="v" id="m_apy">0.00%</div></div>
+        <div class="metric"><div class="k">期末总资产</div><div class="v" id="m_final">$0.00</div></div>
+        <div class="metric"><div class="k">总投入（本金+定投）</div><div class="v" id="m_invest">$0.00</div></div>
+        <div class="metric"><div class="k">总定投（不含本金）</div><div class="v" id="m_contrib_total">$0.00</div></div>
+        <div class="metric"><div class="k">累计收益（名义）</div><div class="v" id="m_profit">$0.00</div></div>
+        <div class="metric"><div class="k">ROI（总收益率）</div><div class="v" id="m_roi">0.00%</div></div>
+        <div class="metric"><div class="k">收益占比（收益/期末）</div><div class="v" id="m_profit_share">0.00%</div></div>
+        <div class="metric"><div class="k">回本所需时间</div><div class="v" id="m_breakeven">—</div></div>
+        <div class="metric"><div class="k">达到目标所需时间</div><div class="v" id="m_target">—</div></div>
+      </div>
+      <div class="hr"></div>
+      <div class="metrics">
+        <div class="metric"><div class="k">实际 APY（扣通胀）</div><div class="v" id="m_real_apy">0.00%</div></div>
+        <div class="metric"><div class="k">期末实际价值（扣通胀）</div><div class="v" id="m_real_final">$0.00</div></div>
+        <div class="metric"><div class="k">实际 ROI（扣通胀）</div><div class="v" id="m_real_roi">0.00%</div></div>
+        <div class="metric"><div class="k">IRR（现金流年化）</div><div class="v" id="m_irr">—</div></div>
+        <div class="metric"><div class="k">费用拖累（APY 减少）</div><div class="v" id="m_fee_drag">0.00%</div></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+(function(){
+"use strict";
+
+    const $ = id => document.getElementById(id);
+    const english = new URLSearchParams(location.search).get('lang') === 'en';
+    const money = v => isFinite(v) ? "$" + Number(v).toLocaleString(undefined,{maximumFractionDigits:2}) : "—";
+    const fmtPercent = v => isFinite(v) ? (v*100).toFixed(2) + "%" : "—";
+
+    function compToM(comp){ return comp === "cont" ? "cont" : Number(comp||12); }
+    function contribFreqDays(freq){ return freq==="daily"?1:freq==="weekly"?7:freq==="monthly"?30:freq==="quarterly"?91:freq==="annually"?365:Infinity; }
+
+    function rateFromInput(mode, ratePct, comp){
+      const m = compToM(comp), r = Number(ratePct||0)/100;
+      if(mode==="apr"){ return Math.max(r, -0.99); }
+      if(m==="cont") return Math.log(1+r);
+      return Math.max(m * (Math.pow(1+r, 1/m) - 1), -0.99);
+    }
+    function apyFromNominalAPR(apr, comp){ const m = compToM(comp); return m==="cont" ? Math.exp(apr)-1 : Math.pow(1+apr/m, m)-1; }
+    function dailyFactorFromNominalAPR(apr, comp){ const m = compToM(comp); return m==="cont" ? Math.exp(apr/365) : Math.pow(1+apr/m, m/365); }
+
+    let chart;
+    function ensureChart(){
+      if(chart) return chart;
+      chart = new Chart($("chart").getContext("2d"),{
+        type:"line",
+        data:{ labels:[], datasets:[
+          {label:english?"Portfolio value":"总资产", data:[], borderWidth:2, tension:.25},
+          {label:english?"Principal + contributions":"本金+投入", data:[], borderWidth:2, tension:.25},
+          {label:english?"Real value after inflation":"实际价值（扣通胀）", data:[], borderWidth:2, tension:.25, borderDash:[6,6]}
+        ]},
+        options:{ responsive:true, animation:false, interaction:{mode:"index",intersect:false},
+          plugins:{ legend:{display:true}, tooltip:{callbacks:{label:(ctx)=> ctx.dataset.label + ": " + money(ctx.parsed.y)}} },
+          scales:{ x:{title:{display:true,text:english?"Month":"月份"}}, y:{title:{display:true,text:english?"Value (USDT)":"资产（USDT）"}, ticks:{callback:(v)=>"$"+v}} }
+        }
+      });
+      return chart;
+    }
+
+    function simulate(){
+      const principal = Number($("principal").value||0);
+      const years = Number($("years").value||0);
+      const comp = $("comp").value;
+      const mode = $("rateMode").value;
+      const ratePct = Number($("rate").value||0);
+      const feePct = Number($("fee").value||0);
+      const contrib = Number($("contrib").value||0);
+      const contribFreq = $("contribFreq").value;
+      const contribTiming = $("contribTiming").value;
+      const inflPct = Number($("infl").value||0);
+      const target = Number($("target").value||NaN);
+      const showReal = $("showReal").checked;
+      const showNoInt = $("showNoInt").checked;
+
+      const aprNominal = Math.max(rateFromInput(mode, ratePct, comp) - (feePct/100), -0.99);
+      const apyEff = apyFromNominalAPR(aprNominal, comp);
+      const grossAPR = rateFromInput(mode, ratePct, comp);
+      const grossAPY = apyFromNominalAPR(grossAPR, comp);
+      const netAPY = apyEff;
+      const realAPY = ((1+apyEff)/(1+inflPct/100))-1;
+
+      const fDaily = dailyFactorFromNominalAPR(aprNominal, comp);
+      const fInflDaily = Math.pow(1 + inflPct/100, 1/365);
+
+      const totalDays = Math.max(1, Math.round(years*365));
+      const contribStep = contribFreqDays(contribFreq);
+
+      let bal = principal, invested = principal, totalContrib = 0, noInt = principal;
+      let inflDeflator = 1, dayForTarget = null;
+      let labels = [], yTotal = [], yNoInt = [], yReal = [], yInvested = [], yProfit = [], yROI = [];
+      let flows = [[0, -principal]];
+      const sampleEvery = 30; let nextSample = 0;
+
+      for(let day=1; day<=totalDays; day++){
+        if(contribFreq!=="none" && contrib>0 && contribTiming==="start" && (day===1 || ((day-1)%contribStep===0))){
+          flows.push([day-1, -contrib]);
+          bal += contrib; invested += contrib; totalContrib += contrib; noInt += contrib;
+        }
+        bal *= fDaily;
+        if(contribFreq!=="none" && contrib>0 && contribTiming==="end" && (day%contribStep===0)){
+          flows.push([day, -contrib]);
+          bal += contrib; invested += contrib; totalContrib += contrib; noInt += contrib;
+        }
+        inflDeflator *= fInflDaily;
+        if(!dayForTarget && isFinite(target) && target>0 && bal>=target){ dayForTarget = day; }
+        if(typeof dayForBreakeven==="undefined"){ var dayForBreakeven = null; }
+        if(dayForBreakeven===null && bal>=invested){ dayForBreakeven = day; }
+        if(day>=nextSample || day===totalDays){
+          const m = Math.round(day/30);
+          labels.push(String(m)); yTotal.push(bal); yNoInt.push(noInt); yReal.push(bal/inflDeflator);
+          yInvested.push(invested); const pft = bal - invested; yProfit.push(pft); yROI.push(invested>0 ? (pft/invested) : NaN);
+          nextSample += sampleEvery;
+        }
+      }
+
+      const profit = bal - invested; const realFinal = bal/inflDeflator;
+      flows.push([totalDays, bal]);
+      // XIRR via bisection on annual rate
+      function xnpv(rate){
+        return flows.reduce((acc,[d,amt])=> acc + amt/Math.pow(1+rate, d/365), 0);
+      }
+      function xirr(){
+        if(invested<=0) return NaN;
+        let lo=-0.9999, hi=10, fLo=xnpv(lo), fHi=xnpv(hi);
+        let iter=0;
+        // Expand hi if needed
+        while(fLo*fHi>0 && hi<1e4 && iter<50){ hi*=2; fHi=xnpv(hi); iter++; }
+        if(fLo*fHi>0) return NaN;
+        for(let i=0;i<120;i++){
+          const mid=(lo+hi)/2, fMid=xnpv(mid);
+          if(Math.abs(fMid)<1e-9) return mid;
+          if(fLo*fMid<0){ hi=mid; fHi=fMid; } else { lo=mid; fLo=fMid; }
+        }
+        return (lo+hi)/2;
+      }
+      const irr = xirr();
+
+      const c = ensureChart();
+      c.data.labels = labels;
+      c.data.datasets[0].data = yTotal;
+      c.data.datasets[1].data = showNoInt ? yNoInt : []; c.data.datasets[1].hidden = !showNoInt;
+      c.data.datasets[2].data = showReal ? yReal : []; c.data.datasets[2].hidden = !showReal;
+      c.update();
+
+      $("m_apr").textContent = fmtPercent(aprNominal);
+      $("m_apy").textContent = fmtPercent(apyEff);
+      $("m_final").textContent = money(bal);
+      $("m_invest").textContent = money(invested);
+      $("m_profit").textContent = money(profit);
+      $("m_contrib_total").textContent = money(totalContrib);
+      const roi = invested>0 ? (profit/invested) : NaN;
+      $("m_roi").textContent = fmtPercent(roi);
+      $("m_profit_share").textContent = isFinite(bal)&&bal>0 ? fmtPercent((profit)/bal) : "—";
+      $("m_breakeven").textContent = (typeof dayForBreakeven!=="undefined" && dayForBreakeven) ? (dayForBreakeven/365).toFixed(2)+(english?" years":" 年") : "—";
+      $("m_real_apy").textContent = fmtPercent(realAPY);
+      $("m_real_final").textContent = money(realFinal);
+      $("m_real_roi").textContent = fmtPercent(invested>0 ? (realFinal - invested)/invested : NaN);
+      $("m_fee_drag").textContent = fmtPercent(grossAPY - netAPY);
+      $("m_irr").textContent = isFinite(irr) ? (irr*100).toFixed(2)+"%" : "—";
+      $("m_target").textContent = dayForTarget ? (dayForTarget/365).toFixed(2) + (english?" years":" 年") : "—";
+
+      const rows = [["month","total","invested","profit","roi","real_value"]];
+      for(let i=0;i<labels.length;i++){
+        rows.push([labels[i], yTotal[i], yInvested[i], yProfit[i], yROI[i], yReal[i]||""]);
+      }
+      $("dlCsv").dataset.csv = rows.map(r=>r.join(",")).join("\n");
+    }
+
+    $("calcBtn").addEventListener("click", simulate);
+    $("demoBtn").addEventListener("click", ()=>{
+      $("principal").value = 20000; $("years").value = 10; $("comp").value = "12";
+      $("rateMode").value = "apr"; $("rate").value = 12; $("fee").value = 1;
+      $("contrib").value = 500; $("contribFreq").value = "monthly"; $("contribTiming").value = "start";
+      $("infl").value = 2.5; $("target").value = 100000; $("showReal").checked = true; $("showNoInt").checked = true; simulate();
+    });
+    $("dlCsv").addEventListener("click", ()=>{ const csv = $("dlCsv").dataset.csv||""; const blob = new Blob([csv],{type:"text/csv"}); const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="compound-schedule.csv"; a.click(); URL.revokeObjectURL(a.href); });
+    $("dlPng").addEventListener("click", ()=>{ const url = ensureChart().toBase64Image(); const a=document.createElement("a"); a.href=url; a.download="compound-chart.png"; a.click(); });
+    $("followBtn").addEventListener("click", ()=>{ window.open("https://x.com/menglayer","_blank"); });
+    simulate();
+
+})();
+</script>
+</body>
+</html>

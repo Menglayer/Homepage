@@ -1,0 +1,711 @@
+{
+  "leaderboard": [
+    {
+      "rank": 1,
+      "user": "0x2e3dc205e5687e02eb4bea4f657c9572a83490e5",
+      "points": 16290276194.829008,
+      "share": "10.6%",
+      "referralCount": 0
+    },
+    {
+      "rank": 2,
+      "user": "0xfecfc33176c4ed3df7fea68e8fe13bcd32eb36d1",
+      "points": 9816117323.174507,
+      "share": "6.4%",
+      "referralCount": 0
+    },
+    {
+      "rank": 3,
+      "user": "0xd93e7ab3cc0cf5f116c90b3f96ffd952793ee5d2",
+      "points": 5709573752.562855,
+      "share": "3.7%",
+      "referralCount": 0
+    },
+    {
+      "rank": 4,
+      "user": "0x645e0dbdb5fc2594b8913d7d7c627afe250ab550",
+      "points": 3806774058.689095,
+      "share": "2.5%",
+      "referralCount": 0
+    },
+    {
+      "rank": 5,
+      "user": "0x0068b5d771862892d42273ff183bc7cdb031e5b6",
+      "points": 3802963070.697093,
+      "share": "2.5%",
+      "referralCount": 0
+    },
+    {
+      "rank": 6,
+      "user": "0xdba3a2923607fc551e38d4a4231f61959879fae7",
+      "points": 3000668563.396925,
+      "share": "1.9%",
+      "referralCount": 0
+    },
+    {
+      "rank": 7,
+      "user": "0xfc48e1e90807d92ab3c86d96739c0fb6e194a35a",
+      "points": 2832530494.012954,
+      "share": "1.8%",
+      "referralCount": 0
+    },
+    {
+      "rank": 8,
+      "user": "0xf1419f352846b723720424dc8bda9e80342ea01d",
+      "points": 2505817613.430808,
+      "share": "1.6%",
+      "referralCount": 0
+    },
+    {
+      "rank": 9,
+      "user": "0xb47c72be8a2968dec42d3b9d8c6f464224605bfd",
+      "points": 2316000904.406681,
+      "share": "1.5%",
+      "referralCount": 0
+    },
+    {
+      "rank": 10,
+      "user": "0x432861922cf8d3a1aa74bfdcf780149ddcf228c5",
+      "points": 1965279069.017979,
+      "share": "1.3%",
+      "referralCount": 0
+    },
+    {
+      "rank": 11,
+      "user": "0xdb9e930f11d56ca3657910c9fc539bc5c8aaa0c3",
+      "points": 1964770735.901739,
+      "share": "1.3%",
+      "referralCount": 0
+    },
+    {
+      "rank": 12,
+      "user": "0xf0b3e5a5084e6a8dd615f8d9384f1ddb4152f46c",
+      "points": 1927867891.549116,
+      "share": "1.3%",
+      "referralCount": 0
+    },
+    {
+      "rank": 13,
+      "user": "0xfd5a17166ac11bb8e8a9fd9dbd77ccfcf3e75ce5",
+      "points": 1923013140.96358,
+      "share": "1.2%",
+      "referralCount": 0
+    },
+    {
+      "rank": 14,
+      "user": "0x2e33a4931d77c418c8bd98775c36d7fe89c704ec",
+      "points": 1888174482.288352,
+      "share": "1.2%",
+      "referralCount": 0
+    },
+    {
+      "rank": 15,
+      "user": "0x27326bd8e518183c5266b031cf90734e17dc4800",
+      "points": 1882264131.275078,
+      "share": "1.2%",
+      "referralCount": 0
+    },
+    {
+      "rank": 16,
+      "user": "0xc095b764e0c30bf8aedb8f70d3f16dbb4f0d7516",
+      "points": 1575947697.854611,
+      "share": "1.0%",
+      "referralCount": 0
+    },
+    {
+      "rank": 17,
+      "user": "0xa056f4a4213e78890ea6cdae7567ce9287c97726",
+      "points": 1512251546.298851,
+      "share": "1.0%",
+      "referralCount": 0
+    },
+    {
+      "rank": 18,
+      "user": "0xd5597936dbbd1b31f70d7a2024409b7a4d032680",
+      "points": 1373545470.058525,
+      "share": "0.9%",
+      "referralCount": 0
+    },
+    {
+      "rank": 19,
+      "user": "0x98083ef695040db3e8c1897fd7fd629c1e93ca5b",
+      "points": 1362023658.835525,
+      "share": "0.9%",
+      "referralCount": 28
+    },
+    {
+      "rank": 20,
+      "user": "0x1d633df732cf3cb6c2201ac7aaf295344520d74a",
+      "points": 1354681852.728468,
+      "share": "0.9%",
+      "referralCount": 0
+    },
+    {
+      "rank": 21,
+      "user": "0x19743939795e7452150da50832a96d4075c8715f",
+      "points": 1114732182.53574,
+      "share": "0.7%",
+      "referralCount": 0
+    },
+    {
+      "rank": 22,
+      "user": "0x1afd3a258b1a9b397a24a239bb70444b478deedb",
+      "points": 1007236892.111147,
+      "share": "0.7%",
+      "referralCount": 24
+    },
+    {
+      "rank": 23,
+      "user": "0x8c115c5ecadea0e9590b0dc9a2d666537c6d6cb9",
+      "points": 981428582.181718,
+      "share": "0.6%",
+      "referralCount": 0
+    },
+    {
+      "rank": 24,
+      "user": "0x645997a4de39e043ae56683c9d62c01b07c71d5a",
+      "points": 981043400.295472,
+      "share": "0.6%",
+      "referralCount": 0
+    },
+    {
+      "rank": 25,
+      "user": "0xf46e183e8b010cfdebe57a50064149e65504c2bf",
+      "points": 979655357.197693,
+      "share": "0.6%",
+      "referralCount": 0
+    },
+    {
+      "rank": 26,
+      "user": "0x38d7c8affb1c766ef2e7d38e514cf1952ce09577",
+      "points": 970813940.472661,
+      "share": "0.6%",
+      "referralCount": 0
+    },
+    {
+      "rank": 27,
+      "user": "0x70ac345ab736ce145e0d4b5deced7a8bcb0e4033",
+      "points": 785644104.495148,
+      "share": "0.5%",
+      "referralCount": 0
+    },
+    {
+      "rank": 28,
+      "user": "0x6b28fb12ee41baa9d1df16971de53adde6d1be5b",
+      "points": 774088173.576844,
+      "share": "0.5%",
+      "referralCount": 0
+    },
+    {
+      "rank": 29,
+      "user": "0x6dad48b229d9d74dbd73d346b2cc2af69b88faef",
+      "points": 768423832.452279,
+      "share": "0.5%",
+      "referralCount": 0
+    },
+    {
+      "rank": 30,
+      "user": "0x3b561a4ec091133ecbc1d4670d92826ac48e2da6",
+      "points": 640100202.056895,
+      "share": "0.4%",
+      "referralCount": 0
+    },
+    {
+      "rank": 31,
+      "user": "0x4b29b68125d4351342121e475fac61d4a92343af",
+      "points": 588830925.559294,
+      "share": "0.4%",
+      "referralCount": 0
+    },
+    {
+      "rank": 32,
+      "user": "0x617a02a0110b61afe857b3529f8afaccc126cb63",
+      "points": 575866880.789409,
+      "share": "0.4%",
+      "referralCount": 0
+    },
+    {
+      "rank": 33,
+      "user": "0x42e5debcff7047e85b1eca442d1ba01ff1749ae7",
+      "points": 474135571.610521,
+      "share": "0.3%",
+      "referralCount": 0
+    },
+    {
+      "rank": 34,
+      "user": "0x5de1b7f14de50ed6e430ea144eed8bc9d0bbb30c",
+      "points": 456115751.031159,
+      "share": "0.3%",
+      "referralCount": 15
+    },
+    {
+      "rank": 35,
+      "user": "0xa295ca6396bb171cd9bc5eb467878958797e9354",
+      "points": 447624091.479079,
+      "share": "0.3%",
+      "referralCount": 0
+    },
+    {
+      "rank": 36,
+      "user": "0x434e4b394fe0429ecace02f702aff6de478ce9a9",
+      "points": 441847325.426714,
+      "share": "0.3%",
+      "referralCount": 3
+    },
+    {
+      "rank": 37,
+      "user": "0x16adfaae3d19729c0f674abcfbc46a9308fb93cc",
+      "points": 425819956.310462,
+      "share": "0.3%",
+      "referralCount": 0
+    },
+    {
+      "rank": 38,
+      "user": "0x5d55fcd39aadf150794ccd2b6dc0cc2c97715db6",
+      "points": 401915642.711359,
+      "share": "0.3%",
+      "referralCount": 0
+    },
+    {
+      "rank": 39,
+      "user": "0xb78580e39b850161e8c9bdc28a12f0d2af46b1dd",
+      "points": 395786870.289339,
+      "share": "0.3%",
+      "referralCount": 0
+    },
+    {
+      "rank": 40,
+      "user": "0xda137be8f5a2034c3a77b48460f8be2144af3a74",
+      "points": 392483187.873462,
+      "share": "0.3%",
+      "referralCount": 0
+    },
+    {
+      "rank": 41,
+      "user": "0x854d52d023e4f3ef68cf5775732778f5a12f4602",
+      "points": 386636820.146128,
+      "share": "0.3%",
+      "referralCount": 0
+    },
+    {
+      "rank": 42,
+      "user": "0xad103f06f7e1afeb131345940e5468595eafa378",
+      "points": 386338953.706938,
+      "share": "0.3%",
+      "referralCount": 0
+    },
+    {
+      "rank": 43,
+      "user": "0x4c330dac1f5bdfd4b41d67cb6511bafa39b835dc",
+      "points": 386323520.428954,
+      "share": "0.3%",
+      "referralCount": 0
+    },
+    {
+      "rank": 44,
+      "user": "0x8eaed0c875d0af5134eeac3da91becf8de505e2b",
+      "points": 380202365.012225,
+      "share": "0.2%",
+      "referralCount": 0
+    },
+    {
+      "rank": 45,
+      "user": "0x120f86d336201459e4bf72381f57adc7f3dc4979",
+      "points": 377324462.835029,
+      "share": "0.2%",
+      "referralCount": 0
+    },
+    {
+      "rank": 46,
+      "user": "0xeadad68dac1637b2fac78836ff9dcb90cc715495",
+      "points": 375115882.559919,
+      "share": "0.2%",
+      "referralCount": 0
+    },
+    {
+      "rank": 47,
+      "user": "0xbfc5e79c2123b276a2bf06ea4a327c010e86f544",
+      "points": 359509528.170522,
+      "share": "0.2%",
+      "referralCount": 0
+    },
+    {
+      "rank": 48,
+      "user": "0x547110cc9a9f1c1afbb548b81133a66952a6134b",
+      "points": 358332445.079475,
+      "share": "0.2%",
+      "referralCount": 0
+    },
+    {
+      "rank": 49,
+      "user": "0x04a820c96d90773e853421ee80892d1c23bd8233",
+      "points": 355052471.254873,
+      "share": "0.2%",
+      "referralCount": 0
+    },
+    {
+      "rank": 50,
+      "user": "0xaa34d20be3f9623ccf5bff53ef4dfa765c3f5dd5",
+      "points": 315874111.874653,
+      "share": "0.2%",
+      "referralCount": 0
+    },
+    {
+      "rank": 51,
+      "user": "0x649c037b0b6e69a931499a57756d4e335835418f",
+      "points": 307684765.670083,
+      "share": "0.2%",
+      "referralCount": 0
+    },
+    {
+      "rank": 52,
+      "user": "0xd7fc4ab828afc1bb4b217f337f1777ca856efd12",
+      "points": 300139571.213699,
+      "share": "0.2%",
+      "referralCount": 0
+    },
+    {
+      "rank": 53,
+      "user": "0x48cadd085e157a3f1c1c4bd6f9bc0d6ef6215adb",
+      "points": 294405472.779725,
+      "share": "0.2%",
+      "referralCount": 0
+    },
+    {
+      "rank": 54,
+      "user": "0xd01d3969acd4307e63837d0153fea0213a0322a7",
+      "points": 288486064.891922,
+      "share": "0.2%",
+      "referralCount": 0
+    },
+    {
+      "rank": 55,
+      "user": "0xbed797e3685934af97cd84f686e79a71ec769931",
+      "points": 287291648.319359,
+      "share": "0.2%",
+      "referralCount": 1
+    },
+    {
+      "rank": 56,
+      "user": "0xbdfa4f4492dd7b7cf211209c4791af8d52bf5c50",
+      "points": 281509511.240012,
+      "share": "0.2%",
+      "referralCount": 1
+    },
+    {
+      "rank": 57,
+      "user": "0x743d7b30661d65b41960bf6b5d1bb93cf7972a73",
+      "points": 280831547.572398,
+      "share": "0.2%",
+      "referralCount": 0
+    },
+    {
+      "rank": 58,
+      "user": "0x1d9c4116e5784036dbd15bced8aff88970b4a598",
+      "points": 275342692.593488,
+      "share": "0.2%",
+      "referralCount": 0
+    },
+    {
+      "rank": 59,
+      "user": "0x60456e46b385e6232815bb827f919d4f58ca2db3",
+      "points": 269655241.549818,
+      "share": "0.2%",
+      "referralCount": 0
+    },
+    {
+      "rank": 60,
+      "user": "0x32d820c6c221edff886ddeb15f6e44cb43c865a0",
+      "points": 243310099.534417,
+      "share": "0.2%",
+      "referralCount": 0
+    },
+    {
+      "rank": 61,
+      "user": "0x0ca6cadb6a8ca4199788b9a060c3285fe7b897fd",
+      "points": 234817831.489379,
+      "share": "0.2%",
+      "referralCount": 8
+    },
+    {
+      "rank": 62,
+      "user": "0xf292bed4bff2a3d1fd9ab4217ed4d29efaf1d797",
+      "points": 232386775.524454,
+      "share": "0.2%",
+      "referralCount": 0
+    },
+    {
+      "rank": 63,
+      "user": "0x7c63dd760c58a39cc2fd8c7a11e235aac9206e0f",
+      "points": 232366634.775035,
+      "share": "0.2%",
+      "referralCount": 0
+    },
+    {
+      "rank": 64,
+      "user": "0x58aee2801ce3a727da880ec2f3f02b224ca78bde",
+      "points": 231600090.440689,
+      "share": "0.2%",
+      "referralCount": 1
+    },
+    {
+      "rank": 65,
+      "user": "0x22e49fed76e600b4d254f33ff95c758e2b6f64b3",
+      "points": 220235871.427653,
+      "share": "0.1%",
+      "referralCount": 0
+    },
+    {
+      "rank": 66,
+      "user": "0x750a5987cc789fbdb815cb4e727dde22dbbb2479",
+      "points": 213334886.772683,
+      "share": "0.1%",
+      "referralCount": 0
+    },
+    {
+      "rank": 67,
+      "user": "0xb2e1e0b7aa5cff77d5f2aac3969e4d9a741347df",
+      "points": 208391968.409095,
+      "share": "0.1%",
+      "referralCount": 0
+    },
+    {
+      "rank": 68,
+      "user": "0x5d0ac389c669d6efe3ba96b9878d8156f180c539",
+      "points": 197794408.491397,
+      "share": "0.1%",
+      "referralCount": 0
+    },
+    {
+      "rank": 69,
+      "user": "0x8ccaf951c46899aa11e96435261c271c3e5ba963",
+      "points": 194615251.159291,
+      "share": "0.1%",
+      "referralCount": 0
+    },
+    {
+      "rank": 70,
+      "user": "0xa16eec8476d15caf3908a0eef9458a79908f15b5",
+      "points": 193916837.70767,
+      "share": "0.1%",
+      "referralCount": 0
+    },
+    {
+      "rank": 71,
+      "user": "0x823e7fbdafc8e95092469c0f20fa9fdb5966d97b",
+      "points": 193897273.957846,
+      "share": "0.1%",
+      "referralCount": 0
+    },
+    {
+      "rank": 72,
+      "user": "0x704ee15afe87130f51e2ed34a87a72590a855913",
+      "points": 192996829.99979,
+      "share": "0.1%",
+      "referralCount": 0
+    },
+    {
+      "rank": 73,
+      "user": "0x5d725c14cf9ee6d24a312350b201e63d10f90d57",
+      "points": 192727369.980496,
+      "share": "0.1%",
+      "referralCount": 0
+    },
+    {
+      "rank": 74,
+      "user": "0x1d8ed9a6e76c9008567e0203e81a62f9a71b2d1f",
+      "points": 192529612.647512,
+      "share": "0.1%",
+      "referralCount": 0
+    },
+    {
+      "rank": 75,
+      "user": "0xe50681d35ba91c5b13412ad2ea5f34b94141b122",
+      "points": 192204801.473094,
+      "share": "0.1%",
+      "referralCount": 0
+    },
+    {
+      "rank": 76,
+      "user": "0xa9f41a37024c539eafdb3bcf80e4607fe8f38116",
+      "points": 192166660.469942,
+      "share": "0.1%",
+      "referralCount": 0
+    },
+    {
+      "rank": 77,
+      "user": "0x27c750bdfd908edb9d9b4a18efc6c6ce221481bb",
+      "points": 188877615.642131,
+      "share": "0.1%",
+      "referralCount": 0
+    },
+    {
+      "rank": 78,
+      "user": "0x523bd2676d1939005d8980864b2dcd5a29cf8a2e",
+      "points": 188029298.149774,
+      "share": "0.1%",
+      "referralCount": 0
+    },
+    {
+      "rank": 79,
+      "user": "0xa7a71e78128f6e3f6db404ec47806e472f280ef8",
+      "points": 180660238.385068,
+      "share": "0.1%",
+      "referralCount": 0
+    },
+    {
+      "rank": 80,
+      "user": "0x2da6f8b0666e27586d9bd72b153ca049c4c6a9b4",
+      "points": 180226018.248392,
+      "share": "0.1%",
+      "referralCount": 0
+    },
+    {
+      "rank": 81,
+      "user": "0x4ae681bd6589af34f98cf7f1e2ca8508c704af1b",
+      "points": 173449674.401488,
+      "share": "0.1%",
+      "referralCount": 0
+    },
+    {
+      "rank": 82,
+      "user": "0x2f1ccaf2b89549e939b15ab38c63275f8318149f",
+      "points": 157020914.149202,
+      "share": "0.1%",
+      "referralCount": 0
+    },
+    {
+      "rank": 83,
+      "user": "0x658e2e80219563c6ada592580fe72542da37ed01",
+      "points": 148695824.764578,
+      "share": "<0.1%",
+      "referralCount": 4
+    },
+    {
+      "rank": 84,
+      "user": "0x1cd8b1dab1487217d25146ebecf61746af16c302",
+      "points": 147969480.394689,
+      "share": "<0.1%",
+      "referralCount": 0
+    },
+    {
+      "rank": 85,
+      "user": "0x5ca17c655b5ca159af82a3b33a0d4e99f8eac32d",
+      "points": 142346170.203596,
+      "share": "<0.1%",
+      "referralCount": 4
+    },
+    {
+      "rank": 86,
+      "user": "0x5debdef58ba93f2c325fa5f31537afec9d45c34b",
+      "points": 141374611.960503,
+      "share": "<0.1%",
+      "referralCount": 0
+    },
+    {
+      "rank": 87,
+      "user": "0xc91fe5e58951c92f44f8744d9ec8dea94d269d2b",
+      "points": 139880271.963501,
+      "share": "<0.1%",
+      "referralCount": 0
+    },
+    {
+      "rank": 88,
+      "user": "0xf7c30a9f6a70da06aee203be6c3123b04204f428",
+      "points": 136421085.895553,
+      "share": "<0.1%",
+      "referralCount": 2
+    },
+    {
+      "rank": 89,
+      "user": "0x236f7e859a3c23b35019dd8004942b6ee6126ab4",
+      "points": 135694131.702882,
+      "share": "<0.1%",
+      "referralCount": 1
+    },
+    {
+      "rank": 90,
+      "user": "0xf553a570cc0c80fdae7a54a0a14bdc6a7d98a3bb",
+      "points": 129735205.733605,
+      "share": "<0.1%",
+      "referralCount": 0
+    },
+    {
+      "rank": 91,
+      "user": "0xc86e15edf575c511a0d7af9552003edd31a03ac9",
+      "points": 128309693.35057,
+      "share": "<0.1%",
+      "referralCount": 1
+    },
+    {
+      "rank": 92,
+      "user": "0x13eccc7ec8ef9c1a968136dd2d93b0ad4126aa70",
+      "points": 124932728.756731,
+      "share": "<0.1%",
+      "referralCount": 74
+    },
+    {
+      "rank": 93,
+      "user": "0xe08aaa4ed9fcbe09735d2d4f5c238817ad7cb12b",
+      "points": 120279817.072012,
+      "share": "<0.1%",
+      "referralCount": 0
+    },
+    {
+      "rank": 94,
+      "user": "0xdb2a1b03a7e1877349d81600a434299fd4990e8a",
+      "points": 116992101.493957,
+      "share": "<0.1%",
+      "referralCount": 0
+    },
+    {
+      "rank": 95,
+      "user": "0xc5310ae4d318b2ab1ec6296cfb5c523c0784bb27",
+      "points": 116371845.088601,
+      "share": "<0.1%",
+      "referralCount": 0
+    },
+    {
+      "rank": 96,
+      "user": "0xccfdd6fc339019ea209237cec052dd59d7aeadd7",
+      "points": 114859842.217833,
+      "share": "<0.1%",
+      "referralCount": 2
+    },
+    {
+      "rank": 97,
+      "user": "0x97e6a34897a32e7103f3cf260f0c9ca5ca1fb90b",
+      "points": 113018284.649585,
+      "share": "<0.1%",
+      "referralCount": 2
+    },
+    {
+      "rank": 98,
+      "user": "0x16f2fbc7e6d722e8c5a0acf9cd347d063efc8bbf",
+      "points": 112907099.5097,
+      "share": "<0.1%",
+      "referralCount": 0
+    },
+    {
+      "rank": 99,
+      "user": "0x884ee57fd61f8cde2d320d9e9512518edd21235d",
+      "points": 110983347.010326,
+      "share": "<0.1%",
+      "referralCount": 0
+    },
+    {
+      "rank": 100,
+      "user": "0x32c5ec87bbb5677a21d43d0207b157e927e02f4b",
+      "points": 109022074.357273,
+      "share": "<0.1%",
+      "referralCount": 0
+    }
+  ],
+  "totalWallets": 6451,
+  "totalPoints": 153951905550.45786,
+  "myRank": null,
+  "myPoints": null,
+  "myPercentile": null,
+  "fetchedAt": "2026-09-26T07:48:57.835Z",
+  "source": "https://app.tori.finance/api/leaderboard"
+}

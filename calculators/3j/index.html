@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="menglayer-source" content="https://3j.menglayer.cc/">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="使用 3Jane、Pendle、Morpho 和 Curve 实时数据的 3Jane Farm 收益计算器。"
+    />
+    <title>3Jane Farm 收益计算器</title>
+    <link rel="icon" href="https://app.3jane.xyz/logo.png" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script defer src="./app.js"></script>
+  <link rel="stylesheet" href="../../assets/css/calculator-theme.css"><script defer src="../../assets/js/calculator-bridge.js"></script></head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="https://app.3jane.xyz/farm" target="_blank" rel="noreferrer">
+        <img src="https://app.3jane.xyz/logo.png" alt="3Jane" />
+        <span>3Jane Farm 收益计算器</span>
+      </a>
+      <div class="topbar-actions">
+        <a class="twitter-link" href="https://x.com/MengLayer" target="_blank" rel="noreferrer">
+          关注 @MengLayer
+        </a>
+        <span id="statusPill" class="status-pill">正在加载实时数据</span>
+        <button id="refreshButton" class="button button-secondary" type="button">刷新</button>
+      </div>
+    </header>
+
+    <main class="page-shell">
+      <section class="market-strip" aria-label="市场概览">
+        <div class="metric">
+          <span class="metric-label">总 APR</span>
+          <strong id="stripTotalApy">--</strong>
+        </div>
+        <div class="metric">
+          <span class="metric-label">底层收益</span>
+          <strong id="stripBaseApy">--</strong>
+        </div>
+        <div class="metric">
+          <span class="metric-label">JANE 奖励</span>
+          <strong id="stripJaneApr">--</strong>
+        </div>
+        <div class="metric">
+          <span class="metric-label">TVL</span>
+          <strong id="stripTvl">--</strong>
+        </div>
+        <div id="depositCapMetric" class="metric">
+          <span class="metric-label">JANE Deposit Cap</span>
+          <strong id="depositCapRemaining">--</strong>
+          <small id="depositCapMeta" class="metric-sub">--</small>
+        </div>
+      </section>
+
+      <section class="workspace" aria-label="收益计算器">
+        <aside class="farm-column">
+          <div class="section-heading">
+            <span>策略</span>
+            <small id="lastUpdated">--</small>
+          </div>
+          <div id="farmList" class="farm-list" aria-label="策略列表"></div>
+        </aside>
+
+        <section class="calculator-card">
+          <div class="section-heading">
+            <span>参数</span>
+            <small id="selectedProtocol">--</small>
+          </div>
+
+          <div class="field-grid">
+            <label class="field">
+              <span>本金 USD</span>
+              <input id="amountInput" type="number" min="0" step="100" value="10000" inputmode="decimal" />
+            </label>
+
+            <label class="field">
+              <span>持有天数</span>
+              <input id="daysInput" type="number" min="1" max="3650" step="1" value="175" inputmode="numeric" />
+            </label>
+          </div>
+
+          <label class="field field-wide">
+            <span>JANE FDV</span>
+            <div class="range-row">
+              <input id="fdvRange" type="range" min="50" max="1000" step="5" value="100" />
+              <input id="fdvInput" type="number" min="1" step="5" value="100" inputmode="decimal" />
+              <span class="suffix">M</span>
+            </div>
+          </label>
+
+          <label class="field field-wide">
+            <span>JANE 数量</span>
+            <div class="range-row">
+              <input id="janeSupplyRange" type="range" min="1.11" max="6.66" step="0.01" value="3.33" />
+              <input id="janeSupplyInput" type="number" min="0.01" step="0.01" value="3.33" inputmode="decimal" />
+              <span class="suffix">B</span>
+            </div>
+          </label>
+
+          <div class="segmented" role="group" aria-label="复利方式">
+            <button type="button" class="segment is-active" data-compounding="simple">单利</button>
+            <button type="button" class="segment" data-compounding="daily">每日</button>
+            <button type="button" class="segment" data-compounding="weekly">每周</button>
+            <button type="button" class="segment" data-compounding="monthly">每月</button>
+          </div>
+
+          <div class="rate-table" aria-label="收益拆分">
+            <div>
+              <span>JANE 价格</span>
+              <strong id="janePrice">--</strong>
+            </div>
+            <div id="ytPriceRow" hidden>
+              <span>YT 价格 / 杠杆 / 数量</span>
+              <strong id="ytPosition">--</strong>
+            </div>
+            <div id="ytMaturityRow" hidden>
+              <span>YT 到期归零</span>
+              <strong id="ytMaturityCost">--</strong>
+            </div>
+            <div id="ytBaseInterestRow" hidden>
+              <span>YT 底息收益</span>
+              <strong id="ytBaseInterest">--</strong>
+            </div>
+            <div id="ytJaneAmountRow" hidden>
+              <span>预计 JANE / 价值</span>
+              <strong id="ytJaneAmount">--</strong>
+            </div>
+            <div id="ytWeeklyJaneRow" hidden>
+              <span>每周 JANE 分配</span>
+              <strong id="ytWeeklyJane">--</strong>
+            </div>
+            <div>
+              <span>底层收益</span>
+              <strong id="baseRate">--</strong>
+            </div>
+            <div>
+              <span>JANE 奖励</span>
+              <strong id="janeRate">--</strong>
+            </div>
+            <div>
+              <span>总 APR</span>
+              <strong id="totalRate">--</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="result-card">
+          <div class="section-heading">
+            <span>预估结果</span>
+            <small id="dataSource">实时</small>
+          </div>
+
+          <div class="result-main">
+            <span>预计盈亏</span>
+            <strong id="projectedYield">--</strong>
+          </div>
+
+          <div class="result-grid">
+            <div>
+              <span>期末余额</span>
+              <strong id="endingBalance">--</strong>
+            </div>
+            <div>
+              <span>每日盈亏</span>
+              <strong id="dailyYield">--</strong>
+            </div>
+            <div>
+              <span>年化盈亏</span>
+              <strong id="annualYield">--</strong>
+            </div>
+            <div>
+              <span>有效 APY</span>
+              <strong id="effectiveApy">--</strong>
+            </div>
+          </div>
+
+          <div class="projection">
+            <div class="projection-head">
+              <span>收益曲线</span>
+              <strong id="projectionLabel">--</strong>
+            </div>
+            <div id="projectionBars" class="projection-bars"></div>
+          </div>
+        </section>
+      </section>
+
+      <section class="source-row" aria-label="数据来源">
+        <a href="https://app.3jane.xyz/farm" target="_blank" rel="noreferrer">3Jane Farm</a>
+        <a href="https://opulent-crocodile-74.convex.cloud" target="_blank" rel="noreferrer">3Jane Convex</a>
+        <a href="https://api-v2.pendle.finance" target="_blank" rel="noreferrer">Pendle API</a>
+        <a href="https://api.morpho.org/graphql" target="_blank" rel="noreferrer">Morpho API</a>
+        <a href="https://api.curve.finance/api" target="_blank" rel="noreferrer">Curve API</a>
+        <a href="https://etherscan.io/address/0x2a66f992bf227d2e50ef19edd21503c3c4f3f682" target="_blank" rel="noreferrer">JANE Deposit</a>
+        <a class="source-twitter" href="https://x.com/MengLayer" target="_blank" rel="noreferrer">作者 @MengLayer</a>
+      </section>
+    </main>
+  </body>
+</html>

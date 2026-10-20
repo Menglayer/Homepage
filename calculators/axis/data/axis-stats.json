@@ -1,0 +1,97 @@
+{
+  "totalPoints": "64940735846.052284280236030647",
+  "totalWallets": 2260,
+  "timestamp": "2026-09-22T02:02:11.472Z",
+  "source": "https://api.axis.to/api/v1/points/leaderboard?limit=100",
+  "pointsPerUsdPerDay": 1,
+  "pointsRateSource": "https://api.axis.to/api/v1/points/campaigns",
+  "pointsCampaign": "Origin Season 1",
+  "earnUpdatedAt": "2026-09-22T02:02:17.337Z",
+  "earnSource": "https://app.axis.to/earn",
+  "strategyTge": "2026-12-03",
+  "earnOpportunities": [
+    {
+      "id": "origin-vault",
+      "multiplier": 10,
+      "apy": {
+        "type": "rate",
+        "value": "6.68%"
+      },
+      "tge": "2026-12-03",
+      "url": "https://app.axis.to/origin"
+    },
+    {
+      "id": "hold-usdx",
+      "multiplier": 16,
+      "apy": {
+        "type": "coordinates-only"
+      },
+      "tge": "2026-12-03",
+      "url": "https://app.axis.to/stake#swap"
+    },
+    {
+      "id": "stake-usdx",
+      "multiplier": 4,
+      "apy": {
+        "type": "rate",
+        "value": "17.93%"
+      },
+      "tge": "2026-12-03",
+      "url": "https://app.axis.to/stake"
+    },
+    {
+      "id": "curve-usdx-usdt",
+      "multiplier": 20,
+      "apy": {
+        "type": "not-quoted"
+      },
+      "tge": "2026-12-03",
+      "url": "https://www.curve.finance/dex/ethereum/pools/factory-stable-ng-1051/deposit"
+    },
+    {
+      "id": "curve-susdx-usdx",
+      "multiplier": 10,
+      "apy": {
+        "type": "not-quoted"
+      },
+      "tge": "2026-12-03",
+      "url": "https://www.curve.finance/dex/ethereum/pools/factory-stable-ng-1052/deposit"
+    },
+    {
+      "id": "pendle-susdx-yt",
+      "multiplier": 6,
+      "apy": {
+        "type": "variable"
+      },
+      "tge": "2026-12-03",
+      "url": "https://app.pendle.finance/trade/markets/0x5e572498e9f83650f0ff24194999bddb4b390928/swap?view=yt&chain=ethereum"
+    },
+    {
+      "id": "pendle-susdx-lp",
+      "multiplier": 5,
+      "apy": {
+        "type": "not-quoted"
+      },
+      "tge": "2026-12-03",
+      "url": "https://app.pendle.finance/trade/pools/0x5e572498e9f83650f0ff24194999bddb4b390928/zap/in?chain=ethereum"
+    },
+    {
+      "id": "pendle-usdx-yt",
+      "multiplier": 24,
+      "apy": {
+        "type": "variable"
+      },
+      "tge": "2026-12-03",
+      "url": "https://app.pendle.finance/trade/markets/0x0bef762d2094ac80821c657dea6783fc43435292/swap?view=yt&chain=ethereum"
+    },
+    {
+      "id": "pendle-usdx-lp",
+      "multiplier": 20,
+      "apy": {
+        "type": "not-quoted"
+      },
+      "tge": "2026-12-03",
+      "url": "https://app.pendle.finance/trade/pools/0x0bef762d2094ac80821c657dea6783fc43435292/zap/in?chain=ethereum"
+    }
+  ]
+}

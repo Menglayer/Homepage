@@ -1,0 +1,39 @@
+{
+  "fetchedAt": "2026-09-22T02:02:54.556Z",
+  "markets": [
+    {
+      "address": "0x5e572498e9f83650f0ff24194999bddb4b390928",
+      "source": "https://api-v2.pendle.finance/core/v1/1/markets/0x5e572498e9f83650f0ff24194999bddb4b390928",
+      "expiry": "2026-12-03T00:00:00.000Z",
+      "updatedAt": "2026-09-22T02:01:00.000Z",
+      "priceUpdatedAt": "2026-09-22T02:02:30.036Z",
+      "ytPrice": 0.031890354397465924,
+      "accountingPrice": 0.99995334,
+      "ptApy": 0.17880617264128462,
+      "lpApy": 0.19695443507915844,
+      "underlyingApy": 0.20000239654429475,
+      "underlyingInterestApy": 0.20000239654429475,
+      "underlyingRewardApr": 0,
+      "ytApy": 0.5452438595429117,
+      "ytRoi": 0.08952589395035915,
+      "ptRoi": 0.0329423813819818
+    },
+    {
+      "address": "0x0bef762d2094ac80821c657dea6783fc43435292",
+      "source": "https://api-v2.pendle.finance/core/v1/1/markets/0x0bef762d2094ac80821c657dea6783fc43435292",
+      "expiry": "2026-12-03T00:00:00.000Z",
+      "updatedAt": "2026-09-22T02:01:00.000Z",
+      "priceUpdatedAt": "2026-09-22T02:02:30.036Z",
+      "ytPrice": 0.023976677846047494,
+      "accountingPrice": 0.99995334,
+      "ptApy": 0.1310884879413543,
+      "lpApy": 0.052875162459608806,
+      "underlyingApy": 0,
+      "underlyingInterestApy": 0,
+      "underlyingRewardApr": 0,
+      "ytApy": -1,
+      "ytRoi": -1,
+      "ptRoi": 0.02456680769717634
+    }
+  ]
+}

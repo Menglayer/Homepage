@@ -1,0 +1,116 @@
+{
+  "note": "Public source snapshots. Original formulas and freshness checks retained.",
+  "calculators": [
+    {
+      "id": "axis",
+      "source": "https://axis.menglayer.cc/",
+      "importedAt": "2026-10-20T03:59:57.764Z",
+      "files": [
+        "axis/index.html",
+        "axis/favicon.svg",
+        "axis/styles.css",
+        "axis/axis-logo.svg",
+        "axis/app.js",
+        "axis/data/axis-stats.json",
+        "axis/data/pendle-markets.json"
+      ]
+    },
+    {
+      "id": "tori",
+      "source": "https://tori.menglayer.cc/",
+      "importedAt": "2026-10-20T04:00:00.545Z",
+      "files": [
+        "tori/index.html",
+        "tori/styles.css",
+        "tori/app.js",
+        "tori/calculator.js",
+        "tori/data/leaderboard.json"
+      ]
+    },
+    {
+      "id": "3j",
+      "source": "https://3j.menglayer.cc/",
+      "importedAt": "2026-10-20T04:00:02.464Z",
+      "files": [
+        "3j/index.html",
+        "3j/styles.css",
+        "3j/app.js"
+      ]
+    },
+    {
+      "id": "saturn",
+      "source": "https://saturn.menglayer.cc/",
+      "importedAt": "2026-10-20T04:00:05.495Z",
+      "files": [
+        "saturn/index.html",
+        "saturn/css/style.css",
+        "saturn/js/constants.js",
+        "saturn/js/i18n.js",
+        "saturn/js/calculator.js",
+        "saturn/js/app.js"
+      ]
+    },
+    {
+      "id": "option",
+      "source": "https://option.menglayer.cc/",
+      "importedAt": "2026-10-20T04:00:09.661Z",
+      "files": [
+        "option/index.html",
+        "option/assets/favicon-XadOwyfL.svg",
+        "option/assets/index-DtGrdkES.js",
+        "option/assets/index-CfX__HpF.css",
+        "option/assets/icon-derbit-0v5evGGE.png",
+        "option/assets/icon-bybit-D90lcsd1.jpg",
+        "option/assets/icon-okx-BguZ0rwC.jpg"
+      ]
+    },
+    {
+      "id": "civcalc",
+      "source": "https://civ.menglayer.cc/",
+      "importedAt": "2026-10-20T04:00:11.493Z",
+      "files": [
+        "civcalc/index.html",
+        "civcalc/style.css",
+        "civcalc/script.js"
+      ]
+    },
+    {
+      "id": "airdrop_universal",
+      "source": "https://airdropestimator.menglayer.cc/",
+      "importedAt": "2026-10-20T04:00:12.805Z",
+      "files": [
+        "airdrop_universal/index.html"
+      ]
+    },
+    {
+      "id": "apr",
+      "source": "https://apr.menglayer.cc/",
+      "importedAt": "2026-10-20T04:00:13.929Z",
+      "files": [
+        "apr/index.html"
+      ]
+    },
+    {
+      "id": "borrow_risk",
+      "source": "https://borrow.menglayer.cc/",
+      "importedAt": "2026-10-20T04:00:17.336Z",
+      "files": [
+        "borrow_risk/index.html",
+        "borrow_risk/app.css",
+        "borrow_risk/favicon-16.png",
+        "borrow_risk/favicon-32.png",
+        "borrow_risk/favicon-48.png",
+        "borrow_risk/apple-touch-icon-180.png",
+        "borrow_risk/app.js"
+      ]
+    },
+    {
+      "id": "clammv3",
+      "source": "https://clamm.menglayer.cc/",
+      "importedAt": "2026-10-20T04:00:18.260Z",
+      "files": [
+        "clammv3/index.html"
+      ]
+    }
+  ]
+}

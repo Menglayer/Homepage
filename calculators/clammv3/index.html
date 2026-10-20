@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="menglayer-source" content="https://clamm.menglayer.cc/">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CLAMM V3 区间做市 & IL 模拟器（离线增强版）</title>
+  <style>
+    :root{
+      --brand:#357ef3; --text:#0f172a; --muted:#64748b; --bg1:#eef6ff; --bg2:#ffffff; --border:#e5e7eb;
+      --green:#10b981; --red:#ef4444; --gray:#94a3b8; --purple:#7c3aed; --blue:#2563eb;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0; font-family: ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; color:var(--text);
+      background: linear-gradient(#eef6ff,#fff);}
+    .container{max-width:1200px; margin:24px auto; padding:0 16px}
+    h1{font-size:22px; font-weight:600; margin:0 0 12px 0}
+    .row{display:grid; grid-template-columns: 1fr; gap:16px}
+    @media(min-width: 980px){ .row{grid-template-columns: 360px 1fr} }
+    .card{background:#fff; border:1px solid var(--border); border-radius:16px; box-shadow: 0 6px 24px rgba(53,126,243,.08); padding:14px}
+    .card h3{font-size:14px; font-weight:600; margin:0 0 8px 0; color:#334155}
+    .flex{display:flex; align-items:center; gap:8px}
+    .right{justify-content:flex-end}
+    .btn{border:1px solid var(--border); background:#fff; padding:8px 10px; border-radius:12px; cursor:pointer; font-size:12px}
+    .btn:hover{background:#f8fafc}
+    .select{border:1px solid var(--border); background:#fff; padding:8px 10px; border-radius:12px; font-size:12px}
+    .row-input{display:flex; align-items:center; justify-content:space-between; gap:8px; padding:6px 0}
+    .row-input label{font-size:13px; color:#475569}
+    .row-input input[type=number]{width:160px; padding:8px 10px; border:1px solid var(--border); border-radius:12px; text-align:right}
+    .row-input input[type=range]{width:160px}
+    .stat{border:1px solid var(--border); border-radius:12px; padding:12px; background:#fff}
+    .stat .t{font-size:11px; color:#64748b}
+    .stat .v{font-size:16px; font-weight:600}
+    .stats{display:grid; grid-template-columns: repeat(2,1fr); gap:12px}
+    @media(min-width: 980px){ .stats{grid-template-columns: repeat(4,1fr)} }
+    .kv{display:flex; align-items:center; justify-content:space-between; padding:6px 0; font-size:14px}
+    .kv .k{color:#475569}
+    .kv .v.pos{color:#059669; font-weight:600}
+    .kv .v.neg{color:#dc2626; font-weight:600}
+    .legend{font-size:12px; color:#475569}
+    .footer{font-size:12px; color:#64748b; line-height:1.6}
+    svg{display:block; width:100%; height:360px; background:#fff; border:1px solid var(--border); border-radius:16px}
+    .axis text{font-size:11px; fill:#6b7280}
+    .grid line{stroke:#e5e7eb; stroke-width:1}
+    .path-il{fill:none; stroke:var(--blue); stroke-width:2}
+    .path-edge{fill:none; stroke:var(--purple); stroke-width:2}
+    .vline{stroke:var(--gray); stroke-width:1.5; stroke-dasharray:4 3}
+    .vline.a{stroke:var(--green)}
+    .vline.b{stroke:var(--red)}
+    .badge{display:inline-block; margin-left:8px; padding:2px 6px; border-radius:999px; background:rgba(53,126,243,.1); color:var(--brand); font-size:10px}
+    /* top-right icon bar */
+    .iconbar{display:flex; gap:6px; align-items:center}
+    .iconbtn{width:36px; height:36px; border-radius:12px; border:1px solid var(--border); background:#fff; display:grid; place-items:center; cursor:pointer; box-shadow:0 2px 8px rgba(15,23,42,.05)}
+    .iconbtn:hover{background:#f8fafc}
+    .iconbtn svg{width:18px; height:18px; fill:#475569}
+    .cta-follow{border-color:#ffd1a6; background:#fff7ed}
+    .cta-follow svg{fill:#f59e0b}
+    /* modal */
+    .modal{position:fixed; inset:0; display:none; place-items:center; background:rgba(15,23,42,.4); backdrop-filter: blur(2px);}
+    .modal.show{display:grid}
+    .modal .box{width:min(460px,calc(100vw - 32px)); background:#fff; border:1px solid var(--border); border-radius:16px; padding:16px}
+    .box h3{margin:0 0 8px 0; font-size:16px}
+    .box p{margin:6px 0; font-size:14px; color:#475569}
+    .box .action{display:flex; gap:8px; margin-top:10px}
+    .pill{display:inline-flex; align-items:center; gap:6px; padding:8px 10px; border:1px solid var(--border); border-radius:999px; background:#fff; cursor:pointer; font-size:12px}
+    .pill:hover{background:#f8fafc}
+    .ghost{opacity:.8}
+  </style>
+<link rel="stylesheet" href="../../assets/css/calculator-theme.css"><script defer src="../../assets/js/calculator-bridge.js"></script></head>
+<body>
+  <div class="container">
+    <div class="flex" style="justify-content:space-between; margin-bottom:8px">
+      <h1><span id="t_title">CLAMM V3 区间做市 & IL 模拟器</span><span class="badge">Offline</span></h1>
+      <div class="iconbar">
+        <div id="btnLang" class="iconbtn" title="中文/English">
+          <!-- globe icon -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm6.93 9h-3.16a14.7 14.7 0 0 0-1.07-5.04A8.01 8.01 0 0 1 18.93 11ZM8.3 11H5.07a8.01 8.01 0 0 1 4.23-5.04A14.7 14.7 0 0 0 8.3 11Zm0 2a12.77 12.77 0 0 0 1 4.77A8.01 8.01 0 0 1 5.07 13H8.3Zm1.77 0h3.86a12.8 12.8 0 0 1-1.93 5.27A12.8 12.8 0 0 1 10.07 13Zm3.86-2h-3.86a12.8 12.8 0 0 1 1.93-5.27A12.8 12.8 0 0 1 13.93 11Zm1.77 2h3.16a8.01 8.01 0 0 1-4.23 4.77c.45-1.52.86-3.06 1.07-4.77Z"/></svg>
+        </div>
+        <div id="btnFollow" class="iconbtn cta-follow" title="关注我 @MengLayer">
+          <!-- star/heart -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4.6 13.9 9h4.6l-3.7 2.7 1.4 4.6L12 15.3 7.8 16.3l1.4-4.6L5.5 9h4.6L12 4.6Z"/></svg>
+        </div>
+        <div id="btnShare" class="iconbtn" title="复制分享链接">
+          <!-- link icon -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.6 13.4a1 1 0 1 0 1.4 1.4l3.54-3.54a3 3 0 1 0-4.24-4.24L9.7 5.96a1 1 0 0 0 1.41 1.41l1.31-1.31a1 1 0 1 1 1.41 1.41l-3.24 3.24ZM13.4 10.6a1 1 0 1 0-1.4-1.4L8.46 12.74a3 3 0 1 0 4.24 4.24l1.31-1.31a1 1 0 0 0-1.41-1.41l-1.31 1.31a1 1 0 1 1-1.41-1.41L13.4 10.6Z"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <div class="card">
+          <h3 id="t_base">基础参数</h3>
+          <div class="row-input"><label id="t_P">当前价格 P (USDC/ETH)</label><input type="number" id="inP" step="0.01" value="3500"></div>
+          <div class="row-input"><label id="t_a">价格下界 a</label><input type="number" id="inA" step="0.01" value="3000"></div>
+          <div class="row-input"><label id="t_b">价格上界 b</label><input type="number" id="inB" step="0.01" value="4000"></div>
+          <div class="row-input" id="rowCap"><label id="t_V">总资金 (以 USDC 计)</label><input type="number" id="inV" step="1" value="10000"></div>
+          <div class="row-input">
+            <label id="t_mode">投入方式</label>
+            <div>
+              <label style="font-size:12px; margin-right:10px"><input type="radio" name="mode" value="auto" checked> 自动拆分</label>
+              <label style="font-size:12px"><input type="radio" name="mode" value="custom"> 自定义投入</label>
+            </div>
+          </div>
+          <div id="customBox" style="display:none; margin-top:6px; padding-top:8px; border-top:1px dashed var(--border)">
+            <div class="row-input"><label id="t_c0">自定义 ETH 数量</label><input type="number" id="inC0" step="0.000001" value="1"></div>
+            <div class="row-input"><label id="t_c1">自定义 USDC 数量</label><input type="number" id="inC1" step="0.01" value="7000"></div>
+            <div class="footer ghost" id="t_customNote">说明：自定义模式下，将按 v3 规则从给定的两种代币中铸造 Liquidity，区间外的代币会保持闲置。</div>
+          </div>
+          <div class="flex" style="gap:8px; margin-top:8px">
+            <button id="btnTight" class="btn">窄区间示例</button>
+            <button id="btnWide" class="btn">宽区间示例</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 id="t_scene">情景假设</h3>
+          <div class="row-input"><label id="t_pf">未来价格 p_f</label><input type="number" id="inPf" step="0.01" value="3600"></div>
+          <div class="row-input"><label id="t_days">持有天数</label><input type="number" id="inDays" step="1" value="30"></div>
+          <div class="row-input"><label id="t_apr">手续费年化假设</label><input type="number" id="inApr" step="0.1" value="20"></div>
+          <div class="row-input"><label id="t_active">活跃时间占比</label><input type="range" id="inActive" min="0" max="1" step="0.01" value="0.8"><span id="activePct" style="width:60px; text-align:right; color:#64748b; font-size:12px">80%</span></div>
+          <div class="footer" id="t_note" style="margin-top:8px">注：费用采用简化估算：费用 = V × 年化费率 × 天数/365 × 活跃占比；未模拟成交量/TVL动态与再平衡等细节。</div>
+        </div>
+
+        <div class="card">
+          <h3>LP 使用率 & 闲置</h3>
+          <div class="kv"><span class="k">初始投入价值（以 USDC 计）</span><span class="v" id="v_inputVal">$-</span></div>
+          <div class="kv"><span class="k">进入 LP 的价值（以 USDC 计）</span><span class="v" id="v_effVal">$-</span></div>
+          <div class="kv"><span class="k">资金使用率</span><span class="v" id="v_usage">-</span></div>
+          <div class="kv"><span class="k">闲置 ETH</span><span class="v" id="v_idle0">-</span></div>
+          <div class="kv"><span class="k">闲置 USDC</span><span class="v" id="v_idle1">-</span></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="card">
+          <h3 id="t_overview">结果概览</h3>
+          <div class="stats">
+            <div class="stat"><div class="t" id="t_t0init">ETH 初始数量</div><div class="v" id="v_t0init">-</div></div>
+            <div class="stat"><div class="t" id="t_t1init">USDC 初始数量</div><div class="v" id="v_t1init">-</div></div>
+            <div class="stat"><div class="t" id="t_L">铸造 Liquidity</div><div class="v" id="v_L">-</div></div>
+            <div class="stat"><div class="t" id="t_width">区间宽度 b/a</div><div class="v" id="v_width">-</div></div>
+          </div>
+          <div class="row" style="grid-template-columns: 1fr 1fr; margin-top:12px">
+            <div class="card" style="border-color:#f1f5f9; background:#f8fafc">
+              <div class="legend" id="t_pnl">收益拆解 @ p_f = <span id="lbl_pf"></span></div>
+              <div class="kv"><span class="k" id="t_hodl">HODL 价值</span><span class="v" id="v_hodl">$-</span></div>
+              <div class="kv"><span class="k" id="t_lp0">LP 价值（不含费）</span><span class="v" id="v_lp0">$-</span></div>
+              <div class="kv"><span class="k">Impermanent Loss</span><span class="v" id="v_il">-</span></div>
+              <div class="kv"><span class="k" id="t_fee">预估手续费收入</span><span class="v" id="v_fee">$-</span></div>
+              <div class="kv"><span class="k" id="t_lpf">LP 含费总价值</span><span class="v" id="v_lpf">$-</span></div>
+              <div class="kv"><span class="k" id="t_edge">LP 相对 HODL 超额/劣势</span><span class="v" id="v_edge">-</span></div>
+            </div>
+            <div class="card" style="border-color:#f1f5f9; background:#f8fafc">
+              <div class="legend" id="t_state">区间状态</div>
+              <div class="kv"><span class="k" id="t_in">是否在区间内</span><span class="v" id="v_in">-</span></div>
+              <div class="kv"><span class="k" id="t_t0now">ETH 当前数量</span><span class="v" id="v_t0now">-</span></div>
+              <div class="kv"><span class="k" id="t_t1now">USDC 当前数量</span><span class="v" id="v_t1now">-</span></div>
+              <div class="kv"><span class="k" id="t_req">保本所需费率(年化)</span><span class="v" id="v_req">-</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 id="t_chart">IL 曲线 与 含费超额（价格从 0.2×P 到 5×P）</h3>
+          <svg id="chart" viewBox="0 0 800 360" preserveAspectRatio="none" aria-label="chart">
+            <g class="grid"></g>
+            <g class="axis x"></g>
+            <g class="axis y"></g>
+            <path class="path-il"></path>
+            <path class="path-edge"></path>
+            <line class="vline p0"></line>
+            <line class="vline a"></line>
+            <line class="vline b"></line>
+          </svg>
+          <div class="legend">图例：<span style="color:#2563eb">IL%（不含费）</span>；<span style="color:#7c3aed">LP相对HODL（含费）%</span>；竖线：P₀（灰）/ a（绿）/ b（红）。</div>
+        </div>
+
+        <div class="card">
+          <h3 id="t_guide">使用说明</h3>
+          <ol class="footer" id="guide_list">
+            <li>价格以 USDC/ETH 报价（已移除切换计价）。</li>
+            <li>输入区间 [a,b] 与资金 V（或选择“自定义投入”输入 ETH/USDC 数量）；P 位于区间时按 v3 理论铸造 Liquidity。</li>
+            <li>“自定义投入”模式下，区间外的币种将保持闲置并计入总价值比较。</li>
+            <li>“未来价格 p_f”用于场景评估：展示 LP 与 HODL 的对比和 IL%，以及给定手续费年化与活跃占比下的含费结果。</li>
+            <li>图表展示价格 0.2×P → 5×P 的 IL 曲线与含费表现，灰/绿/红竖线分别为 P₀/a/b。</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- follow modal -->
+  <div id="followModal" class="modal" aria-hidden="true">
+    <div class="box">
+      <h3>关注我 @MengLayer</h3>
+      <p>获取更多工具更新与 DeFi 策略：关注 X（Twitter）账号 <b>@MengLayer</b>。</p>
+      <div class="action">
+        <a class="pill" href="https://x.com/menglayer" target="_blank" rel="noreferrer">打开 X / Twitter</a>
+        <button id="btnCopyX" class="pill">复制链接</button>
+        <button id="btnCloseFollow" class="pill">关闭</button>
+      </div>
+      <p class="footer">提示：本页面为离线版，无需任何 CDN；如需接入数据源或主题色适配，请联系我。</p>
+    </div>
+  </div>
+
+  <script>
+    // -------- i18n --------
+    const I18N = {
+      zh: {
+        title: 'CLAMM V3 区间做市 & IL 模拟器', narrow:'窄区间示例', wide:'宽区间示例',
+        base:'基础参数', scene:'情景假设', P:'当前价格 P', a:'价格下界 a', b:'价格上界 b', V:v=>`总资金 (以 ${state.token1} 计)`,
+        mode:'投入方式', c0:'自定义 ETH 数量', c1:'自定义 USDC 数量', customNote:'说明：自定义模式下，将按 v3 规则从给定的两种代币中铸造 Liquidity，区间外的代币会保持闲置。',
+        pf:'未来价格 p_f', days:'持有天数', apr:'手续费年化假设', active:'活跃时间占比', note:'注：费用采用简化估算：费用 = V × 年化费率 × 天数/365 × 活跃占比；未模拟成交量/TVL动态与再平衡等细节。',
+        overview:'结果概览', t0init:t=>`${state.token0} 初始数量`, t1init:t=>`${state.token1} 初始数量`, L:'铸造 Liquidity', width:'区间宽度 b/a',
+        pnl:'收益拆解 @ p_f = ', hodl:'HODL 价值', lp0:'LP 价值（不含费）', fee:'预估手续费收入', lpf:'LP 含费总价值', edge:'LP 相对 HODL 超额/劣势',
+        state:'区间状态', inRange:'是否在区间内', yes:'在', no:'已脱离', t0now:t=>`${state.token0} 当前数量`, t1now:t=>`${state.token1} 当前数量`, req:'保本所需费率(年化)',
+        chart:'IL 曲线 与 含费超额（价格从 0.2×P 到 5×P）',
+      },
+      en: {
+        title:'CLAMM V3 Range LP & IL Simulator', narrow:'Narrow Range', wide:'Wide Range',
+        base:'Base Params', scene:'Scenario', P:'Current Price P', a:'Lower Bound a', b:'Upper Bound b', V:v=>`Capital (in ${state.token1})`,
+        mode:'Deposit Mode', c0:'Custom ETH Amount', c1:'Custom USDC Amount', customNote:'In custom mode, liquidity is minted per v3 rules from both tokens; out-of-range token stays idle.',
+        pf:'Future Price p_f', days:'Days', apr:'Fee APR Assumption', active:'Active Time Ratio', note:'Note: Fees are simplified as V × APR × days/365 × active ratio. Volume/TVL dynamics and rebalancing are not modeled.',
+        overview:'Overview', t0init:t=>`${state.token0} Initial Amount`, t1init:t=>`${state.token1} Initial Amount`, L:'Minted Liquidity', width:'Range Width b/a',
+        pnl:'P&L @ p_f = ', hodl:'HODL Value', lp0:'LP Value (excl. fees)', fee:'Estimated Fees', lpf:'LP Value (incl. fees)', edge:'LP vs HODL (incl. fees)',
+        state:'Range State', inRange:'In Range', yes:'Yes', no:'Out', t0now:t=>`${state.token0} Amount Now`, t1now:t=>`${state.token1} Amount Now`, req:'Break-even APR',
+        chart:'IL Curve & Fee-adjusted Edge (Price 0.2×P → 5×P)',
+      }
+    };
+
+    // -------- state & math --------
+    const state = {
+      token0:'ETH', token1:'USDC',
+      P:3500, a:3000, b:4000, V:10000,
+      pf:3600, days:30, apr:20, active:0.8,
+      lang:'zh', mode:'auto', c0:1, c1:7000
+    };
+    const $ = sel => document.querySelector(sel);
+    const fmt = (n, d=2)=> (isFinite(n)? Number(n).toLocaleString(undefined,{maximumFractionDigits:d}):'-');
+    const pct = (n, d=2)=> ( (n*100).toFixed(d)+'%' );
+    const s = (x)=> Math.sqrt(Math.max(0, x));
+    function computeDepositAuto(P,a,b,V){
+      const sA=s(a), sB=s(b), sP=s(P);
+      let amount0=0, amount1=0, L=0;
+      if (P<=a){ amount0 = V/P; amount1=0; L = amount0/(1/sA-1/sB); }
+      else if (P>=b){ amount0=0; amount1=V; L = amount1/(sB-sA); }
+      else {
+        const r = (sP - sA)/(1/sP - 1/sB);
+        amount0 = V/(P + r);
+        amount1 = r * amount0;
+        const L0 = amount0/(1/sP - 1/sB);
+        const L1 = amount1/(sP - sA);
+        L = Math.min(L0, L1);
+      }
+      return {amount0, amount1, L, used0:amount0, used1:amount1, idle0:0, idle1:0, effectiveValue: amount0*P + amount1, inputValue: V};
+    }
+    function computeDepositCustom(P,a,b,c0,c1){
+      const sA=s(a), sB=s(b), sP=s(P);
+      let used0=0, used1=0, idle0=0, idle1=0, L=0;
+      if (P<=a){
+        used0 = c0; L = used0/(1/sA - 1/sB); idle1 = c1; // token1 无法进入 LP
+      } else if (P>=b){
+        used1 = c1; L = used1/(sB - sA); idle0 = c0;
+      } else {
+        const L0 = c0/(1/sP - 1/sB);
+        const L1 = c1/(sP - sA);
+        L = Math.min(L0, L1);
+        used0 = L*(1/sP - 1/sB);
+        used1 = L*(sP - sA);
+        idle0 = Math.max(0, c0 - used0);
+        idle1 = Math.max(0, c1 - used1);
+      }
+      const inputValue = c0*P + c1;
+      const effectiveValue = used0*P + used1;
+      // 初始数量 = 输入数量
+      return {amount0:c0, amount1:c1, L, used0, used1, idle0, idle1, effectiveValue, inputValue};
+    }
+    function amountsAtPrice(L,p,a,b){
+      const sA=s(a), sB=s(b);
+      if (p<=a) return {amount0: L*(1/sA-1/sB), amount1:0};
+      if (p>=b) return {amount0:0, amount1: L*(sB - sA)};
+      const sP=s(p);
+      return {amount0: L*(1/sP - 1/sB), amount1: L*(sP - sA)};
+    }
+    function buildCurve(P,a,b,V,L,amount0Init,amount1Init,apr,days,active, idle0, idle1){
+      const xMin = Math.max(P*0.2, Number.EPSILON), xMax = P*5, steps=140;
+      const arr=[];
+      for(let i=0;i<=steps;i++){
+        const pf = xMin + (i/steps)*(xMax-xMin);
+        const {amount0, amount1} = amountsAtPrice(L, pf, a, b);
+        const lpNoFee = amount0*pf + amount1 + idle0*pf + idle1;
+        const hodl = amount0Init*pf + amount1Init;
+        const il = hodl===0?0: lpNoFee/hodl - 1;
+        const fees = V * (apr/100) * (days/365) * active;
+        const edge = hodl===0 ? 0 : (lpNoFee + fees)/hodl - 1;
+        arr.push({pf, il: il*100, edge: edge*100});
+      }
+      return arr;
+    }
+
+    // -------- chart (vanilla SVG) --------
+    function renderChart(data, {P,a,b}, svg){
+      const w=800, h=360, pad={l:48,r:12,t:16,b:28};
+      const xMin = Math.min(...data.map(d=>d.pf)), xMax = Math.max(...data.map(d=>d.pf));
+      let yMin = Math.min(...data.flatMap(d=>[d.il,d.edge]));
+      let yMax = Math.max(...data.flatMap(d=>[d.il,d.edge]));
+      const m = Math.max(10, (yMax-yMin)*0.1);
+      yMin = Math.floor((yMin - m)/5)*5; yMax = Math.ceil((yMax + m)/5)*5;
+      const xscale = x => pad.l + (x-xMin)/(xMax-xMin)*(w-pad.l-pad.r);
+      const yscale = y => h-pad.b - (y-yMin)/(yMax-yMin)*(h-pad.t-pad.b);
+
+      const grid = svg.querySelector('.grid'); grid.innerHTML='';
+      // y grid
+      const yTicks = 6;
+      for(let i=0;i<=yTicks;i++){
+        const y = yMin + (i/yTicks)*(yMax-yMin);
+        const Y = yscale(y);
+        const line=document.createElementNS('http://www.w3.org/2000/svg','line');
+        line.setAttribute('x1', pad.l); line.setAttribute('x2', w-pad.r);
+        line.setAttribute('y1', Y); line.setAttribute('y2', Y); line.setAttribute('class','gridline');
+        line.setAttribute('stroke','#e5e7eb'); line.setAttribute('stroke-width','1');
+        grid.appendChild(line);
+      }
+      // axes
+      const axisX = svg.querySelector('.axis.x'); axisX.innerHTML='';
+      const axisY = svg.querySelector('.axis.y'); axisY.innerHTML='';
+      const xTicks=8;
+      for(let i=0;i<=xTicks;i++){
+        const x = xMin + (i/xTicks)*(xMax-xMin);
+        const X = xscale(x);
+        const t=document.createElementNS('http://www.w3.org/2000/svg','text');
+        t.setAttribute('x', X); t.setAttribute('y', h-8); t.setAttribute('text-anchor','middle'); t.setAttribute('class','axis');
+        t.textContent = String(x.toFixed(0));
+        axisX.appendChild(t);
+      }
+      for(let i=0;i<=yTicks;i++){
+        const y = yMin + (i/yTicks)*(yMax-yMin);
+        const Y = yscale(y);
+        const t=document.createElementNS('http://www.w3.org/2000/svg','text');
+        t.setAttribute('x', 6); t.setAttribute('y', Y+4); t.setAttribute('class','axis');
+        t.textContent = y.toFixed(0)+'%';
+        axisY.appendChild(t);
+      }
+      // paths
+      function toPath(key){
+        return data.map((d,i)=> (i===0?'M':'L')+xscale(d.pf)+','+yscale(d[key])).join(' ');
+      }
+      svg.querySelector('.path-il').setAttribute('d', toPath('il'));
+      svg.querySelector('.path-edge').setAttribute('d', toPath('edge'));
+      // reference lines
+      function setVLine(sel, x, cls){
+        const line = svg.querySelector(sel);
+        line.setAttribute('x1', xscale(x)); line.setAttribute('x2', xscale(x));
+        line.setAttribute('y1', pad.t); line.setAttribute('y2', h-pad.b);
+        line.setAttribute('class','vline '+cls);
+      }
+      setVLine('.vline.p0', P, 'p0');
+      setVLine('.vline.a', a, 'a');
+      setVLine('.vline.b', b, 'b');
+    }
+
+    // -------- URL share helpers --------
+    function encodeState(){
+      const obj = {...state};
+      const q = new URLSearchParams(obj).toString();
+      return location.origin + location.pathname + '#' + q;
+    }
+    function decodeState(){
+      if (!location.hash) return;
+      const q = new URLSearchParams(location.hash.slice(1));
+      for (const [k,v] of q.entries()){
+        if (k in state){
+          const num = Number(v);
+          state[k] = isNaN(num) ? v : num;
+        }
+      }
+    }
+
+    // -------- UI handlers --------
+    function el(id){ return document.getElementById(id); }
+    function refreshTexts(){
+      const t = I18N[state.lang];
+      el('t_title').textContent = t.title;
+      el('btnTight').textContent = t.narrow; el('btnWide').textContent = t.wide;
+      el('t_base').textContent = t.base; el('t_scene').textContent = t.scene;
+      el('t_P').textContent = `${t.P} (${state.token1}/${state.token0})`; el('t_a').textContent = t.a; el('t_b').textContent = t.b;
+      el('t_V').textContent = t.V();
+      el('t_mode').textContent = t.mode;
+      el('t_c0').textContent = t.c0; el('t_c1').textContent = t.c1; el('t_customNote').textContent = t.customNote;
+      el('t_pf').textContent = t.pf; el('t_days').textContent = t.days; el('t_apr').textContent = t.apr; el('t_active').textContent = t.active;
+      el('t_note').textContent = t.note;
+      el('t_overview').textContent = t.overview; el('t_t0init').textContent = t.t0init(); el('t_t1init').textContent = t.t1init();
+      el('t_L').textContent = t.L; el('t_width').textContent = t.width;
+      el('t_pnl').innerHTML = t.pnl + '<span id=\"lbl_pf\"></span>';
+      el('t_hodl').textContent = t.hodl; el('t_lp0').textContent = t.lp0; el('t_fee').textContent = t.fee; el('t_lpf').textContent = t.lpf; el('t_edge').textContent = t.edge;
+      el('t_state').textContent = t.state; el('t_in').textContent = t.inRange; el('t_t0now').textContent = t.t0now(); el('t_t1now').textContent = t.t1now(); el('t_req').textContent = t.req;
+      el('t_chart').textContent = t.chart;
+    }
+    function syncInputs(){
+      el('inP').value = state.P; el('inA').value = state.a; el('inB').value = state.b; el('inV').value = state.V;
+      el('inPf').value = state.pf; el('inDays').value = state.days; el('inApr').value = state.apr; el('inActive').value = state.active;
+      el('inC0').value = state.c0; el('inC1').value = state.c1;
+      el('activePct').textContent = Math.round(state.active*100)+'%';
+      // mode
+      [...document.querySelectorAll('input[name=mode]')].forEach(r=>{
+        r.checked = r.value === state.mode;
+      });
+      el('customBox').style.display = state.mode==='custom' ? 'block' : 'none';
+      el('rowCap').style.display = state.mode==='custom' ? 'none' : 'flex';
+    }
+    function calcAndRender(){
+      // sort bounds
+      const a = Math.min(state.a, state.b), b = Math.max(state.a, state.b);
+      state.a=a; state.b=b;
+      const dep = state.mode==='auto' ?
+          computeDepositAuto(state.P, a, b, state.V) :
+          computeDepositCustom(state.P, a, b, state.c0, state.c1);
+      const mintedL = dep.L;
+      const atPf = amountsAtPrice(mintedL, state.pf, a, b);
+      // include leftovers
+      const lp0 = atPf.amount0*state.pf + atPf.amount1 + (dep.idle0||0)*state.pf + (dep.idle1||0);
+      const hodl = (state.mode==='auto' ? dep.amount0 : state.c0)*state.pf + (state.mode==='auto' ? dep.amount1 : state.c1);
+      const IL = (hodl===0)?0: (lp0/hodl - 1);
+      const feeBase = dep.effectiveValue; // use effective LP value as fee base
+      const fee = feeBase*(state.apr/100)*(state.days/365)*state.active;
+      const lpf = lp0 + fee;
+      const edge = (hodl===0)?0: (lpf/hodl - 1);
+      const reqApr = (state.days>0 && feeBase>0)? ((Math.max(0, hodl - lp0)/feeBase)*(365/state.days)*100) : Infinity;
+
+      // stats
+      el('v_t0init').textContent = fmt(state.mode==='auto' ? dep.amount0 : state.c0,6);
+      el('v_t1init').textContent = fmt(state.mode==='auto' ? dep.amount1 : state.c1,2);
+      el('v_L').textContent = fmt(mintedL,6);
+      el('v_width').textContent = fmt(b/a,4)+'×';
+      el('lbl_pf').textContent = fmt(state.pf);
+      el('v_hodl').textContent = '$'+fmt(hodl,2);
+      el('v_lp0').textContent = '$'+fmt(lp0,2);
+      el('v_il').textContent = (IL*100).toFixed(2)+'%';
+      el('v_il').className = 'v ' + (IL<0?'neg':'');
+      el('v_fee').textContent = '$'+fmt(fee,2);
+      el('v_lpf').textContent = '$'+fmt(lpf,2);
+      el('v_edge').textContent = (edge*100).toFixed(2)+'%';
+      el('v_edge').className = 'v ' + (edge>=0?'pos':'neg');
+      el('v_in').textContent = (state.pf>=a && state.pf<=b)? I18N[state.lang].yes : I18N[state.lang].no;
+      el('v_t0now').textContent = fmt(atPf.amount0 + (dep.idle0||0),6);
+      el('v_t1now').textContent = fmt(atPf.amount1 + (dep.idle1||0),2);
+      el('v_req').textContent = isFinite(reqApr) ? reqApr.toFixed(2)+'%' : '—';
+
+      // usage / idle
+      el('v_inputVal').textContent = '$'+fmt(dep.inputValue,2);
+      el('v_effVal').textContent   = '$'+fmt(dep.effectiveValue,2);
+      const usage = dep.inputValue>0 ? dep.effectiveValue/dep.inputValue : 0;
+      el('v_usage').textContent = (usage*100).toFixed(1)+'%';
+      el('v_idle0').textContent = fmt(dep.idle0||0,6);
+      el('v_idle1').textContent = fmt(dep.idle1||0,2);
+
+      // curve
+      const curve = buildCurve(state.P, a, b, dep.effectiveValue, mintedL, state.mode==='auto'?dep.amount0:state.c0, state.mode==='auto'?dep.amount1:state.c1, state.apr, state.days, state.active, dep.idle0||0, dep.idle1||0);
+      renderChart(curve, {P:state.P,a,b}, el('chart'));
+    }
+
+    // share link builder
+    function copyShare(){
+      const url = encodeState();
+      navigator.clipboard?.writeText(url).then(()=>{
+        alert('已复制参数分享链接：\\n' + url);
+      }).catch(()=>{
+        prompt('复制以下链接：', url);
+      });
+    }
+
+    // bindings
+    function bind(){
+      decodeState();
+      refreshTexts(); syncInputs(); calcAndRender();
+
+      el('btnLang').addEventListener('click', ()=>{ state.lang = state.lang==='zh'?'en':'zh'; refreshTexts(); calcAndRender(); });
+      el('btnTight').addEventListener('click', ()=>{ state.a=+(state.P*0.9).toFixed(2); state.b=+(state.P*1.1).toFixed(2); syncInputs(); calcAndRender(); });
+      el('btnWide').addEventListener('click', ()=>{ state.a=+(state.P*0.5).toFixed(2); state.b=+(state.P*2).toFixed(2); syncInputs(); calcAndRender(); });
+      ['inP','inA','inB','inV','inPf','inDays','inApr','inC0','inC1'].forEach(id=>{
+        el(id).addEventListener('input', e=>{ const key = id.slice(2).toLowerCase(); state[key] = Number(e.target.value); calcAndRender(); });
+      });
+      el('inActive').addEventListener('input', e=>{ state.active = Number(e.target.value); el('activePct').textContent = Math.round(state.active*100)+'%'; calcAndRender(); });
+      document.querySelectorAll('input[name=mode]').forEach(r=>{
+        r.addEventListener('change', e=>{ state.mode = e.target.value; syncInputs(); calcAndRender(); });
+      });
+      // follow modal
+      const modal = document.getElementById('followModal');
+      document.getElementById('btnFollow').addEventListener('click', ()=>{ modal.classList.add('show'); });
+      document.getElementById('btnCloseFollow').addEventListener('click', ()=>{ modal.classList.remove('show'); });
+      document.getElementById('btnCopyX').addEventListener('click', ()=>{
+        navigator.clipboard?.writeText('https://x.com/menglayer'); alert('已复制：https://x.com/menglayer');
+      });
+      // share
+      document.getElementById('btnShare').addEventListener('click', copyShare);
+    }
+    bind();
+  </script>
+</body>
+</html>

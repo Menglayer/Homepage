@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta name="menglayer-source" content="https://tori.menglayer.cc/">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f9fa">
+  <meta name="description" content="Tori Finance Cores 情景计算器：多仓位、Pendle YT 实时价格、排行榜总量与空投估值。">
+  <meta property="og:title" content="Tori Cores Calculator">
+  <meta property="og:description" content="多仓位、Pendle YT 实时价格与排行榜总量驱动的 Tori Cores 情景计算器。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tori.menglayer.cc/">
+  <link rel="canonical" href="https://tori.menglayer.cc/">
+  <title>Tori Cores Calculator</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23a5f3fc'/%3E%3Cpath d='M12 17h40v10H38v20H26V27H12z' fill='%23000000'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css?v=20260728-4">
+<link rel="stylesheet" href="../../assets/css/calculator-theme.css"><script defer src="../../assets/js/calculator-bridge.js"></script></head>
+<body>
+  <div class="grid-glow" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="brand" href="https://app.tori.finance/opportunities" target="_blank" rel="noreferrer">
+      <svg class="brand-mark" viewBox="0 0 64 64" role="img" aria-label="Tori">
+        <path d="M8 14h48v12H39v25H25V26H8z"></path>
+        <path d="M19 31h10v19H19zM35 31h10v19H35z" opacity=".48"></path>
+      </svg>
+      <span>
+        <strong>Tori Cores</strong>
+        <small data-i18n="brandSub">社区情景计算器</small>
+      </span>
+    </a>
+    <div class="live-stats" aria-label="Live Tori statistics">
+      <div><span data-i18n="totalCores">全网 Cores</span><strong id="headerTotalCores">—</strong></div>
+      <div><span data-i18n="totalWallets">参与钱包</span><strong id="headerWallets">—</strong></div>
+      <div><span data-i18n="dataAge">数据时间</span><strong id="headerUpdated">同步中</strong></div>
+    </div>
+    <div class="header-actions">
+      <button class="ghost-button" id="languageButton" type="button">EN</button>
+      <button class="outline-button" id="openMultipliers" type="button" aria-label="查看倍率">
+        <span aria-hidden="true">◫</span><span data-i18n="viewMultipliers">查看倍率</span>
+      </button>
+    </div>
+  </header>
+
+  <a class="boost-banner" href="https://app.tori.finance/earn?referral=KFR9B" target="_blank" rel="noreferrer">
+    <span class="boost-kicker">BOOST</span>
+    <strong data-i18n="boostTitle">现在加入 Tori · 获取额外积分 BOOST</strong>
+    <span class="boost-copy" data-i18n="boostCopy">使用专属邀请链接开始赚取 Cores</span>
+    <span class="boost-action" data-i18n="boostAction">使用邀请链接加入 ↗</span>
+  </a>
+
+  <main class="page-shell">
+    <section class="hero">
+      <div class="eyebrow"><span class="pulse-dot"></span><span data-i18n="verifiedDate">倍率核对于 2026-07-28</span></div>
+      <h1 data-i18n="heroTitle">估算你的 Tori Cores<br><span>与潜在空投价值</span></h1>
+      <p data-i18n="heroCopy">组合多种 Tori 机会，使用实时 Pendle YT 价格与排行榜总量，建立自己的情景假设。</p>
+      <div class="hero-links">
+        <a class="primary-button" href="https://app.tori.finance/opportunities" target="_blank" rel="noreferrer" data-i18n="openTori">打开 Tori Opportunities ↗</a>
+        <a class="text-link" href="https://docs.tori.finance/resources/cores" target="_blank" rel="noreferrer" data-i18n="readRules">阅读官方 Cores 规则 ↗</a>
+      </div>
+    </section>
+
+    <section class="dashboard-grid">
+      <article class="panel positions-panel">
+        <div class="panel-heading">
+          <div class="panel-icon">01</div>
+          <div><h2 data-i18n="myPositions">我的仓位</h2><p data-i18n="positionSubtitle">普通仓位按美元名义金额计分</p></div>
+        </div>
+
+        <div class="field-grid compact-grid">
+          <label class="field">
+            <span data-i18n="currentCores">当前 Cores</span>
+            <input id="currentCores" type="number" min="0" step="1000" value="0" inputmode="decimal">
+          </label>
+          <label class="field">
+            <span data-i18n="airdropDate">预计空投日期</span>
+            <input id="airdropDate" type="date" value="2026-11-26">
+            <small id="airdropDateHint">—</small>
+          </label>
+        </div>
+
+        <div class="section-rule"><span data-i18n="positionDetails">持仓详情</span></div>
+        <div id="positionsList" class="positions-list" aria-live="polite"></div>
+        <button class="add-position" id="addPosition" type="button"><span>＋</span><span data-i18n="addPosition">添加仓位</span></button>
+
+        <div class="summary-bar">
+          <span data-i18n="positionDaily">普通仓位每日 Cores</span>
+          <strong id="positionDailyTotal">0</strong>
+        </div>
+
+      </article>
+
+      <article class="panel assumptions-panel">
+        <div class="panel-heading">
+          <div class="panel-icon">02</div>
+          <div><h2 data-i18n="assumptions">估值假设</h2><p data-i18n="assumptionSubtitle">默认情景可随时修改，均非官方参数</p></div>
+        </div>
+        <label class="field">
+          <span data-i18n="fdv">TGE 时 FDV（USD）</span>
+          <input id="fdv" type="number" min="0" step="1000000" value="200000000" inputmode="decimal">
+        </label>
+        <label class="field">
+          <span data-i18n="airdropPercent">Cores 空投占比（%）</span>
+          <input id="airdropPercent" type="number" min="0" max="100" step="0.1" value="5" inputmode="decimal">
+        </label>
+        <label class="field">
+          <span data-i18n="networkGrowth">全网 Cores 每日增长（%）</span>
+          <input id="networkGrowth" type="number" min="0" step="0.1" value="2" inputmode="decimal">
+        </label>
+        <div class="live-total-box">
+          <span data-i18n="currentNetworkTotal">接口当前全网总量</span>
+          <strong id="networkTotalDisplay">—</strong>
+          <small id="leaderboardSyncNote">—</small>
+        </div>
+      </article>
+
+      <article class="panel yt-panel">
+        <div class="panel-heading">
+          <div class="panel-icon">03</div>
+          <div><h2 data-i18n="ytLab">Pendle YT 实时实验室</h2><p data-i18n="ytSubtitle">按 YT 数量与底层名义本金计算，不把买入成本当作计分本金</p></div>
+          <span class="live-badge" id="pendleStatus"><i></i><span data-i18n="syncing">同步中</span></span>
+        </div>
+        <div class="yt-layout">
+          <div class="yt-inputs">
+            <label class="field">
+              <span data-i18n="ytType">YT 类型</span>
+              <select id="ytType"></select>
+            </label>
+            <div class="field-grid">
+              <label class="field">
+                <span data-i18n="ytPrice">YT 单价（USD）</span>
+                <input id="ytPrice" type="number" min="0" step="0.000001" value="0" inputmode="decimal">
+              </label>
+              <label class="field">
+                <span data-i18n="ytInvestment">买入成本（USD）</span>
+                <input id="ytInvestment" type="number" min="0" step="100" value="0" inputmode="decimal">
+              </label>
+            </div>
+            <p class="helper-text" id="ytMeta">—</p>
+            <div class="notice info-notice">
+              <span>i</span>
+              <p data-i18n="ytFeeNote">Pendle 将底层收益与积分流向 YT，计算按官方文档扣除 3% YT 费；实际 Tori 记分结果以项目后台为准。</p>
+            </div>
+          </div>
+          <div class="yt-metrics">
+            <div><span data-i18n="ytQuantity">YT 数量</span><strong id="ytQuantity">0</strong></div>
+            <div><span data-i18n="ytLeverage">名义杠杆</span><strong id="ytLeverage">0×</strong></div>
+            <div><span data-i18n="ytNotional">计分名义本金</span><strong id="ytNotional">$0</strong></div>
+            <div><span data-i18n="ytDaily">YT 每日 Cores</span><strong id="ytDaily">0</strong></div>
+            <div><span data-i18n="ytPointDays">有效计分天数</span><strong id="ytPointDays">0</strong></div>
+            <div><span data-i18n="ytExpiry">到期日</span><strong id="ytExpiry">2026-11-26</strong></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="panel leaderboard-panel">
+        <div class="panel-heading">
+          <div class="panel-icon">04</div>
+          <div><h2 data-i18n="leaderboard">实时排行榜快照</h2><p data-i18n="leaderboardSubtitle">官方接口 Top 5</p></div>
+          <a class="text-link small" href="https://app.tori.finance/activities" target="_blank" rel="noreferrer" data-i18n="viewAll">查看全部 ↗</a>
+        </div>
+        <div class="leaderboard-table" role="table" aria-label="Tori leaderboard">
+          <div class="leaderboard-head" role="row"><span>#</span><span data-i18n="wallet">钱包</span><span>Cores</span><span data-i18n="share">占比</span></div>
+          <div id="leaderboardRows"></div>
+        </div>
+      </article>
+    </section>
+
+    <section class="results-section" aria-live="polite">
+      <div class="results-heading">
+        <div><span class="eyebrow plain" data-i18n="scenarioOutput">SCENARIO OUTPUT</span><h2 data-i18n="resultsTitle">你的情景结果</h2></div>
+      </div>
+      <div class="results-grid">
+        <div class="result-card featured"><span data-i18n="airdropValue">预估空投价值</span><strong id="resultAirdropValue">—</strong><small id="resultShare">0% share</small></div>
+        <div class="result-card"><span data-i18n="projectedCores">模拟结束时我的 Cores</span><strong id="resultUserCores">0</strong><small id="resultIncrement">+0 new</small></div>
+        <div class="result-card"><span data-i18n="millionValue">每 1M Cores 价值</span><strong id="resultMillionValue">—</strong><small data-i18n="basedOnProjectedTotal">按预测全网总量</small></div>
+        <div class="result-card"><span data-i18n="coresApy">新增仓位 Cores APY</span><strong id="resultApy">—</strong><small id="resultCapital">$0 capital</small></div>
+        <div class="result-card"><span data-i18n="networkProjected">预测全网累计 Cores</span><strong id="resultNetwork">0</strong><small data-i18n="includesYourNew">含你的新增 Cores</small></div>
+        <div class="result-card"><span data-i18n="ytTotal">YT 至模拟结束 Cores</span><strong id="resultYtCores">0</strong><small id="resultYtDays">0 days</small></div>
+        <div class="result-card"><span data-i18n="ytNet">YT 预估净收益</span><strong id="resultYtNet">—</strong><small id="resultYtBreakdown">—</small></div>
+        <div class="result-card"><span data-i18n="ytRoi">YT ROI</span><strong id="resultYtRoi">—</strong><small data-i18n="ytRoiHint">空投 + 底息 + 线性残值 − 成本</small></div>
+      </div>
+    </section>
+
+    <section class="methodology">
+      <div><span>01</span><p><strong data-i18n="methodOneTitle">普通仓位</strong><br><span data-i18n="methodOne">每日 Cores = 美元名义金额 × 机会页倍率</span></p></div>
+      <div><span>02</span><p><strong data-i18n="methodTwoTitle">Pendle YT</strong><br><span data-i18n="methodTwo">YT 数量 × 底层价格 × 倍率 × 97%</span></p></div>
+      <div><span>03</span><p><strong data-i18n="methodThreeTitle">估值</strong><br><span data-i18n="methodThree">FDV × 空投占比 × 你的预测份额</span></p></div>
+    </section>
+  </main>
+
+  <footer>
+    <p data-i18n="disclaimer">非 Tori 官方产品，仅供情景研究，不构成投资建议。倍率、Cores 规则、市场价格与潜在空投条款均可能变化。</p>
+    <p><a href="https://app.tori.finance/" target="_blank" rel="noreferrer">Tori App</a><span>·</span><a href="https://docs.tori.finance/" target="_blank" rel="noreferrer">Docs</a><span>·</span><a href="https://app.pendle.finance/" target="_blank" rel="noreferrer">Pendle</a><span>·</span><a class="author-link" href="https://x.com/menglayer" target="_blank" rel="noreferrer"><span data-i18n="authorLabel">作者</span> <strong>@menglayer</strong> ↗</a></p>
+  </footer>
+
+  <dialog id="multipliersDialog">
+    <div class="dialog-header"><div><span class="eyebrow plain">LIVE OPPORTUNITIES</span><h2 data-i18n="multiplierTitle">Cores 倍率参考</h2></div><button id="closeMultipliers" type="button" aria-label="Close">×</button></div>
+    <p class="dialog-copy" data-i18n="multiplierCopy">来自 Tori Opportunities 页面，最后人工核对于 2026-07-28。YT 项请使用专用计算区。</p>
+    <div class="multiplier-table"><div class="multiplier-head"><span data-i18n="strategy">策略</span><span data-i18n="category">类别</span><span data-i18n="dailyMultiplier">Cores / $ / day</span></div><div id="multiplierRows"></div></div>
+  </dialog>
+
+  <script type="module" src="app.js?v=20260728-4"></script>
+</body>
+</html>

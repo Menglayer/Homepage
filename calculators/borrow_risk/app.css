@@ -1,0 +1,82 @@
+:root{
+  --bg1:#eaf7ff; --bg2:#ffffff; --brand:#357ef3;
+  --text:#0f172a; --muted:#64748b; --border:#e5e7eb; --card:rgba(255,255,255,0.85);
+  --shadow:0 8px 30px rgba(53,126,243,.12)
+}
+*{box-sizing:border-box}
+body{
+  margin:0; color:var(--text);
+  background: radial-gradient(1200px 600px at 20% -10%, #b7e1ff55, transparent),
+              linear-gradient(180deg, #e6f5ff 0%, #f7fbff 100%);
+  font-family: ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+  min-height:100vh;
+}
+.container{max-width:1200px;margin:32px auto;padding:0 16px}
+.header{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.title-wrap{display:flex;flex-direction:column;gap:4px}
+.title{font-size:22px;font-weight:800}
+.subtitle{font-size:12px;color:var(--muted)}
+.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  height:40px;padding:0 12px;border-radius:12px;border:1px solid var(--brand);
+  background:var(--brand);color:#fff;font-weight:700;cursor:pointer;line-height:1;text-decoration:none
+}
+.btn.subtle{background:#fff;color:var(--brand)}
+.seg{display:inline-flex;border:1px solid var(--border);border-radius:12px;overflow:hidden;height:40px}
+.seg button{background:#fff;border:none;padding:0 12px;cursor:pointer;font-weight:700;color:var(--muted)}
+.seg button.active{background:var(--brand);color:#fff}
+.card{background:var(--card);border:1px solid var(--border);border-radius:20px;box-shadow:var(--shadow);padding:18px;margin-top:16px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.grid-2{grid-template-columns:repeat(2,1fr)}
+@media (max-width:980px){ .grid{grid-template-columns:1fr} }
+.field label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
+input,select{
+  width:100%;height:44px;padding:12px 14px;border-radius:12px;border:1px solid var(--border);
+  outline:none;background:#fff;font-size:14px
+}
+.actions{margin-top:12px;display:flex;gap:10px;flex-wrap:wrap}
+.k{font-size:12px;color:var(--muted)} .v{font-size:22px;font-weight:800}
+.metrics{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+@media (max-width:1200px){ .metrics{grid-template-columns:1fr 1fr 1fr} }
+@media (max-width:680px){ .metrics{grid-template-columns:1fr} }
+.metric{border:1px dashed var(--border);border-radius:14px;padding:12px;background:#fff}
+.hr{height:1px;background:var(--border);margin:12px 0}
+canvas{background:#fff;border:1px solid var(--border);border-radius:14px;padding:6px}
+.hint{font-size:12px;color:var(--muted)}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;font-weight:700;font-size:12px}
+.green{background:#e8fff0;color:#17863e;border:1px solid #c6f3d5}
+.yellow{background:#fff7e6;color:#975a16;border:1px solid #ffe3a6}
+.red{background:#ffefef;color:#b91c1c;border:1px solid #fecaca}
+.modal{position:fixed;inset:0;background:rgba(15,23,42,.45);display:none;align-items:flex-start;justify-content:flex-end;padding:20px;z-index:50}
+.modal.open{display:flex}
+.modal-card{position:relative;width:min(480px,100%);background:#fff;border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:16px 16px 8px}
+.modal-card h3{margin:4px 0 8px;font-size:16px}
+.modal-close{position:absolute;right:10px;top:10px;border:none;background:transparent;font-size:20px;cursor:pointer;color:var(--muted)}
+.modal-card .content{font-size:13px;color:#334155;line-height:1.6}
+.modal-card .content li{margin:6px 0}
+.modal-footer{display:flex;justify-content:flex-end;margin-top:10px}
+
+
+/* --- Controls uniform sizing --- */
+.controls { display:flex; gap:10px; flex-wrap:wrap; align-items:center }
+.controls .btn, .controls .seg { height:40px }
+.controls .btn { padding:0 14px; font-size:14px; border-radius:12px; border-width:2px }
+.controls .btn.subtle { background:#fff; color:var(--brand); border-color:var(--brand) }
+.controls .seg { border-width:2px; border-radius:12px; overflow:hidden }
+.controls .seg button { height:40px; line-height:40px; padding:0 14px; min-width:44px; font-size:14px; font-weight:700; border:none }
+.controls .seg button.active { background:var(--brand); color:#fff }
+@media (max-width:520px){ .controls{ gap:8px } .controls .btn{ padding:0 12px } .controls .seg button{ padding:0 12px } }
+
+
+/* --- Modal head & dual help --- */
+.modal-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:4px}
+
+.modal-card .content ol.help-dual li>div{display:grid;grid-template-columns:1fr 1fr;gap:6px 16px}
+.modal-card .content ol.help-dual .cn{font-weight:700;color:#0f172a}
+.modal-card .content ol.help-dual .en{color:#334155}
+@media (max-width:720px){
+  .modal-card .content ol.help-dual li>div{grid-template-columns:1fr}
+}
+
+/* small bilingual note next to metric labels */
