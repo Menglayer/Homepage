@@ -249,7 +249,9 @@ html[data-embedded=true] body.project-calculator[data-calculator="3j"] .topbar {
   .project-calculator :is(.position-daily,.result-grid>div,.earn-card,.method) { break-inside:avoid; }
   .project-calculator .pc-details-body>.result-card { break-inside:auto; }
   .project-calculator :is(.result-main,.result-grid,.projection,.leaderboard-row,.methodology>div,.strategy-points-highlight,.total-apy-card,.strategy-breakdown>div) { break-inside:avoid; }
-  .project-calculator[data-calculator=axis] .pc-root>.pc-details { break-before:page; }
+  .project-calculator:is([data-calculator=axis],[data-calculator=tori]) .pc-root>.pc-details { break-before:page; }
+  .project-calculator .yt-layout { break-inside:avoid; }
+  .project-calculator .yt-metrics>div { min-height:85px; padding:10px; break-inside:avoid; }
   .project-calculator .strategy-breakdown { margin:8px 0; }
   .project-calculator .strategy-breakdown>div { min-height:27px; }
   .project-calculator .total-apy-card { padding:10px 0; gap:6px; }
