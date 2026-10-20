@@ -3,7 +3,7 @@
 
   // Keep shared search links from the original homepage working.
   if (new URLSearchParams(location.search).has('q')) {
-    location.replace('app.html' + location.search + location.hash);
+    location.replace('/tools/' + location.search);
     return;
   }
 

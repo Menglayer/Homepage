@@ -3,21 +3,21 @@
 首页采用淡蓝、雾蓝与深海蓝配色，以宽屏布局展示 MengLayer LP DAO、私人会员、专属收益机会、合作项目、TimeYield 社区档案、历史收益表现和公开/私人社群入口，支持中英文与手机导航。
 
 - `index.html`：品牌首页；`assets/css/home.css`、`assets/js/home.js`：首页样式与双语交互。
-- `app.html`：独立 APP，顶部为空投、工具、注册、会员，默认打开空投；会员直达 Mo 的 Telegram。赚取功能暂时隐藏，旧 `#earn` 链接自动转到 `#airdrop`。`assets/css/workspace.css`、`assets/js/workspace.js`、`assets/js/workspace-pages.js` 负责淡蓝界面、路由和双语交互。
-- 工具目录保留 19 个通用工具，按收益测算、通用空投估算、市场看板、风险与安全、实用工具分组；项目计算器不在工具目录重复展示。注册按交易所、券商、银行与支付卡分组。两页使用分类标题和紧凑卡片网格，支持分类、跨中英文关键词搜索和可分享 URL。
-- 空投分为项目研究（`#airdrop`）和项目计算器（`#airdrop/calculator`），仅收录 AXIS、Tori、3Jane、Saturn 4 个项目计算器。通用空投、期权、Civ、APR/APY、借贷风险、CLAMM v3 共 6 个通用计算器归入工具，详情地址如 `#tools/calculator/apr`。两类详情的下拉菜单各自独立，旧计算器链接会自动转到正确分类。现有 10 个计算器在 `calculators/` 保存公开原版源码并统一主题，原公式保留。原站入口和导入时间记录于 `calculators/sources.json`。AXIS 官方快照保留原始时间，数据不可用时不补造总量。期权页包含原版模型报价，页面明确标注。
+- APP 使用 `/airdrop/`、`/tools/`、`/register/` 地址，会员直达 Mo 的 Telegram。赚取功能暂时隐藏，旧 `app.html#earn` 链接自动转到 `/airdrop/`。`app.html` 保留为共用页面模板与旧链接入口；`assets/js/workspace-routes.js` 统一维护路径规则，`workspace.js`、`workspace-pages.js` 负责界面和双语交互。
+- 工具目录保留 19 个通用工具，按收益测算、市场看板、风险与安全、实用工具分组；通用空投计算器归入收益测算，共 6 个。项目计算器不在工具目录重复展示。注册按交易所、券商、银行与支付卡分组。两页支持分类、跨中英文关键词搜索和可分享 URL，如 `/tools/yield/`、`/register/exchanges/`。
+- 空投分为项目研究（`/airdrop/`）和项目计算器（`/airdrop/calculators/`），仅收录 AXIS、Tori、3Jane、Saturn 4 个项目计算器。详情地址如 `/airdrop/axis/`、`/tools/apr/`。两类详情的下拉菜单各自独立，旧 `app.html#...` 计算器链接会自动转到正确分类和新地址，旧 `#tools/points` 转到 `/tools/yield/`。现有 10 个计算器在 `calculators/` 保存公开原版源码并统一主题，原公式保留。原站入口和导入时间记录于 `calculators/sources.json`。AXIS 官方快照保留原始时间，数据不可用时不补造总量。期权页包含原版模型报价，页面明确标注。
 - 赚取功能和 Barker 快照采集源码暂时保留，当前导航和路由不开放赚取页面，也不加载 `assets/data/barker-campaigns.json`。恢复前需重新核实数据接口、刷新机制和数据时效。
 - 手动运行 `node scripts/refresh-barker.mjs` 刷新公开页面快照。第三方匿名 API 受限，因此没有绕过鉴权或伪装来源。未新增自动刷新任务。`scripts/import-calculators.mjs` 为首次导入工具，后续覆盖更新前须备份并合并本地 UI/数据状态修补。
 - 原有 `tools.html` 和首页 `?q=...` 搜索链接保留兼容跳转，数据继续共用 `assets/js/links.js` 和 `assets/js/i18n.js`。
 - `assets/js/home-data.js`：统一维护首页历史数据。当前为用户提供的 2022—2026 年汇总：2022 年创建、24 个项目、参与资金 340.27M、累计盈利 10M+、年化收益率 30%+。金额保留用户提供的 M 单位，不默认添加币种；不是实时行情或独立审计数据。
-- `assets/js/links.js`：原有 APP 工具导航配置，首页 APP 按钮指向 `app.html`。
+- `assets/js/links.js`：原有 APP 工具导航配置，首页 APP 按钮指向 `/airdrop/`。
 - 首页 `?q=...` 旧搜索链接会转到 APP 的工具目录并保留查询参数。
 - 首屏 `Private Member` 按钮直接打开现有私人社群助手 `https://t.me/monii00001`。名片增加运行时间 2022—2026。
 - `assets/images/projects/` 保存用户提供的 10 个去重 Logo。原始图片不做修改，标识下方展示项目名称。滚动条自动循环，并在减少动态效果偏好下改为手动横滑，循环副本不进入辅助技术的阅读顺序。
 - TimeYield 的第三项为“长期探索 ∞”，中英文同步切换。
 - 排版按 https://hedgers.co.kr/ 的实际样式校准：英文展示字体 Instrument Serif、界面字体 Pretendard；中文标题使用 Noto Serif SC 子集，正文使用系统中文字体。字体与 SIL Open Font License 保存在 `assets/fonts/`，无需第三方字体请求。
 
-在仓库目录运行 `node scripts/preview.mjs`，访问 <http://127.0.0.1:4173/> 预览；按 `Ctrl+C` 停止。静态文件可直接用于现有 GitHub Pages，不需要安装依赖或构建。
+在仓库目录运行 `node scripts/preview.mjs`，自动生成路由页面后访问 <http://127.0.0.1:4173/> 预览；按 `Ctrl+C` 停止。修改 APP 模板或路由后，提交前运行 `node scripts/build-routes.mjs` 更新实际目录页和站点地图。生成的 `index.html` 随源码提交到现有 GitHub Pages，无需安装依赖；每个路径都能直接打开或刷新，不依赖自定义 404 回退。`/airfrop/` 保留拼写兼容跳转。
 
 以下为旧工具页的历史说明；当前 APP 的页面结构和功能以上述说明为准。
 

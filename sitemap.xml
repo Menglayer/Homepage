@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://menglayer.cc/</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://menglayer.cc/app.html</loc>
-    <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
+  <url><loc>https://menglayer.cc/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://menglayer.cc/airdrop/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://menglayer.cc/tools/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://menglayer.cc/register/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://menglayer.cc/airdrop/calculators/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://menglayer.cc/airdrop/axis/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://menglayer.cc/airdrop/tori/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://menglayer.cc/airdrop/3j/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://menglayer.cc/airdrop/saturn/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://menglayer.cc/tools/airdrop_universal/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://menglayer.cc/tools/option/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://menglayer.cc/tools/civcalc/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://menglayer.cc/tools/apr/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://menglayer.cc/tools/borrow_risk/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://menglayer.cc/tools/clammv3/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://menglayer.cc/tools/yield/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://menglayer.cc/tools/markets/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://menglayer.cc/tools/safety/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://menglayer.cc/tools/utilities/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://menglayer.cc/register/exchanges/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://menglayer.cc/register/brokers/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://menglayer.cc/register/payments/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
 </urlset>

@@ -1,9 +1,7 @@
 (function(){
   'use strict';
-  const projectCalculatorIds=['axis','tori','3j','saturn'];
-  const toolCalculatorIds=['airdrop_universal','option','civcalc','apr','borrow_risk','clammv3'];
+  const {projectCalculatorIds,toolCalculatorIds,calculatorView}=window.WorkspaceRoutes;
   const calculatorIds=[...projectCalculatorIds,...toolCalculatorIds];
-  const calculatorView=id=>projectCalculatorIds.includes(id)?'airdrop':toolCalculatorIds.includes(id)?'tools':null;
   const calculatorLabels={
     zh:{projectCalculators:'项目计算器',backTools:'全部工具'},
     en:{projectCalculators:'Project calculators',backTools:'All tools'}
@@ -38,30 +36,30 @@
     ['#','project','category','research','links'].forEach(key=>hrow.append(el('th','',key==='#'?'#':w(key))));head.append(hrow);table.append(head);const body=el('tbody');
     for(const item of list){
       const tool=current.tools.find(x=>x.id===item.id),row=el('tr');row.append(el('td','row-number',String(projects.indexOf(item)+1).padStart(2,'0')));
-      const title=el('td','project-name'),name=el('a','project-title');name.href='#airdrop/calculator/'+item.id;const img=el('img');img.src=tool.img;img.alt='';img.width=36;img.height=36;name.append(img,el('span','',item.name));title.append(name,el('span','project-ready',w('ready')));row.append(title);
+      const title=el('td','project-name'),name=el('a','project-title');name.href=window.WorkspaceRoutes.href('airdrop','calculator/'+item.id);const img=el('img');img.src=new URL(tool.img,location.origin+'/').href;img.alt='';img.width=36;img.height=36;name.append(img,el('span','',item.name));title.append(name,el('span','project-ready',w('ready')));row.append(title);
       const kind=el('td','project-category',item.type[current.lang==='zh'?0:1]);kind.dataset.label=w('category');row.append(kind);
       const note=el('td','project-research',current.copy(tool).desc);note.dataset.label=w('research');row.append(note);
-      const links=el('td','project-links'),calc=el('a','small-button',w('calc'));calc.href='#airdrop/calculator/'+item.id;links.append(calc,external(w('website')+' ↗',item.site),external(w('docs')+' ↗',item.docs));row.append(links);body.append(row);
+      const links=el('td','project-links'),calc=el('a','small-button',w('calc'));calc.href=window.WorkspaceRoutes.href('airdrop','calculator/'+item.id);links.append(calc,external(w('website')+' ↗',item.site),external(w('docs')+' ↗',item.docs));row.append(links);body.append(row);
     }table.append(body);wrap.append(table);current.content.append(wrap);
   }
   function renderCalculators(){
     const isProject=current.view==='airdrop',ids=isProject?projectCalculatorIds:toolCalculatorIds;
     const calculators=ids.map(id=>current.tools.find(tool=>tool.id===id)).filter(Boolean);
-    const route='#'+current.view+'/calculator';
+    const route=window.WorkspaceRoutes.href(current.view,'calculator');
     if(!current.id||!ids.includes(current.id)){
       const intro=el('div','section-intro');intro.append(el('p','',w('frameNote')),el('span','result-count',calculators.length+' '+w('calcCount')));current.content.append(intro);
       const filtered=calculators.filter(item=>match(item.id+' '+['zh','en'].map(lang=>{const copy=window.I18N[lang].cards[item.id];return copy.title+' '+copy.desc;}).join(' ')));
       if(!filtered.length){empty();return;}
-      const sections=isProject?[[calculatorLabels[current.lang].projectCalculators,projectCalculatorIds]]:[[w('points'),['airdrop_universal']],[w('yield'),toolCalculatorIds.filter(id=>id!=='airdrop_universal')]];
+      const sections=isProject?[[calculatorLabels[current.lang].projectCalculators,projectCalculatorIds]]:[[w('yield'),toolCalculatorIds]];
       for(const [title,groupIds] of sections){
         const items=filtered.filter(item=>groupIds.includes(item.id));if(!items.length)continue;const section=el('section','calculator-group');section.append(el('h2','catalog-group-title',title));const grid=el('div','calculator-grid');
-        for(const item of items){const copy=current.copy(item),a=el('a','calculator-card');a.href=route+'/'+item.id;a.dataset.calculator=item.id;const top=el('div','calculator-card-top'),img=el('img');img.src=item.img;img.alt='';img.width=40;img.height=40;top.append(img,el('span','calculator-index',String(ids.indexOf(item.id)+1).padStart(2,'0')));const foot=el('div','calculator-card-foot');foot.append(el('span','',w('available')),el('span','',w('open')+' ↗'));a.append(top,el('h3','',copy.title),el('p','',copy.desc),foot);grid.append(a);}section.append(grid);current.content.append(section);
+        for(const item of items){const copy=current.copy(item),a=el('a','calculator-card');a.href=window.WorkspaceRoutes.href(current.view,'calculator/'+item.id);a.dataset.calculator=item.id;const top=el('div','calculator-card-top'),img=el('img');img.src=new URL(item.img,location.origin+'/').href;img.alt='';img.width=40;img.height=40;top.append(img,el('span','calculator-index',String(ids.indexOf(item.id)+1).padStart(2,'0')));const foot=el('div','calculator-card-foot');foot.append(el('span','',w('available')),el('span','',w('open')+' ↗'));a.append(top,el('h3','',copy.title),el('p','',copy.desc),foot);grid.append(a);}section.append(grid);current.content.append(section);
       }return;
     }
-    const item=calculators.find(tool=>tool.id===current.id),copy=current.copy(item),toolbar=el('div','calculator-toolbar'),back=el('a','text-link','← '+calculatorLabels[current.lang][isProject?'projectCalculators':'backTools']);back.href=isProject?route:'#tools';const select=el('select','calculator-select');select.setAttribute('aria-label',w('select'));
+    const item=calculators.find(tool=>tool.id===current.id),copy=current.copy(item),toolbar=el('div','calculator-toolbar'),back=el('a','text-link','← '+calculatorLabels[current.lang][isProject?'projectCalculators':'backTools']);back.href=isProject?route:window.WorkspaceRoutes.href('tools');const select=el('select','calculator-select');select.setAttribute('aria-label',w('select'));
     for(const tool of calculators){const option=el('option','',current.copy(tool).title);option.value=tool.id;option.selected=tool.id===item.id;select.append(option);}select.addEventListener('change',()=>current.navigate(current.view,'calculator/'+select.value));toolbar.append(back,select,external(w('original'),item.href));current.content.append(toolbar);
     const banner=el('div','calculator-banner');banner.append(el('p','section-kicker',w('working').toUpperCase()),el('h2','',copy.title),el('p','',copy.desc));current.content.append(banner);
-    const status=el('div','calculator-loading',w('loading'));status.setAttribute('role','status');const frame=el('iframe','calculator-frame');frame.title=copy.title;frame.id='calculatorFrame';const url=new URL('calculators/'+item.id+'/index.html',location.href);url.searchParams.set('embed','1');url.searchParams.set('lang',current.lang);frame.src=url.href;frame.referrerPolicy='no-referrer';
+    const status=el('div','calculator-loading',w('loading'));status.setAttribute('role','status');const frame=el('iframe','calculator-frame');frame.title=copy.title;frame.id='calculatorFrame';const url=new URL('/calculators/'+item.id+'/index.html',location.origin);url.searchParams.set('embed','1');url.searchParams.set('lang',current.lang);frame.src=url.href;frame.referrerPolicy='no-referrer';
     frame.addEventListener('load',()=>{status.hidden=true;clearTimeout(frameTimer);});frameTimer=setTimeout(()=>{if(status.isConnected&&!status.hidden)status.textContent=w('slow');},15000);current.content.append(status,frame,el('p','calculator-footnote',w('frameNote')));
   }
   function campaignStatus(item){const now=Date.now();if(item.pool_status==='ended'||item.is_active===0||(item.end_date&&Date.parse(item.end_date)<=now))return 'ended';if(item.start_date&&Date.parse(item.start_date)>now)return 'upcoming';return 'active';}
@@ -82,7 +80,7 @@
       const note=item.notes_i18n?.[current.lang]||item.notes_i18n?.en||item.notes;if(typeof note==='string'&&note)detail.append(el('p','campaign-notes',note));if(item.service_fee_pct!==null)detail.append(el('p','',w('fee')+': '+number(item.service_fee_pct)+'%'));if(item.tier_details?.length){const tiers=el('div','tier-list');tiers.append(el('strong','',w('tiered')));for(const tier of item.tier_details)tiers.append(el('p','',number(tier.min)+' – '+(tier.max===null?'∞':number(tier.max))+' '+(tier.asset||item.asset_symbol)+' · '+pct(tier.apy)));detail.append(tiers);}const sourceLinks=el('div','campaign-links');sourceLinks.append(external(w('viewCampaign'),'https://app.barker.money/campaigns/'+item.id));if(item.announcement_url)sourceLinks.append(external(w('official'),item.announcement_url));detail.append(sourceLinks);details.append(detail);row.append(details);article.append(row);wrap.append(article);
     }current.content.append(wrap);
   }
-  function loadSnapshot(){if(pending)return;pending=fetch('assets/data/barker-campaigns.json',{cache:'no-cache'}).then(response=>{if(!response.ok)throw new Error('Snapshot unavailable');return response.json();}).then(data=>{if(data.schemaVersion!==1||!Array.isArray(data.campaigns)||!Number.isFinite(Date.parse(data.fetchedAt)))throw new Error('Invalid snapshot');snapshot=data;failed=false;}).catch(()=>{failed=true;}).finally(()=>{pending=null;if(current?.view==='earn'){current.content.replaceChildren();renderEarn();}});}
+  function loadSnapshot(){if(pending)return;pending=fetch('/assets/data/barker-campaigns.json',{cache:'no-cache'}).then(response=>{if(!response.ok)throw new Error('Snapshot unavailable');return response.json();}).then(data=>{if(data.schemaVersion!==1||!Array.isArray(data.campaigns)||!Number.isFinite(Date.parse(data.fetchedAt)))throw new Error('Invalid snapshot');snapshot=data;failed=false;}).catch(()=>{failed=true;}).finally(()=>{pending=null;if(current?.view==='earn'){current.content.replaceChildren();renderEarn();}});}
   window.addEventListener('message',event=>{const frame=document.getElementById('calculatorFrame');if(event.origin!==location.origin||event.source!==frame?.contentWindow||event.data?.type!=='menglayer-calculator-size'||event.data.id!==current?.id)return;const height=Number(event.data.height);if(Number.isFinite(height)&&height>0)frame.style.height=Math.max(400,Math.min(16000,height+8))+'px';});
   window.WorkspacePages={render,calculatorIds,projectCalculatorIds,toolCalculatorIds,calculatorView};
 })();

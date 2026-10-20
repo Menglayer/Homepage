@@ -34,8 +34,7 @@
 
   // Categories reference the existing catalog; URLs, names and descriptions stay shared.
   const toolGroups = {
-    yield:['option','civcalc','apr','borrow_risk','clammv3'],
-    points:['airdrop_universal'],
+    yield:['option','civcalc','apr','borrow_risk','clammv3','airdrop_universal'],
     markets:['yyy','strc','fundingfee','stable_radar','cex_radar'],
     safety:['earnfaq','tsc','allowance','e712'],
     utilities:['watermark','bridge_optimizer','subdomain','vanity']
@@ -85,34 +84,16 @@
   function catalog() { return view === 'tools' ? tools.filter(item => !window.WorkspacePages.projectCalculatorIds.includes(item.id)) : registration; }
 
   function readLocation() {
-    let route = '';
-    try { route = decodeURIComponent(location.hash.slice(1)); } catch (_) { /* Ignore malformed fragments. */ }
-    // Earn is paused. Keep old bookmarks usable without loading campaign data.
-    if (route.split('/')[0] === 'earn') {
-      const url = new URL(location.href);
-      url.hash = 'airdrop';
-      url.searchParams.delete('q');
-      history.replaceState(null,'',url);
-      route = 'airdrop';
-    }
-    const [requestedView, requestedGroup, requestedCalculator] = route.split('/');
-    const params = new URLSearchParams(location.search);
-    view = ['airdrop','tools','register'].includes(requestedView) ? requestedView : params.has('q') ? 'tools' : 'airdrop';
-    category = ['tools','register'].includes(view) && groups().includes(requestedGroup) ? requestedGroup : 'all';
-    if (view === 'airdrop') category = requestedGroup === 'calculator' ? 'calculator' : 'projects';
-    calculatorId = '';
-    if (['airdrop','tools'].includes(view) && requestedGroup === 'calculator') {
-      category = 'calculator';
-      calculatorId = requestedCalculator || '';
-      const owner = window.WorkspacePages.calculatorView(calculatorId);
-      if (owner && owner !== view) {
-        view = owner;
-        const url = new URL(location.href);
-        url.hash = view + '/calculator/' + calculatorId;
-        history.replaceState(null,'',url);
-      }
-    }
-    query = params.get('q') || '';
+    const route = window.WorkspaceRoutes.parse(location.href);
+    view = route.view;
+    category = route.section;
+    calculatorId = route.calculatorId;
+    query = route.query;
+    const url = new URL(location.href);
+    url.pathname = route.path;
+    url.hash = '';
+    if (route.paused) url.searchParams.delete('q');
+    if (url.href !== location.href) history.replaceState(null,'',url);
     search.value = query;
     render();
     const currentRoute = [view,category,calculatorId].join('/');
@@ -122,7 +103,8 @@
 
   function setLocation(nextView, nextCategory = 'all', nextQuery = '', replace = false) {
     const url = new URL(location.href);
-    url.hash = nextView + (nextCategory === 'all' ? '' : '/' + nextCategory);
+    url.pathname = window.WorkspaceRoutes.href(nextView, nextCategory);
+    url.hash = '';
     if (nextQuery.trim()) url.searchParams.set('q',nextQuery); else url.searchParams.delete('q');
     history[replace ? 'replaceState' : 'pushState'](null,'',url);
     readLocation();
@@ -131,6 +113,7 @@
   function render() {
     document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
     document.title = text(view) + ' · MengLayer APP';
+    document.querySelector('[rel="canonical"]').href = 'https://menglayer.cc' + window.WorkspaceRoutes.href(view, category + (calculatorId ? '/' + calculatorId : ''));
     $('[name="description"]').content = text(view + 'Description');
     document.querySelectorAll('[data-text]').forEach(el => { el.textContent = text(el.dataset.text); });
     document.querySelectorAll('[data-label]').forEach(el => { el.setAttribute('aria-label',text(el.dataset.label)); });
@@ -225,18 +208,18 @@
     entry.dataset.entry = item.id;
     const link = make('a','catalog-card');
     const integrated = view === 'tools' && window.WorkspacePages.toolCalculatorIds.includes(item.id);
-    link.href = integrated ? '#tools/calculator/' + item.id : item.href;
+    link.href = integrated ? window.WorkspaceRoutes.href('tools', 'calculator/' + item.id) : item.href;
     if (!integrated) { link.target = '_blank'; link.rel = 'noopener noreferrer'; }
     link.title = copy.title.trim() + '\n' + copy.desc;
     if (view === 'tools') link.dataset.toolId = item.id;
     const image = document.createElement('img');
-    image.src = item.img;
+    image.src = new URL(item.img, location.origin + '/').href;
     image.alt = '';
     image.width = 40;
     image.height = 40;
     image.loading = 'lazy';
     image.decoding = 'async';
-    image.addEventListener('error',()=> { image.src = 'assets/images/avatar.jpg'; },{once:true});
+    image.addEventListener('error',()=> { image.src = '/assets/images/avatar.jpg'; },{once:true});
     const body = make('span','catalog-card-copy');
     const name = make('span','catalog-card-name');
     name.append(make('span','',copy.title.trim()),icon('arrow'));
