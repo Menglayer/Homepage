@@ -2,20 +2,20 @@
   'use strict';
   const {projectCalculatorIds,toolCalculatorIds,calculatorView}=window.WorkspaceRoutes;
   const calculatorIds=[...projectCalculatorIds,...toolCalculatorIds];
+  const ratingOrder=['S+','S','S-','A+','A','A-','B+','B','B-','C+','C','C-'];
   const calculatorLabels={
     zh:{projectCalculators:'项目计算器',backTools:'全部工具'},
     en:{projectCalculators:'Project calculators',backTools:'All tools'}
   };
-  const projects=[
-    {id:'axis',name:'AXIS',type:['稳定币 · 基差策略','Stablecoin · Basis'],site:'https://axis.to/',docs:'https://app.axis.to/coordinates'},
-    {id:'tori',name:'Tori Finance',type:['稳定币 · 积分','Stablecoin · Points'],site:'https://tori.finance/',docs:'https://docs.tori.finance/resources/cores'},
-    {id:'3j',name:'3Jane',type:['借贷 · 收益','Lending · Yield'],site:'https://3jane.xyz/',docs:'https://app.3jane.xyz/farm'}
-  ];
+  const projectLabels={
+    zh:{rating:'评级',raised:'融资金额',note:'项目评价',asOf:'数据截至',context:'评级为个人研究观点；融资仅统计公开披露的股权 / 代币融资。',undisclosed:'未披露',loading:'正在读取项目清单…',failed:'暂时无法读取项目清单',table:'空投项目评级与融资清单',source:'用户提供的项目清单'},
+    en:{rating:'Rating',raised:'Raised',note:'What we know',asOf:'As of',context:'Ratings reflect personal research views. Funding includes publicly disclosed equity / token rounds only.',undisclosed:'Undisclosed',loading:'Loading project list…',failed:'Project list unavailable',table:'Airdrop project ratings and funding',source:'User-provided project list'}
+  };
   const labels={
     zh:{projects:'项目',calculators:'计算器',points:'空投与积分',yield:'收益与风险',all:'全部',select:'选择计算器',available:'已整合',open:'开始测算',original:'原版 ↗',back:'全部计算器',project:'项目',category:'分类',research:'研究说明',links:'链接',website:'官网',docs:'项目资料',calc:'计算器',projectNote:'收录已有研究工具的项目。估值、分配比例与奖励资格以项目公告为准。',projectCount:'个项目',calcCount:'个计算器',ready:'已有计算器',empty:'没有找到匹配内容',emptyHint:'换个关键词试试。',working:'当前计算器',frameNote:'沿用原计算公式与数据口径。外部数据的时间和可用性请以计算器内提示为准。',loading:'正在加载计算器…',slow:'加载较慢，可在新标签页打开。',source:'数据来源',snapshot:'公开页面快照',snapshotNote:'展示 Barker 公开页面的原始 APY 快照，未折算赎回等待期、服务费或分段额度；不是实时成交收益率。最新条件请查看原站。',fetched:'采集时间',updated:'源数据更新',refreshSource:'查看 Barker 最新活动 ↗',stale:'快照已超过 24 小时，请到原站核对最新数据。',activities:'个活动',exchanges:'家交易所',platform:'交易所',asset:'资产',apy:'源 APY',terms:'期限 / 赎回',limit:'额度 / 资格',status:'状态',details:'详情',active:'进行中',ended:'已结束',upcoming:'未开始',stablecoin:'稳定币',volatile:'其他资产',allAssets:'全部资产',allPlatforms:'全部交易所',allStatus:'全部状态',sort:'排序',apyDesc:'APY 从高到低',apyAsc:'APY 从低到高',ending:'到期时间',flexible:'活期',lock:'锁仓',days:'天',redemption:'赎回',notStated:'未注明',none:'无固定截止日期',start:'开始',end:'结束',minimum:'最低',maximum:'最高',newUser:'仅限新用户',tiered:'分段利率',fee:'收益服务费',viewCampaign:'Barker 活动详情 ↗',official:'活动公告 ↗',failed:'暂时无法读取活动快照',retry:'重试',conditions:'参与前核对额度、赎回时间与奖励条件。'},
     en:{projects:'Projects',calculators:'Calculators',points:'Airdrops & points',yield:'Yield & risk',all:'All',select:'Choose a calculator',available:'Integrated',open:'Calculate',original:'Original ↗',back:'All calculators',project:'Project',category:'Category',research:'Research notes',links:'Links',website:'Website',docs:'Resources',calc:'Calculator',projectNote:'Projects with existing research tools. Valuations, allocations, and eligibility are subject to project announcements.',projectCount:'projects',calcCount:'calculators',ready:'Calculator available',empty:'No matching results',emptyHint:'Try a different keyword.',working:'Current calculator',frameNote:'Original formulas and data conventions are retained. Check each calculator for data freshness and availability.',loading:'Loading calculator…',slow:'Taking longer than expected. Open in a new tab if needed.',source:'Data source',snapshot:'Public-page snapshot',snapshotNote:'Raw APY snapshot from Barker’s public page, before adjustments for redemption delays, service fees, or tiered limits. This is not a live quote. Check the source for current terms.',fetched:'Captured',updated:'Source updated',refreshSource:'Latest campaigns on Barker ↗',stale:'This snapshot is over 24 hours old. Verify current data at the source.',activities:'campaigns',exchanges:'exchanges',platform:'Exchange',asset:'Asset',apy:'Source APY',terms:'Lock / redemption',limit:'Limits / eligibility',status:'Status',details:'Details',active:'Active',ended:'Ended',upcoming:'Upcoming',stablecoin:'Stablecoins',volatile:'Other assets',allAssets:'All assets',allPlatforms:'All exchanges',allStatus:'All statuses',sort:'Sort',apyDesc:'APY: high to low',apyAsc:'APY: low to high',ending:'End date',flexible:'Flexible',lock:'Lock',days:'days',redemption:'Redemption',notStated:'Not specified',none:'No fixed end date',start:'Starts',end:'Ends',minimum:'Min',maximum:'Max',newUser:'New users only',tiered:'Tiered rates',fee:'Fee on earnings',viewCampaign:'Barker campaign details ↗',official:'Announcement ↗',failed:'Campaign snapshot unavailable',retry:'Retry',conditions:'Check limits, redemption timing, and reward conditions before participating.'}
   };
-  let current,snapshot,pending,failed=false,frameTimer;
+  let current,snapshot,pending,failed=false,frameTimer,projectData,projectPending,projectFailed=false;
   const filters={platform:'all',assets:'all',status:'active',sort:'apyDesc'};
   const platformNames={binance:'Binance',okx:'OKX',bybit:'Bybit',bitget:'Bitget',gate:'Gate',mexc:'MEXC'};
   const number=value=>value===null||value===undefined?'—':new Intl.NumberFormat(current.lang==='zh'?'zh-CN':'en-US',{maximumFractionDigits:2}).format(value);
@@ -28,18 +28,50 @@
   function empty(){const panel=el('div','empty-panel');panel.append(current.icon('search'),el('h2','',w('empty')),el('p','',w('emptyHint')));current.content.append(panel);}
   function render(context){current=context;clearTimeout(frameTimer);if(context.view==='earn'){renderEarn();return;}if(context.section==='calculator')renderCalculators();else renderProjects();}
   function renderProjects(){
-    const info=el('div','section-intro');info.append(el('p','',w('projectNote')),el('span','result-count',projects.length+' '+w('projectCount')));current.content.append(info);
-    const list=projects.filter(item=>match([item.name,...item.type,current.copy(current.tools.find(x=>x.id===item.id)).desc].join(' ')));
+    const copy=projectLabels[current.lang];
+    if(!projectData){
+      const panel=el('div','empty-panel'),status=el('p','',copy[projectFailed?'failed':'loading']);status.setAttribute('role','status');panel.append(status);
+      if(projectFailed){const retry=el('button','small-button',w('retry'));retry.type='button';retry.addEventListener('click',()=>{projectFailed=false;current.content.replaceChildren();renderProjects();});panel.append(retry);}
+      current.content.append(panel);if(!projectFailed)loadProjects();return;
+    }
+    const ranked=[...projectData.projects].sort((a,b)=>ratingOrder.indexOf(a.rating)-ratingOrder.indexOf(b.rating)||a.rank-b.rank);
+    const list=ranked.filter(item=>match([item.name,item.rating,item.website,item.x,...Object.values(item.note)].join(' ')));
+    const info=el('div','ranking-intro'),meta=el('div','ranking-meta'),date=el('time','',projectData.asOf);date.dateTime=projectData.asOf;
+    meta.append(el('span','',copy.asOf),date);const count=el('span','result-count',list.length+' / '+projectData.projects.length+' '+w('projectCount'));count.setAttribute('role','status');
+    info.append(meta,count);current.content.append(info);
     if(!list.length){empty();return;}
-    const wrap=el('div','research-table-wrap'),table=el('table','research-table'),head=el('thead'),hrow=el('tr');
-    ['#','project','category','research','links'].forEach(key=>hrow.append(el('th','',key==='#'?'#':w(key))));head.append(hrow);table.append(head);const body=el('tbody');
+    const wrap=el('div','ranking-wrap'),table=el('table','ranking-table'),head=el('thead'),hrow=el('tr');
+    table.append(el('caption','sr-only',copy.table));
+    ['#',w('project'),copy.rating,copy.raised,copy.note,w('links')].forEach(label=>{const cell=el('th','',label);cell.scope='col';hrow.append(cell);});head.append(hrow);table.append(head);const body=el('tbody');
     for(const item of list){
-      const tool=current.tools.find(x=>x.id===item.id),row=el('tr');row.append(el('td','row-number',String(projects.indexOf(item)+1).padStart(2,'0')));
-      const title=el('td','project-name'),name=el('a','project-title');name.href=window.WorkspaceRoutes.href('airdrop','calculator/'+item.id);const img=el('img');img.src=new URL(tool.img,location.origin+'/').href;img.alt='';img.width=36;img.height=36;name.append(img,el('span','',item.name));title.append(name,el('span','project-ready',w('ready')));row.append(title);
-      const kind=el('td','project-category',item.type[current.lang==='zh'?0:1]);kind.dataset.label=w('category');row.append(kind);
-      const note=el('td','project-research',current.copy(tool).desc);note.dataset.label=w('research');row.append(note);
-      const links=el('td','project-links'),calc=el('a','small-button',w('calc'));calc.href=window.WorkspaceRoutes.href('airdrop','calculator/'+item.id);links.append(calc,external(w('website')+' ↗',item.site),external(w('docs')+' ↗',item.docs));row.append(links);body.append(row);
-    }table.append(body);wrap.append(table);current.content.append(wrap);
+      const row=el('tr');row.dataset.project=item.id;row.append(el('td','ranking-number',String(ranked.indexOf(item)+1)));
+      const title=el('th','ranking-project');title.scope='row';const identity=el('div','ranking-identity'),mark=el('span','ranking-logo'),fallback=el('span','ranking-monogram',item.name.slice(0,2).toUpperCase());fallback.setAttribute('aria-hidden','true');mark.append(fallback);
+      if(item.logo){const img=el('img');img.src=item.logo;img.alt='';img.width=34;img.height=34;img.loading='lazy';img.decoding='async';img.addEventListener('error',()=>img.remove(),{once:true});mark.append(img);}
+      const detail=el('div','ranking-project-copy'),name=external(item.name,item.website,'ranking-name'),sub=el('div','ranking-project-meta');sub.append(el('span','ranking-domain',new URL(item.website).hostname.replace(/^www\./,'')));
+      if(item.calculatorId&&projectCalculatorIds.includes(item.calculatorId)){const calc=el('a','ranking-calculator',w('calc')+' ↗');calc.href=window.WorkspaceRoutes.href('airdrop','calculator/'+item.calculatorId);calc.setAttribute('aria-label',item.name+' · '+w('calc'));sub.append(calc);}
+      detail.append(name,sub);identity.append(mark,detail);title.append(identity);row.append(title);
+      const rating=el('td','ranking-rating');rating.dataset.label=copy.rating;const badge=el('span','rating-badge rating-'+item.rating.charAt(0).toLowerCase(),item.rating);badge.setAttribute('aria-label',copy.rating+' '+item.rating);rating.append(badge);row.append(rating);
+      const raised=el('td','ranking-raised');raised.dataset.label=copy.raised;
+      if(item.raisedUsd===null){raised.append(el('span','ranking-unreported','—'));raised.setAttribute('aria-label',copy.raised+': '+copy.undisclosed);}
+      else{raised.append(el('strong','',new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',notation:'compact',maximumFractionDigits:2}).format(item.raisedUsd)));raised.title=new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(item.raisedUsd);}
+      row.append(raised);const note=el('td','ranking-note',item.note[current.lang]);note.dataset.label=copy.note;row.append(note);
+      const links=el('td','ranking-links'),actions=el('div','ranking-actions');actions.append(projectLink(item.name+' · '+w('website'),item.website,'website'),projectLink(item.name+' · X',item.x,'x'));links.append(actions);row.append(links);body.append(row);
+    }
+    table.append(body);wrap.append(table);const foot=el('p','ranking-footnote',copy.context);current.content.append(wrap,foot);
+  }
+  function projectLink(label,url,type){
+    const link=external('',url,'ranking-link');link.setAttribute('aria-label',label);link.title=label;
+    const ns='http://www.w3.org/2000/svg',icon=document.createElementNS(ns,'svg');icon.setAttribute('viewBox','0 0 24 24');icon.setAttribute('aria-hidden','true');
+    const paths=type==='website'?['M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z','M3 12h18M12 3c4 4.5 4 13.5 0 18-4-4.5-4-13.5 0-18Z']:['m5 4 14 16h-4L1 4h4Zm14 0L5 20'];
+    for(const d of paths){const path=document.createElementNS(ns,'path');path.setAttribute('d',d);icon.append(path);}link.append(icon);return link;
+  }
+  function loadProjects(){
+    if(projectPending)return;
+    projectPending=fetch('/assets/data/airdrop-projects.json',{cache:'no-cache'}).then(response=>{if(!response.ok)throw new Error('Project list unavailable');return response.json();}).then(data=>{
+      if(data.schemaVersion!==1||!/^\d{4}-\d{2}-\d{2}$/.test(data.asOf)||!Array.isArray(data.projects)||!data.projects.length)throw new Error('Invalid project list');
+      for(const item of data.projects){if(!Number.isInteger(item.rank)||typeof item.name!=='string'||!/^([SABC])[+-]?$/.test(item.rating)||(item.raisedUsd!==null&&(!Number.isFinite(item.raisedUsd)||item.raisedUsd<0))||typeof item.note?.zh!=='string'||typeof item.note?.en!=='string')throw new Error('Invalid project');for(const url of [item.website,item.x]){if(new URL(url).protocol!=='https:')throw new Error('Invalid project URL');}}
+      projectData=data;projectFailed=false;
+    }).catch(()=>{projectFailed=true;}).finally(()=>{projectPending=null;if(current?.view==='airdrop'&&current.section!=='calculator'){current.content.replaceChildren();renderProjects();}});
   }
   function renderCalculators(){
     const isProject=current.view==='airdrop',ids=isProject?projectCalculatorIds:toolCalculatorIds;
