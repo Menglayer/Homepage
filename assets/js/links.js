@@ -153,7 +153,7 @@ window.LINKS = {
     { id: "okx", href: "https://www.okx.com/zh-hans/join/5367051", img: IMG + "icon-okx.jpg" },
     { id: "deribit", href: "https://www.deribit.com/?reg=20870.4314", img: IMG + "icon-derbit.png" },
     { id: "bybit", href: "https://www.bybit.com/sign-up?affiliate_id=91392", img: IMG + "icon-bybit.jpg" },
-    { id: "kraken", href: "https://proinvite.kraken.com/rrru/b8yg69hj", img: IMG + "icon-kraken.png" },
+    { id: "kraken", href: "https://proinvite.kraken.com/rrru/meng", img: IMG + "icon-kraken.png" },
     { id: "backpack", href: "https://backpack.exchange/signup?code=mengya", img: IMG + "icon-backpack.jpg" },
     { id: "bitget", href: "https://www.bitget.com/zh-CN/expressly?channelCode=1hql&vipCode=meng66&languageType=1&groupId=436589", img: IMG + "icon-bitget.png" },
     { id: "ourbit", href: "https://www.ourbit.com/register?inviteCode=FPL69V", img: IMG + "icon-ourbit.jpg" },
