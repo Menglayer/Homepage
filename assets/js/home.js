@@ -11,7 +11,7 @@
     zh: {
       title: 'MengLayer LP DAO — 私人收益机会，让价值生长',
       description: '华语 DeFi LP 的私人流动性社区。专属 Deal，合作共赢。与 MengLayer 一起探索私人收益机会、专属收益机会与价值投资。',
-      skip: '跳至正文', navLabel: '主导航', navValue: '价值投资', navPerformance: '收益表现', navCommunity: '萌芽社区', contact: '聊聊合作',
+      skip: '跳至正文', navLabel: '主导航', navValue: '投资研究', navPerformance: '收益表现', navCommunity: '萌芽社区', navApp: '工具箱', contact: '聊聊合作',
       heroLine1: '私人收益机会', heroLine2: '让价值生长',
       heroIntro1: '华语 DeFi LP 的私人流动性社区。', heroIntro2: '专属 Deal，合作共赢。', followX: '在 X 上关注我',
       portraitAlt: '陈小萌的个人头像：蓝色蝴蝶与花丛中的银发角色',
@@ -36,7 +36,7 @@
     en: {
       title: 'MengLayer LP DAO — Private yield. Shared growth.',
       description: 'A private liquidity community for Chinese-speaking DeFi LPs. Exclusive deals, shared participation, and a long-term perspective.',
-      skip: 'Skip to content', navLabel: 'Main navigation', navValue: 'Value investing', navPerformance: 'Performance', navCommunity: 'Community', contact: 'Let’s talk',
+      skip: 'Skip to content', navLabel: 'Main navigation', navValue: 'Investment research', navPerformance: 'Performance', navCommunity: 'Community', navApp: 'Toolbox', contact: 'Let’s talk',
       heroLine1: 'Private yield.', heroLine2: 'Shared growth',
       heroIntro1: 'A private liquidity community for Chinese-speaking DeFi LPs.', heroIntro2: 'Exclusive deals. Growing together.', followX: 'Follow me on X',
       portraitAlt: 'MengLayer’s avatar: a silver-haired character among blue butterflies and flowers',

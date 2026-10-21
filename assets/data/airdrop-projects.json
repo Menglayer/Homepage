@@ -13,8 +13,8 @@
       "rating": "S",
       "raisedUsd": 61800000,
       "note": {
-        "zh": "Perps 顶级的最后一舞",
-        "en": "A final top-tier opportunity in perps."
+        "zh": "顶级Perps 的最后一舞",
+        "en": "The last dance for top-tier perps."
       },
       "website": "https://variational.io",
       "x": "https://x.com/variational_io",
@@ -98,11 +98,11 @@
       "id": "theo",
       "rank": 4,
       "name": "Theo",
-      "rating": "C",
+      "rating": "B-",
       "raisedUsd": 20000000,
       "note": {
-        "zh": "RWA挺好的 但是方向难找了",
-        "en": "The RWA angle is promising, but the direction is harder to identify."
+        "zh": "RWA挺好的 但是方向难找了 还一直拖",
+        "en": "RWA is promising, but the direction is hard to find, and the delays keep coming."
       },
       "website": "https://app.theo.xyz/referrals?invite=meng",
       "x": "https://x.com/Theo_Network",
@@ -216,8 +216,8 @@
       "rating": "B+",
       "raisedUsd": 8000000,
       "note": {
-        "zh": "一手好牌，打的不太好，目前在往好的地方走",
-        "en": "A strong starting hand, with execution falling short. Things are now moving in a better direction."
+        "zh": "虽然开局不顺利 但是一直在变好",
+        "en": "Despite a rough start, things keep getting better."
       },
       "website": "https://app.bulk.trade/ref/MENG",
       "x": "https://x.com/bulktrade",
