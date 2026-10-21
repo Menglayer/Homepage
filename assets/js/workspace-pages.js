@@ -8,8 +8,8 @@
     en:{projectCalculators:'Project calculators',backTools:'All tools'}
   };
   const projectLabels={
-    zh:{rating:'评级',raised:'融资金额',note:'项目评价',asOf:'数据截至',context:'评级为个人研究观点；融资仅统计公开披露的股权 / 代币融资。',undisclosed:'未披露',loading:'正在读取项目清单…',failed:'暂时无法读取项目清单',table:'空投项目评级与融资清单',source:'用户提供的项目清单'},
-    en:{rating:'Rating',raised:'Raised',note:'What we know',asOf:'As of',context:'Ratings reflect personal research views. Funding includes publicly disclosed equity / token rounds only.',undisclosed:'Undisclosed',loading:'Loading project list…',failed:'Project list unavailable',table:'Airdrop project ratings and funding',source:'User-provided project list'}
+    zh:{rating:'评级',raised:'融资金额',note:'项目评价',asOf:'清单更新',context:'评级为个人研究观点；融资金额沿用清单快照，下方列示部分公开投资机构，点击机构名称可查看披露来源。',investors:'投资机构',investorsUnknown:'机构未披露',fundingSource:'投资披露来源',undisclosed:'未披露',loading:'正在读取项目清单…',failed:'暂时无法读取项目清单',table:'空投项目评级与融资清单',source:'用户提供的项目清单'},
+    en:{rating:'Rating',raised:'Raised',note:'What we know',asOf:'List updated',context:'Ratings reflect personal research views. Funding amounts retain the list snapshot; selected disclosed investors are shown below. Select an investor to view its source.',investors:'Investors',investorsUnknown:'Investors undisclosed',fundingSource:'Investment disclosure',undisclosed:'Undisclosed',loading:'Loading project list…',failed:'Project list unavailable',table:'Airdrop project ratings and funding',source:'User-provided project list'}
   };
   const labels={
     zh:{projects:'项目',calculators:'计算器',points:'空投与积分',yield:'收益与风险',all:'全部',select:'选择计算器',available:'已整合',open:'开始测算',original:'原版 ↗',back:'全部计算器',project:'项目',category:'分类',research:'研究说明',links:'链接',website:'官网',docs:'项目资料',calc:'计算器',projectNote:'收录已有研究工具的项目。估值、分配比例与奖励资格以项目公告为准。',projectCount:'个项目',calcCount:'个计算器',ready:'已有计算器',empty:'没有找到匹配内容',emptyHint:'换个关键词试试。',working:'当前计算器',frameNote:'沿用原计算公式与数据口径。外部数据的时间和可用性请以计算器内提示为准。',loading:'正在加载计算器…',slow:'加载较慢，可在新标签页打开。',source:'数据来源',snapshot:'公开页面快照',snapshotNote:'展示 Barker 公开页面的原始 APY 快照，未折算赎回等待期、服务费或分段额度；不是实时成交收益率。最新条件请查看原站。',fetched:'采集时间',updated:'源数据更新',refreshSource:'查看 Barker 最新活动 ↗',stale:'快照已超过 24 小时，请到原站核对最新数据。',activities:'个活动',exchanges:'家交易所',platform:'交易所',asset:'资产',apy:'源 APY',terms:'期限 / 赎回',limit:'额度 / 资格',status:'状态',details:'详情',active:'进行中',ended:'已结束',upcoming:'未开始',stablecoin:'稳定币',volatile:'其他资产',allAssets:'全部资产',allPlatforms:'全部交易所',allStatus:'全部状态',sort:'排序',apyDesc:'APY 从高到低',apyAsc:'APY 从低到高',ending:'到期时间',flexible:'活期',lock:'锁仓',days:'天',redemption:'赎回',notStated:'未注明',none:'无固定截止日期',start:'开始',end:'结束',minimum:'最低',maximum:'最高',newUser:'仅限新用户',tiered:'分段利率',fee:'收益服务费',viewCampaign:'Barker 活动详情 ↗',official:'活动公告 ↗',failed:'暂时无法读取活动快照',retry:'重试',conditions:'参与前核对额度、赎回时间与奖励条件。'},
@@ -35,8 +35,9 @@
       current.content.append(panel);if(!projectFailed)loadProjects();return;
     }
     const ranked=[...projectData.projects].sort((a,b)=>ratingOrder.indexOf(a.rating)-ratingOrder.indexOf(b.rating)||a.rank-b.rank);
-    const list=ranked.filter(item=>match([item.name,item.rating,item.website,item.x,...Object.values(item.note)].join(' ')));
-    const info=el('div','ranking-intro'),meta=el('div','ranking-meta'),date=el('time','',projectData.asOf);date.dateTime=projectData.asOf;
+    const list=ranked.filter(item=>match([item.name,item.rating,item.website,item.x,...(item.investors||[]).map(investor=>investor.name),...Object.values(item.note)].join(' ')));
+    const updated=projectData.updatedAt||projectData.asOf;
+    const info=el('div','ranking-intro'),meta=el('div','ranking-meta'),date=el('time','',updated);date.dateTime=updated;
     meta.append(el('span','',copy.asOf),date);const count=el('span','result-count',list.length+' / '+projectData.projects.length+' '+w('projectCount'));count.setAttribute('role','status');
     info.append(meta,count);current.content.append(info);
     if(!list.length){empty();return;}
@@ -52,8 +53,12 @@
       detail.append(name,sub);identity.append(mark,detail);title.append(identity);row.append(title);
       const rating=el('td','ranking-rating');rating.dataset.label=copy.rating;const badge=el('span','rating-badge rating-'+item.rating.charAt(0).toLowerCase(),item.rating);badge.setAttribute('aria-label',copy.rating+' '+item.rating);rating.append(badge);row.append(rating);
       const raised=el('td','ranking-raised');raised.dataset.label=copy.raised;
-      if(item.raisedUsd===null){raised.append(el('span','ranking-unreported','—'));raised.setAttribute('aria-label',copy.raised+': '+copy.undisclosed);}
+      if(item.raisedUsd===null){raised.append(el('span','ranking-unreported',copy.undisclosed));}
       else{raised.append(el('strong','',new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',notation:'compact',maximumFractionDigits:2}).format(item.raisedUsd)));raised.title=new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(item.raisedUsd);}
+      const investors=el('div','ranking-investors');investors.setAttribute('aria-label',copy.investors);
+      if(item.investors?.length){for(const investor of item.investors.slice(0,3)){const link=external(investor.name,investor.url,'ranking-investor');link.setAttribute('aria-label',item.name+' · '+investor.name+' · '+copy.fundingSource);investors.append(link);}}
+      else investors.append(el('span','ranking-investors-unknown',copy.investorsUnknown));
+      raised.append(investors);
       row.append(raised);const note=el('td','ranking-note',item.note[current.lang]);note.dataset.label=copy.note;row.append(note);
       const links=el('td','ranking-links'),actions=el('div','ranking-actions');actions.append(projectLink(item.name+' · '+w('website'),item.website,'website'),projectLink(item.name+' · X',item.x,'x'));links.append(actions);row.append(links);body.append(row);
     }
@@ -70,6 +75,8 @@
     projectPending=fetch('/assets/data/airdrop-projects.json',{cache:'no-cache'}).then(response=>{if(!response.ok)throw new Error('Project list unavailable');return response.json();}).then(data=>{
       if(data.schemaVersion!==1||!/^\d{4}-\d{2}-\d{2}$/.test(data.asOf)||!Array.isArray(data.projects)||!data.projects.length)throw new Error('Invalid project list');
       for(const item of data.projects){if(!Number.isInteger(item.rank)||typeof item.name!=='string'||!/^([SABC])[+-]?$/.test(item.rating)||(item.raisedUsd!==null&&(!Number.isFinite(item.raisedUsd)||item.raisedUsd<0))||typeof item.note?.zh!=='string'||typeof item.note?.en!=='string')throw new Error('Invalid project');for(const url of [item.website,item.x]){if(new URL(url).protocol!=='https:')throw new Error('Invalid project URL');}}
+      if(data.updatedAt&&!/^\d{4}-\d{2}-\d{2}$/.test(data.updatedAt))throw new Error('Invalid update date');
+      for(const item of data.projects){if(item.investors!==undefined&&(!Array.isArray(item.investors)||item.investors.some(investor=>typeof investor?.name!=='string'||!investor.name.trim()||new URL(investor.url).protocol!=='https:')))throw new Error('Invalid investor');}
       projectData=data;projectFailed=false;
     }).catch(()=>{projectFailed=true;}).finally(()=>{projectPending=null;if(current?.view==='airdrop'&&current.section!=='calculator'){current.content.replaceChildren();renderProjects();}});
   }

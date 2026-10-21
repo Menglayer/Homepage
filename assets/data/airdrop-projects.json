@@ -20,7 +20,21 @@
       "x": "https://x.com/variational_io",
       "logo": "/assets/images/airdrop/variational.ico",
       "calculatorId": null,
-      "logoSource": "https://www.variational.io/favicon.ico?favicon.05j3bg0wsuxlq.ico"
+      "logoSource": "https://www.variational.io/favicon.ico?favicon.05j3bg0wsuxlq.ico",
+      "investors": [
+        {
+          "name": "Dragonfly",
+          "url": "https://www.newswire.co.kr/newsRead.php?no=1035001"
+        },
+        {
+          "name": "Bain Capital Crypto",
+          "url": "https://www.newswire.co.kr/newsRead.php?no=1035001"
+        },
+        {
+          "name": "Coinbase Ventures",
+          "url": "https://www.newswire.co.kr/newsRead.php?no=1035001"
+        }
+      ]
     },
     {
       "id": "falcon",
@@ -35,7 +49,21 @@
       "website": "https://falcon.finance",
       "x": "https://x.com/FalconStable",
       "logo": "/assets/images/falcon.png",
-      "calculatorId": null
+      "calculatorId": null,
+      "investors": [
+        {
+          "name": "World Liberty Financial",
+          "url": "https://falcon.finance/news/falcon-finance-secures-10-million-initial-investment-from-world-liberty-financial-to-advance-cross-platform-stablecoin-development"
+        },
+        {
+          "name": "M2 Capital",
+          "url": "https://falcon.finance/news/m2-capital-and-cypher-capital-invest-10m-in-falcon-finance-to-accelerate-universal-collateralization-infrastructure"
+        },
+        {
+          "name": "Cypher Capital",
+          "url": "https://falcon.finance/news/m2-capital-and-cypher-capital-invest-10m-in-falcon-finance-to-accelerate-universal-collateralization-infrastructure"
+        }
+      ]
     },
     {
       "id": "usdai",
@@ -50,7 +78,21 @@
       "website": "https://app.usd.ai/portfolio?code=zqk7q",
       "x": "https://x.com/USDai_Official",
       "logo": "/assets/images/projects/project-06.png",
-      "calculatorId": null
+      "calculatorId": null,
+      "investors": [
+        {
+          "name": "Framework Ventures",
+          "url": "https://usd.ai/blog/usdai-raises-13M-to-scale-ai-infra"
+        },
+        {
+          "name": "Dragonfly",
+          "url": "https://usd.ai/blog/usdai-raises-13M-to-scale-ai-infra"
+        },
+        {
+          "name": "CMT Digital",
+          "url": "https://usd.ai/blog/usdai-raises-13M-to-scale-ai-infra"
+        }
+      ]
     },
     {
       "id": "theo",
@@ -66,7 +108,21 @@
       "x": "https://x.com/Theo_Network",
       "logo": "/assets/images/airdrop/theo.svg",
       "calculatorId": null,
-      "logoSource": "https://framerusercontent.com/images/VJ0hHk1je6Lx7L1QvmuaGLL3UuQ.svg"
+      "logoSource": "https://framerusercontent.com/images/VJ0hHk1je6Lx7L1QvmuaGLL3UuQ.svg",
+      "investors": [
+        {
+          "name": "Hack VC",
+          "url": "https://www.prnewswire.com/news-releases/theo-raises-20m-to-democratize-access-to-institutional-grade-trading-infrastructure-302437572.html"
+        },
+        {
+          "name": "Anthos Capital",
+          "url": "https://www.prnewswire.com/news-releases/theo-raises-20m-to-democratize-access-to-institutional-grade-trading-infrastructure-302437572.html"
+        },
+        {
+          "name": "Manifold Trading",
+          "url": "https://www.prnewswire.com/news-releases/theo-raises-20m-to-democratize-access-to-institutional-grade-trading-infrastructure-302437572.html"
+        }
+      ]
     },
     {
       "id": "re",
@@ -81,7 +137,21 @@
       "website": "https://app.re.xyz/?ref=meng",
       "x": "https://x.com/re",
       "logo": "/assets/images/projects/project-05.png",
-      "calculatorId": null
+      "calculatorId": null,
+      "investors": [
+        {
+          "name": "Tribe Capital",
+          "url": "https://www.prnewswire.com/news-releases/re-the-worlds-first-blockchain-powered-reinsurer-raises-a-14m-seed-round-to-build-a-decentralized-global-reinsurance-market-301635662.html"
+        },
+        {
+          "name": "Framework Ventures",
+          "url": "https://www.prnewswire.com/news-releases/re-the-worlds-first-blockchain-powered-reinsurer-raises-a-14m-seed-round-to-build-a-decentralized-global-reinsurance-market-301635662.html"
+        },
+        {
+          "name": "Exor",
+          "url": "https://www.prnewswire.com/news-releases/re-the-worlds-first-blockchain-powered-reinsurer-raises-a-14m-seed-round-to-build-a-decentralized-global-reinsurance-market-301635662.html"
+        }
+      ]
     },
     {
       "id": "onre",
@@ -97,7 +167,17 @@
       "x": "https://x.com/onrefinance",
       "logo": "/assets/images/airdrop/onre.png",
       "calculatorId": null,
-      "logoSource": "https://cdn.prod.website-files.com/67fd717e93328e7d586b1b6e/67fe53cdf21ff3e2d48e3e03_Favicon.png"
+      "logoSource": "https://cdn.prod.website-files.com/67fd717e93328e7d586b1b6e/67fe53cdf21ff3e2d48e3e03_Favicon.png",
+      "investors": [
+        {
+          "name": "Forward Industries",
+          "url": "https://www.onre.finance/blog/forward-industries-and-rockawayx-co-lead-strategic-investment-in-onre-to-accelerate-onchain-reinsurance-on-solana"
+        },
+        {
+          "name": "RockawayX",
+          "url": "https://www.onre.finance/blog/forward-industries-and-rockawayx-co-lead-strategic-investment-in-onre-to-accelerate-onchain-reinsurance-on-solana"
+        }
+      ]
     },
     {
       "id": "city",
@@ -113,7 +193,21 @@
       "x": "https://x.com/cityprotocolHQ",
       "logo": "/assets/images/airdrop/city.ico",
       "calculatorId": null,
-      "logoSource": "https://www.cityprotocol.co/favicon.ico"
+      "logoSource": "https://www.cityprotocol.co/favicon.ico",
+      "investors": [
+        {
+          "name": "Dragonfly",
+          "url": "https://www.cypherhunter.com/en/e/city-protocol-raised-funding-2026-08-26/"
+        },
+        {
+          "name": "CMT Digital",
+          "url": "https://www.cypherhunter.com/en/e/city-protocol-raised-funding-2026-08-26/"
+        },
+        {
+          "name": "Mirana Ventures",
+          "url": "https://www.cypherhunter.com/en/e/city-protocol-raised-funding-2026-08-26/"
+        }
+      ]
     },
     {
       "id": "bulk",
@@ -125,11 +219,25 @@
         "zh": "一手好牌，打的不太好，目前在往好的地方走",
         "en": "A strong starting hand, with execution falling short. Things are now moving in a better direction."
       },
-      "website": "https://bulk.trade",
+      "website": "https://app.bulk.trade/ref/MENG",
       "x": "https://x.com/bulktrade",
       "logo": "/assets/images/airdrop/bulk.ico",
       "calculatorId": null,
-      "logoSource": "https://www.bulk.trade/favicon.ico?favicon.433f28e1.ico"
+      "logoSource": "https://www.bulk.trade/favicon.ico?favicon.433f28e1.ico",
+      "investors": [
+        {
+          "name": "Robot Ventures",
+          "url": "https://www.linkedin.com/posts/bulk-trade_bulk-is-bringing-the-ultimate-trading-experience-activity-7386104328484392961-osgm"
+        },
+        {
+          "name": "6th Man Ventures",
+          "url": "https://www.linkedin.com/posts/bulk-trade_bulk-is-bringing-the-ultimate-trading-experience-activity-7386104328484392961-osgm"
+        },
+        {
+          "name": "Wintermute Ventures",
+          "url": "https://www.linkedin.com/posts/bulk-trade_bulk-is-bringing-the-ultimate-trading-experience-activity-7386104328484392961-osgm"
+        }
+      ]
     },
     {
       "id": "3jane",
@@ -144,7 +252,21 @@
       "website": "https://3jane.xyz",
       "x": "https://x.com/3janexyz",
       "logo": "/assets/images/3jane.png",
-      "calculatorId": "3j"
+      "calculatorId": "3j",
+      "investors": [
+        {
+          "name": "Paradigm",
+          "url": "https://paragraph.com/@3jane-protocol/3jane-raises-5-2m-led-by-paradigm-to-enable-cryptonative-credit-creation"
+        },
+        {
+          "name": "Coinbase Ventures",
+          "url": "https://paragraph.com/@3jane-protocol/3jane-raises-5-2m-led-by-paradigm-to-enable-cryptonative-credit-creation"
+        },
+        {
+          "name": "Wintermute Ventures",
+          "url": "https://paragraph.com/@3jane-protocol/3jane-raises-5-2m-led-by-paradigm-to-enable-cryptonative-credit-creation"
+        }
+      ]
     },
     {
       "id": "tenbin",
@@ -159,7 +281,21 @@
       "website": "https://app.tenbinlabs.xyz/swap?ref=GVYG-GXMV-VQFQ",
       "x": "https://x.com/tenbinlabs",
       "logo": "/assets/images/projects/project-10.png",
-      "calculatorId": null
+      "calculatorId": null,
+      "investors": [
+        {
+          "name": "Galaxy Ventures",
+          "url": "https://www.prnewswire.com/news-releases/tenbin-raises-7-million-led-by-galaxy-ventures-to-transform-onchain-capital-markets-via-new-asset-tokenization-protocol-302671218.html"
+        },
+        {
+          "name": "Wintermute Ventures",
+          "url": "https://www.prnewswire.com/news-releases/tenbin-raises-7-million-led-by-galaxy-ventures-to-transform-onchain-capital-markets-via-new-asset-tokenization-protocol-302671218.html"
+        },
+        {
+          "name": "FalconX",
+          "url": "https://www.prnewswire.com/news-releases/tenbin-raises-7-million-led-by-galaxy-ventures-to-transform-onchain-capital-markets-via-new-asset-tokenization-protocol-302671218.html"
+        }
+      ]
     },
     {
       "id": "axis",
@@ -174,7 +310,21 @@
       "website": "https://axis.to/origin/meng",
       "x": "https://x.com/AxisFDN",
       "logo": "/assets/images/axis.png",
-      "calculatorId": "axis"
+      "calculatorId": "axis",
+      "investors": [
+        {
+          "name": "Galaxy Ventures",
+          "url": "https://www.theblock.co/news/deals/2025-12-03-axis-5-million-usd-round-galaxy-ventures-onchain-yield-protocol-usd-bitcoin-gold-381215"
+        },
+        {
+          "name": "OKX Ventures",
+          "url": "https://www.theblock.co/news/deals/2025-12-03-axis-5-million-usd-round-galaxy-ventures-onchain-yield-protocol-usd-bitcoin-gold-381215"
+        },
+        {
+          "name": "FalconX",
+          "url": "https://www.theblock.co/news/deals/2025-12-03-axis-5-million-usd-round-galaxy-ventures-onchain-yield-protocol-usd-bitcoin-gold-381215"
+        }
+      ]
     },
     {
       "id": "bitfi",
@@ -190,7 +340,21 @@
       "x": "https://x.com/Bitfi_Org",
       "logo": "/assets/images/airdrop/bitfi.ico",
       "calculatorId": null,
-      "logoSource": "https://www.bitfi.one/favicon.ico"
+      "logoSource": "https://www.bitfi.one/favicon.ico",
+      "investors": [
+        {
+          "name": "Fundamental Labs",
+          "url": "https://www.cgv.fund/post/cgv-announces-investment-in-cedefi-platform-bitfi"
+        },
+        {
+          "name": "IBC Group",
+          "url": "https://www.cgv.fund/post/cgv-announces-investment-in-cedefi-platform-bitfi"
+        },
+        {
+          "name": "CGV",
+          "url": "https://www.cgv.fund/post/cgv-announces-investment-in-cedefi-platform-bitfi"
+        }
+      ]
     },
     {
       "id": "strata",
@@ -206,7 +370,21 @@
       "x": "https://x.com/strata_markets",
       "logo": "/assets/images/airdrop/strata.svg",
       "calculatorId": null,
-      "logoSource": "https://strata.markets/favicon.svg"
+      "logoSource": "https://strata.markets/favicon.svg",
+      "investors": [
+        {
+          "name": "Maven 11",
+          "url": "https://paragraph.com/@strata/strata-protocol-developer-frontera-labs-raises-dollar3m-to-build-the-risk-tranching-layer-for-defi"
+        },
+        {
+          "name": "Lightspeed Faction",
+          "url": "https://paragraph.com/@strata/strata-protocol-developer-frontera-labs-raises-dollar3m-to-build-the-risk-tranching-layer-for-defi"
+        },
+        {
+          "name": "Halo Capital",
+          "url": "https://paragraph.com/@strata/strata-protocol-developer-frontera-labs-raises-dollar3m-to-build-the-risk-tranching-layer-for-defi"
+        }
+      ]
     },
     {
       "id": "saturn",
@@ -221,7 +399,21 @@
       "website": "https://saturn.credit",
       "x": "https://x.com/saturn_credit",
       "logo": "/assets/images/saturn.png",
-      "calculatorId": null
+      "calculatorId": null,
+      "investors": [
+        {
+          "name": "The Spartan Group",
+          "url": "https://www.cypherhunter.com/en/p/saturn-credit/backers/"
+        },
+        {
+          "name": "Anchorage Digital",
+          "url": "https://www.cypherhunter.com/en/p/saturn-credit/backers/"
+        },
+        {
+          "name": "Susquehanna Crypto",
+          "url": "https://www.cypherhunter.com/en/p/saturn-credit/backers/"
+        }
+      ]
     },
     {
       "id": "hylo",
@@ -237,7 +429,21 @@
       "x": "https://x.com/hylo_so",
       "logo": "/assets/images/airdrop/hylo.ico",
       "calculatorId": null,
-      "logoSource": "https://hylo.so/favicon.ico"
+      "logoSource": "https://hylo.so/favicon.ico",
+      "investors": [
+        {
+          "name": "Robot Ventures",
+          "url": "https://www.coincarp.com/fundraising/hylo-seed/"
+        },
+        {
+          "name": "Solana Ventures",
+          "url": "https://www.coincarp.com/fundraising/hylo-seed/"
+        },
+        {
+          "name": "Colosseum",
+          "url": "https://www.coincarp.com/fundraising/hylo-seed/"
+        }
+      ]
     },
     {
       "id": "sierra",
@@ -253,7 +459,8 @@
       "x": "https://x.com/SierraIsMoney",
       "logo": "/assets/images/airdrop/sierra.png",
       "calculatorId": null,
-      "logoSource": "https://sierra.money"
+      "logoSource": "https://sierra.money",
+      "investors": []
     },
     {
       "id": "tori",
@@ -268,7 +475,13 @@
       "website": "https://app.tori.finance/earn?referral=KFR9B",
       "x": "https://x.com/tori_finance",
       "logo": "/assets/images/tori.png",
-      "calculatorId": "tori"
+      "calculatorId": "tori",
+      "investors": [
+        {
+          "name": "Delphi Ventures",
+          "url": "https://delphiventures.io/writings/why-we-invested-in-tori-finance"
+        }
+      ]
     },
     {
       "id": "apyx",
@@ -283,7 +496,63 @@
       "website": "https://apyx.fi",
       "x": "https://x.com/apyx_fi",
       "logo": "/assets/images/airdrop/apyx.png",
-      "calculatorId": null
+      "calculatorId": null,
+      "investors": [
+        {
+          "name": "DeFi Development Corp.",
+          "url": "https://www.globenewswire.com/news-release/2026/02/26/3245596/0/en/DeFi-Development-Corp-Announces-Investment-in-Apyx-The-First-Dividend-Backed-Stablecoin-DBS-Protocol.html"
+        },
+        {
+          "name": "Allied Architects",
+          "url": "https://prtimes.jp/main/html/rd/p/000000371.000058547.html"
+        }
+      ]
+    },
+    {
+      "id": "entropy",
+      "rank": 19,
+      "name": "Entropy",
+      "rating": "A",
+      "raisedUsd": 14000000,
+      "note": {
+        "zh": "Hyperliquid HIP-3 生态，覆盖股票、商品与 Pre-IPO 永续市场。",
+        "en": "Hyperliquid HIP-3 markets spanning equities, commodities and pre-IPO perpetuals."
+      },
+      "website": "https://entropy.io",
+      "x": "https://x.com/entropyIO",
+      "logo": "/assets/images/airdrop/entropy.png",
+      "calculatorId": null,
+      "investors": [
+        {
+          "name": "Ribbit Capital",
+          "url": "https://www.binance.com/en/square/post/08-25-2026-entropy-io-raises-14-million-secures-40-million-hype-staking-support-359348724269418"
+        }
+      ],
+      "logoSource": "https://entropy.io/favicon-32x32.png?v=entropy-9"
+    },
+    {
+      "id": "arcus",
+      "rank": 20,
+      "name": "Arcus",
+      "rating": "A",
+      "raisedUsd": null,
+      "note": {
+        "zh": "dYdX 原团队打造，Robinhood Chain 上的股票代币与永续交易平台。",
+        "en": "Built by the team behind dYdX, offering stock tokens and perpetuals on Robinhood Chain."
+      },
+      "website": "https://arcus.xyz",
+      "x": "https://x.com/arcus_xyz",
+      "logo": "/assets/images/airdrop/arcus.png",
+      "calculatorId": null,
+      "investors": [
+        {
+          "name": "Robinhood Crypto",
+          "url": "https://arcus.xyz/blog/arcus-x-robinhood-trade-stocks-perpetuals-24-7"
+        }
+      ],
+      "logoSource": "https://framerusercontent.com/images/Ou5Z1Gatk2GvjzbPGQB8aEkDM.png"
     }
-  ]
+  ],
+  "updatedAt": "2026-10-21",
+  "supplementSource": "User additions and public investment disclosures verified on 2026-10-21; original financing snapshot retained."
 }
