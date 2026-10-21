@@ -515,10 +515,10 @@
       "rating": "A",
       "raisedUsd": 14000000,
       "note": {
-        "zh": "Hyperliquid HIP-3 生态，覆盖股票、商品与 Pre-IPO 永续市场。",
-        "en": "Hyperliquid HIP-3 markets spanning equities, commodities and pre-IPO perpetuals."
+        "zh": "tradeXYZ 不发币 有的是项目发",
+        "en": "tradeXYZ won't issue a token; plenty of other projects will."
       },
-      "website": "https://entropy.io",
+      "website": "https://entropy.io/?r=menglayer",
       "x": "https://x.com/entropyIO",
       "logo": "/assets/images/airdrop/entropy.png",
       "calculatorId": null,
@@ -528,17 +528,17 @@
           "url": "https://www.binance.com/en/square/post/08-25-2026-entropy-io-raises-14-million-secures-40-million-hype-staking-support-359348724269418"
         }
       ],
-      "logoSource": "https://entropy.io/favicon-32x32.png?v=entropy-9"
+      "logoSource": "user-provided image, 2026-10-21"
     },
     {
       "id": "arcus",
       "rank": 20,
       "name": "Arcus",
-      "rating": "A",
+      "rating": "A-",
       "raisedUsd": null,
       "note": {
-        "zh": "dYdX 原团队打造，Robinhood Chain 上的股票代币与永续交易平台。",
-        "en": "Built by the team behind dYdX, offering stock tokens and perpetuals on Robinhood Chain."
+        "zh": "DYDX 老兵再创业荣耀加身",
+        "en": "A new venture from dYdX veterans, carrying a celebrated legacy."
       },
       "website": "https://arcus.xyz",
       "x": "https://x.com/arcus_xyz",
@@ -550,7 +550,7 @@
           "url": "https://arcus.xyz/blog/arcus-x-robinhood-trade-stocks-perpetuals-24-7"
         }
       ],
-      "logoSource": "https://framerusercontent.com/images/Ou5Z1Gatk2GvjzbPGQB8aEkDM.png"
+      "logoSource": "user-provided image, 2026-10-21"
     }
   ],
   "updatedAt": "2026-10-21",

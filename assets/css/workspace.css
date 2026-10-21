@@ -105,7 +105,6 @@ html[lang="en"] .view-heading h1 { font:400 46px/1.15 var(--display); }
 .ranking-identity { display:flex; align-items:center; gap:14px; min-width:0; }
 .ranking-logo { position:relative; display:grid; place-items:center; flex:0 0 42px; width:42px; height:42px; border-radius:12px; background:#e5edf3; isolation:isolate; }
 .ranking-logo img { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; border-radius:12px; background:#fff; }
-.ranking-table [data-project="entropy"] .ranking-logo, .ranking-table [data-project="entropy"] .ranking-logo img { background:#17232c; }
 .ranking-monogram { font-size:14px; font-weight:600; letter-spacing:-.03em; color:#53718a; }
 .ranking-project-copy { min-width:0; }
 .ranking-name { font-size:18px; font-weight:650; line-height:1.5; overflow-wrap:anywhere; }
