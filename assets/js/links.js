@@ -88,6 +88,13 @@ window.LINKS = {
       open: "modal"
     },
     {
+      id: "boros",
+      href: "https://boros.menglayer.cc/",
+      img: IMG + "boros.svg",
+      open: "modal",
+      tag: "new"
+    },
+    {
       id: "apr",
       href: "https://apr.menglayer.cc/",
       img: IMG + "icon-apr-apy.jpg",

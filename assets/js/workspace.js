@@ -35,7 +35,7 @@
   // Categories reference the existing catalog; URLs, names and descriptions stay shared.
   const toolGroups = {
     yield:['option','civcalc','apr','borrow_risk','clammv3','airdrop_universal'],
-    markets:['yyy','strc','fundingfee','stable_radar','cex_radar'],
+    markets:['yyy','strc','fundingfee','boros','stable_radar','cex_radar'],
     safety:['earnfaq','tsc','allowance','e712'],
     utilities:['watermark','bridge_optimizer','subdomain','vanity']
   };

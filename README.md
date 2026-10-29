@@ -4,7 +4,7 @@
 
 - `index.html`：品牌首页；`assets/css/home.css`、`assets/js/home.js`：首页样式与双语交互。
 - APP 使用 `/airdrop/`、`/tools/`、`/register/` 地址，会员直达 Mo 的 Telegram。赚取功能暂时隐藏，旧 `app.html#earn` 链接自动转到 `/airdrop/`。`app.html` 保留为共用页面模板与旧链接入口；`assets/js/workspace-routes.js` 统一维护路径规则，`workspace.js`、`workspace-pages.js` 负责界面和双语交互。
-- 工具目录保留 19 个通用工具，按收益测算、市场看板、风险与安全、实用工具分组；通用空投计算器归入收益测算，共 6 个。项目计算器不在工具目录重复展示。注册按交易所、券商、银行与支付卡分组。两页支持分类、跨中英文关键词搜索和可分享 URL，如 `/tools/yield/`、`/register/exchanges/`。
+- 工具目录保留 20 个通用工具，按收益测算、市场看板、风险与安全、实用工具分组；市场看板包含 [Boros 价差看板](https://boros.menglayer.cc/)，支持中英文搜索。通用空投计算器归入收益测算，共 6 个。项目计算器不在工具目录重复展示。注册按交易所、券商、银行与支付卡分组。两页支持分类、跨中英文关键词搜索和可分享 URL，如 `/tools/yield/`、`/register/exchanges/`。
 - 空投分为项目研究（`/airdrop/`）和项目计算器（`/airdrop/calculators/`）。项目页展示 20 个项目，包括 2026-10-21 新增的 A 级 Entropy 与 A- 级 Arcus；Bulk 入口使用 `https://app.bulk.trade/ref/MENG`。按评级从高到低排列，同评级保留原清单顺序，序号按完整榜单生成（搜索时保留排名），包含项目标识、字母评级、融资额、投资机构、个人研究评价、官网和 X 链接；AXIS、Tori、3Jane 保留计算器快捷入口。
 - `assets/data/airdrop-projects.json` 的 `asOf`、`sourceFile`、`sourceRange` 保留 2026-10-20 原始 18 项目快照的来源；`updatedAt` 表示最近补充日期。原融资金额和评价沿用清单，未披露金额保留 `null` 并显示“未披露”。新增 Entropy 记录公开融资 $14M，不将额外 $40M HYPE 质押支持计入融资额；Arcus 金额未披露。`investors` 每项保存机构名称和披露来源 URL，页面显示最多 3 家，通常为 2–3 家；公开披露不足时按实际数量显示，未确认的机构不补造，Sierra 保留“机构未披露”（不把 OpenTrade 的投资者写成 Sierra 投资者）。机构名称可点击查看来源，也可用于搜索。外部融资数据不自动刷新。
 - APP 放大正文、说明、融资数字和控件字号，提高次要文字对比度；空投列表在 860px 以下展示完整项目卡片，480px 以下工具和计算器使用单列。图标优先使用本地素材，新增官网图标保存在 `assets/images/airdrop/`，来源记录于 `logoSource`；图标加载失败时显示项目首字母。
